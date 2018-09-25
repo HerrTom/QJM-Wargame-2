@@ -1,0 +1,26 @@
+name: T-55A
+nation: USSR
+type: Tank
+weapons:
+  D10T: '43'
+  DShK: '500'
+  PKT: '3000'
+roadSpeed: '50'
+horsepower: '580'
+groundPress: '0.81'
+radiusOfAction: '600'
+weight: '39.7'
+length: '6.04'
+height: '2.4'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Active IR
+rangefinder: Coincident
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: true
+amphibious: false
+crew: 0

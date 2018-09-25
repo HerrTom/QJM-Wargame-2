@@ -1,0 +1,14 @@
+name: 2A42
+type: Gun
+range: 3200
+rateOfFire: 300
+calibre: 30
+muzzleVel: 970
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: null
+atgmMinRange: null
+atgmPenetration: null
+atgmMinRange: null
+atgmEnhancement: null

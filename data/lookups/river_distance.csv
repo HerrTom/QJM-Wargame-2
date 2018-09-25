@@ -1,0 +1,10 @@
+obstacle,distance
+no river,0
+"fordable, 20m",20
+"fordable, 50m",50
+"fordable, 100m",100
+"fordable, 500m",500
+"unfordable, 20m",20
+"unfordable, 50m",50
+"unfordable, 100m",100
+"unfordable, 500m",500

@@ -1,0 +1,13 @@
+name: 2A46M-2
+type: Gun
+range: '4000'
+rateOfFire: ''
+calibre: '125'
+muzzleVel: '1800'
+accuracy: 0.85
+barrels: 1
+crew: true
+guidance: SACLOS wire day
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

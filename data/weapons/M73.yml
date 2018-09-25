@@ -1,0 +1,13 @@
+name: M73
+type: Gun
+range: '900'
+rateOfFire: '625'
+calibre: '7.62'
+muzzleVel: '853'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: None
+atgmMinRange: None
+atgmEnhancement: None

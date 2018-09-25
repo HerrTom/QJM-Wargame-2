@@ -1,0 +1,25 @@
+name: BRDM-2
+nation: USSR
+type: APC
+weapons:
+  KPVT: '500'
+  PKT: '2000'
+roadSpeed: '95'
+horsepower: '140'
+groundPress: '0.9'
+radiusOfAction: '750'
+weight: '7.7'
+length: '5.75'
+height: '2.31'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Active IR
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: true
+crew: 4

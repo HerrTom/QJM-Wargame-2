@@ -1,0 +1,13 @@
+name: AK-74
+type: Gun
+range: '500'
+rateOfFire: '650'
+calibre: '5.45'
+muzzleVel: '900'
+accuracy: 0.7
+barrels: 1
+crew: false
+guidance: SACLOS wire day
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

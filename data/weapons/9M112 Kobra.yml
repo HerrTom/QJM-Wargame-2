@@ -1,0 +1,13 @@
+name: 9M112 Kobra
+type: ATGM
+range: '4000'
+rateOfFire: ''
+calibre: '125'
+muzzleVel: '400'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: SACLOS radio
+atgmPenetration: '600'
+atgmMinRange: '100'
+atgmEnhancement: '1.2'

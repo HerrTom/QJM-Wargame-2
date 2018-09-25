@@ -1,0 +1,27 @@
+name: T-80B
+nation: USSR
+type: Tank
+weapons:
+  2A46M-2: '39'
+  9M112 Kobra: '6'
+  NSVT: '500'
+  PKT: '1250'
+roadSpeed: '70'
+horsepower: '1000'
+groundPress: '0.87'
+radiusOfAction: '500'
+weight: '42.5'
+length: '6.98'
+height: '2.22'
+armour: Composite
+enclosed: true
+traverse: true
+lowLight: Minimum
+rangefinder: Laser
+fcCant: true
+fcAmmo: true
+fcWind: true
+fcBarrel: false
+stabilised: true
+amphibious: false
+crew: 3

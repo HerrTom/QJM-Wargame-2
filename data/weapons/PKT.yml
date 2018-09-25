@@ -1,0 +1,13 @@
+name: PKT
+type: Gun
+range: '1500'
+rateOfFire: '800'
+calibre: '7.62'
+muzzleVel: '855'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: None
+atgmMinRange: None
+atgmEnhancement: None

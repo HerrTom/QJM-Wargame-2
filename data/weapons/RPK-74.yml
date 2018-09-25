@@ -1,0 +1,13 @@
+name: RPK-74
+type: Gun
+range: '1000'
+rateOfFire: '650'
+calibre: '5.45'
+muzzleVel: '960'
+accuracy: 0.8
+barrels: 1
+crew: false
+guidance: SACLOS wire day
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

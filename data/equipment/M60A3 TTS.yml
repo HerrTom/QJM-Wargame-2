@@ -1,0 +1,26 @@
+name: M60A3 TTS
+nation: USA
+type: Tank
+weapons:
+  M68: '63'
+  M73: '900'
+  M85: '800'
+roadSpeed: '48'
+horsepower: '750'
+groundPress: '0.81'
+radiusOfAction: '500'
+weight: '52.6'
+length: '6.946'
+height: '3.213'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Thermal
+rangefinder: Laser
+fcCant: true
+fcAmmo: true
+fcWind: true
+fcBarrel: false
+stabilised: true
+amphibious: false
+crew: 4

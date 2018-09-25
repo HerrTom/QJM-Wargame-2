@@ -1,0 +1,13 @@
+name: KPVT
+type: Gun
+range: '3000'
+rateOfFire: '600'
+calibre: '14.5'
+muzzleVel: '1005'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: None
+atgmMinRange: None
+atgmEnhancement: None

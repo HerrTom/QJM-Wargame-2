@@ -1,0 +1,13 @@
+name: 2A28
+type: Gun
+range: '1300'
+rateOfFire: ''
+calibre: '73'
+muzzleVel: '400'
+accuracy: 0.5
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: None
+atgmMinRange: None
+atgmEnhancement: None

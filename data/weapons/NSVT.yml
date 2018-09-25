@@ -1,0 +1,13 @@
+name: NSVT
+type: Gun
+range: '2000'
+rateOfFire: '800'
+calibre: '12.7'
+muzzleVel: '845'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: None
+atgmMinRange: None
+atgmEnhancement: None

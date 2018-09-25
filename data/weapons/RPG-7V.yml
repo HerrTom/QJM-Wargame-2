@@ -1,0 +1,13 @@
+name: RPG-7V
+type: Gun
+range: '200'
+rateOfFire: ''
+calibre: '93'
+muzzleVel: '300'
+accuracy: 0.7
+barrels: 1
+crew: false
+guidance: ''
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

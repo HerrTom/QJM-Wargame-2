@@ -1,0 +1,24 @@
+name: AK-74
+nation: USSR
+type: Infantry
+weapons:
+  AK-74: '120'
+roadSpeed: null
+horsepower: null
+groundPress: null
+radiusOfAction: null
+weight: null
+length: null
+height: null
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 1

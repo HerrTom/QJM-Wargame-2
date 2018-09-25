@@ -1,0 +1,13 @@
+name: PKM
+type: Gun
+range: '1000'
+rateOfFire: '650'
+calibre: '7.62'
+muzzleVel: '825'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: SACLOS wire day
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

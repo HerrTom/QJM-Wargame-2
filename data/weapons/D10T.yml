@@ -1,0 +1,13 @@
+name: D10T
+type: Gun
+range: '2500'
+rateOfFire: ''
+calibre: '100'
+muzzleVel: '1000'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: SACLOS wire day
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

@@ -1,0 +1,26 @@
+name: BMP-2
+nation: USSR
+type: IFV
+weapons:
+  2A42: '500'
+  9M113 Konkurs: '5'
+  PKT: '2000'
+roadSpeed: '65'
+horsepower: '300'
+groundPress: '0.63'
+radiusOfAction: '600'
+weight: '14.3'
+length: '6.735'
+height: '2.45'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Passive IR
+rangefinder: Laser
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: true
+amphibious: true
+crew: 2

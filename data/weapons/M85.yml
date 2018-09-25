@@ -1,0 +1,13 @@
+name: M85
+type: Gun
+range: '2000'
+rateOfFire: '625'
+calibre: '12.7'
+muzzleVel: '880'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: None
+atgmMinRange: None
+atgmEnhancement: None
