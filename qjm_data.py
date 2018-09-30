@@ -1,8 +1,12 @@
 import glob
 from collections import OrderedDict, Counter
 
+from copy import copy
+
 import yaml
 import pathvalidate as pv
+from PIL import Image
+from tqdm import tqdm
 
 import interps
 
@@ -18,6 +22,9 @@ weap_types = ["gun","atgm","aam","bomb"]
 equipTypes  = ["Infantry","Antitank","Artillery","SP Antitank","SP Artillery",
             "APC","IFV","Tank","Air Defence","SP Air Defence","Aircraft","Helicopter"]
 
+REDFOR = ["USSR","DDR","POL","CZE"]
+BLUFOR = ["USA","BRD","NL","BEL","UK","DAN"]
+            
 
 def represent_ordereddict(dumper, data):
     value = []
@@ -387,6 +394,12 @@ class database():
             for eq in needs:
                 self.formations[-1].AddEquipment(self.getEquipmentByName(eq))
             self.formations[-1].GenStrength()
+            
+    def loadFrontline(self):
+        # load in a map
+        with open("./data/maps/germany83.yml") as f:
+            mapdata = yaml.load(f)
+        self.frontline = Frontline(mapdata)
         
 # Formations contain equipment objects
 class formation():
@@ -394,9 +407,19 @@ class formation():
         self.Strength = None
         self.name = ""
         self.equipment = []
+        self.nation = ""
         self.data = data
+        self.NumPoints = 0 # this factor determines how many battles this unit is involved in
         if data is not None:
-            self.name = data["name"]
+            self.name   = data["name"]
+            self.nation = data["nation"]
+            self.xy     = data["location"]
+            self.x      = self.xy[0]
+            self.y      = self.xy[1]
+            
+            
+    def __repr__(self):
+        return "formation({})".format(self.name)
         
     def GetEquipmentNeeds(self):
         needs = []
@@ -441,6 +464,124 @@ class formation():
         print("*"*50)
         
         
+class Frontline():
+    blue    = (0,30,255)
+    red     = (255,0,0)
+    
+    def __init__(self,mapdata):
+        self.name = mapdata["mapName"]
+        self.desc = mapdata["mapDesc"]
+        self.scale = mapdata["mapPixelsPerKM"]
+        self.TerrainCover   = Image.open("./data/maps/{}".format(mapdata["mapTerrainCover"]))
+        self.TerrainType    = Image.open("./data/maps/{}".format(mapdata["mapTerrainType"]))
+        self.Territory      = Image.open("./data/maps/{}".format(mapdata["mapTerritory"]))
+        
+        self.FrontlinePoints = []
+        self.FrontlineCoords = []
+        
+        self.FindFL()
+        
+        
+    def FindFL(self):
+        # march through image from L to R, and drop a FrontlinePoint on each type
+        size = self.Territory.size
+        px = self.Territory.load()
+        pxType = self.TerrainType.load()
+        pxCover = self.TerrainCover.load()
+        
+        # check horizontally
+        print("Horizontal Frontline check")
+        x = 0
+        for y in tqdm(range(size[1])):
+            # set initial pixel colour
+            colour = px[x,y]
+            for x in range(size[0]):
+                newcolour = px[x,y]
+                if colour != newcolour and not self.InFrontlineList(x,y) and (255,255,255) not in [newcolour, colour]:
+                    self.FrontlinePoints.append(FrontlinePoint((x,y),pxCover[x,y],pxType[x,y]))
+                colour = newcolour
+        # repeat the check vertically
+        print("Vertical Frontline check")
+        y = 0
+        for x in tqdm(range(size[0])):
+            # set initial pixel colour
+            colour = px[x,y]
+            for y in range(size[1]):
+                newcolour = px[x,y]
+                if colour != newcolour and not self.InFrontlineList(x,y) and (255,255,255) not in [newcolour, colour]:
+                    self.FrontlinePoints.append(FrontlinePoint((x,y),pxCover[x,y],pxType[x,y]))
+                colour = newcolour
+                        
+    def InFrontlineList(self,x,y):
+        if self.FrontlineCoords == []:
+            # generate the frontline coords
+            for pt in self.FrontlinePoints:
+                self.FrontlineCoords.append(pt.xy)
+        xy = (x,y)
+        if xy in self.FrontlineCoords:
+            return True
+        else:
+            return False
+        
+    def DrawFrontline(self):
+        tempterr = copy(self.Territory)
+        px = tempterr.load()
+        for pt in self.FrontlinePoints:
+            px[pt.x,pt.y] = (0,0,0)
+        tempterr.show()
+        
+    def AssociateUnits(self,units):
+        # runs through each frontline point and attaches units to it
+        unitrange = 30 # units can affect the frontline from within this many km
+        maxrad = unitrange / self.scale * 2
+        
+        # first determine how many points are in range
+        print("Associating Formations with the Frontline")
+        for unit in tqdm(units):
+            unit.NumPoints = 0 # this value determines how many battles the unit is in
+            points = 0
+            for pt in self.FrontlinePoints:
+                dist = ((pt.x-unit.x)**2 + (pt.y-unit.y)**2)**0.5
+                if dist < maxrad:
+                    if dist < maxrad/2:
+                        influence = 1
+                    else:
+                        influence = 2 - dist/(maxrad/2)
+                    pt.AddUnit(unit,influence)
+                    unit.NumPoints+=1
+                   
+        
+class FrontlinePoint():
+    def __init__(self,xy,terrcover,terrtype):
+        self.x = xy[0]
+        self.y = xy[1]
+        self.xy = xy
+        self.units = []
+        self.unitinfl = [] # vector with influence of unit applied to point (reduces advance rate for far points)
+        
+        
+    def AddUnit(self,unit,influence):
+        # print("Adding {}".format(unit.name))
+        self.units.append(unit)
+        self.unitinfl.append(influence)
+        
+    def Combat(self):
+        # gather sides:
+        BLU = []
+        RED = []
+        BLUStr = 0
+        REDStr = 0
+        for unit in self.units:
+            if unit.nation in REDFOR:
+                RED.append(unit)
+                REDStr += unit.Strength["AFV"] / unit.NumPoints
+            else:
+                BLU.append(unit)
+                BLUStr += unit.Strength["AFV"] / unit.NumPoints
+        if BLUStr != 0:
+            PowerRatio = REDStr / BLUStr
+            print("Ratio: {}".format(PowerRatio))
+        
 if __name__ == '__main__':
     import os
     abspath = os.path.abspath(__file__)
@@ -451,6 +592,16 @@ if __name__ == '__main__':
     for form in db.formations:
         form.PrintStrength()
     
-    print(missing)
+    db.loadFrontline()
+    
+    # db.frontline.DrawFrontline()
+    
+    # associate the units to the frontline
+    db.frontline.AssociateUnits(db.formations)
+    
+    for flpt in db.frontline.FrontlinePoints:
+        flpt.Combat()
+        
+    print("MISSING OBJECTS:", missing)
     
     

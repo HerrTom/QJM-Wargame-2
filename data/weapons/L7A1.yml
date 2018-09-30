@@ -1,0 +1,13 @@
+name: L7A1
+type: Gun
+range: '4000'
+rateOfFire: ''
+calibre: '105'
+muzzleVel: '1478'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

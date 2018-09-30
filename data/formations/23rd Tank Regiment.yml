@@ -2,6 +2,8 @@ name: 23rd Tank Regiment
 shortname: 23.TR
 hq: 9.TD
 nation: USSR
+type: armoured
+SIDC: SFGPUCAT---G
 proficiency: 2.13
 personnel: 1143
 equipment:
@@ -30,5 +32,6 @@ equipment:
     MT-55:          1
     TMM:            4
     Engineer Veh:   24
-location: (0,0)
+location: [2755,1016]
 waypoints: null
+stance: attacking

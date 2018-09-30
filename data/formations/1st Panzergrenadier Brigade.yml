@@ -1,0 +1,25 @@
+name: (BRD) 1. Panzergrenadierbrigade
+shortname: 1.PzGrBde
+hq: 1.PzDiv
+nation: BRD
+type: mechanised
+SIDC: SFGPUCIZ---H
+proficiency: 1.58
+personnel: 1583
+equipment:
+    Leopard 1A3: 67
+    Marder: 79
+    M113A2: 32
+    MILAN: 27
+    M113 M252: 12
+    M109G: 18
+    Jaguar 2: 12
+    SpPz Luchs: 12
+    G3A3: 270
+    MG-3: 54
+    PzF-44: 54
+    G3-SG1: 54
+    Truck: 294
+location: [2751,976]
+waypoints: null
+stance: defending

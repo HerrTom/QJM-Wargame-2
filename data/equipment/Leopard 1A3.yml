@@ -1,0 +1,25 @@
+name: Leopard 1A3
+nation: BRD
+type: Tank
+weapons:
+  L7A1: '55'
+  MG 3: '2000'
+roadSpeed: '65'
+horsepower: '830'
+groundPress: '0.88'
+radiusOfAction: '600'
+weight: '44'
+length: '7.09'
+height: '2.61'
+armour: Early Composite
+enclosed: true
+traverse: true
+lowLight: Passive IR
+rangefinder: Coincident
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: true
+amphibious: false
+crew: 0

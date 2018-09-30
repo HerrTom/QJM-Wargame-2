@@ -2,6 +2,8 @@ name: 68th Guards Motor Rifle Regiment
 shortname: 68.GMR
 hq: 27.GMRD
 nation: USSR
+type: mechanised
+SIDC: SFGPUCIZ---G
 proficiency: 2.13
 personnel: 2320
 equipment:
@@ -32,5 +34,6 @@ equipment:
     Ural-375 POL: 26
     MT-55: 1
     TMM: 4
-location: (0,0)
+location: [2751,976]
 waypoints: null
+stance: attacking
