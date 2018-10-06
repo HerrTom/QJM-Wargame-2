@@ -1,0 +1,16 @@
+terrain,mobility,defPosture,inf,arty,air,tank,advance,advanceArm
+"rugged, heavily wooded",0.4,1.5,0.6,0.7,0.8,0.2,0.4,0.2
+"rugged, mixed",0.5,1.55,0.7,0.8,0.9,0.4,0.5,0.4
+"rugged, bare",0.6,1.45,0.8,0.9,0.95,0.5,0.6,0.5
+"rolling, heavily wooded",0.6,1.35,0.8,0.8,0.9,0.8,0.6,0.6
+"rolling, mixed",0.8,1.3,0.9,0.9,0.95,0.8,0.8,0.8
+"rolling, bare",1,1.2,1,1,1,1,1,1
+"flat, heavily wooded",0.7,1.2,0.8,0.9,0.9,0.7,0.7,0.7
+"flat, mixed",0.9,1.2,0.8,1,0.95,0.9,0.9,0.9
+"flat, bare",1.05,1.05,1,1,1,1,1.05,1
+"rolling, desert",0.3,1.4,0.6,0.8,0.8,0.2,0.3,0.6
+"flat, desert",0.95,1.18,1,1,1,1,0.95,1
+"swamp, heavily wooded",0.3,1.4,0.6,0.8,0.8,0.2,0.3,0.2
+"swamp, mixed",0.4,1.3,0.8,0.9,0.95,0.3,0.4,0.3
+"swamp, bare",0.4,1.3,0.8,0.9,0.95,0.3,0.4,0.3
+urban,0.7,1.4,0.8,0.9,0.9,0.7,0.7,0.7

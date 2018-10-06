@@ -44,6 +44,25 @@ def signed_sqrt(x):
         return x**0.5
     else:
         return -(-x) ** 0.5
+        
+def make_unit(vec):
+    # turns an (x,y) vector into a unit vector
+    magnitude = (vec[0]**2 + vec[1]**2)**.5
+    return [vec[0]/magnitude, vec[1]/magnitude]
+    
+def multiply_dict(A,B):
+    # multiplies keys in dict A by equivalent keys in BEL
+    for key, val in A.items():
+        A[key] == val * B[key]
+        
+    return A
+    
+def linspace(val,num):
+    # generates a linearly spaced vector from 0 to val
+    vec = []
+    for i in range(num):
+        vec.append(i*val/num)
+    return vec
 
 
 class weapon():
@@ -408,11 +427,19 @@ class formation():
         self.name = ""
         self.equipment = []
         self.nation = ""
+        self.waypoint = None
+        self.personnel = 0
+        self.stance = ""
+        
         self.data = data
         self.NumPoints = 0 # this factor determines how many battles this unit is involved in
         if data is not None:
             self.name   = data["name"]
             self.nation = data["nation"]
+            self.waypoint = data["waypoints"]
+            self.personnel = data["personnel"]
+            self.stance = data["stance"]
+            
             self.xy     = data["location"]
             self.x      = self.xy[0]
             self.y      = self.xy[1]
@@ -433,8 +460,8 @@ class formation():
         self.equipment.append(equipment)
         
     def GenStrength(self):
-        self.Strength = OrderedDict({"Infantry": 0, "AFV": 0, "Antitank": 0, "Artillery": 0,
-                                "Air Defence": 0, "Aircraft": 0})
+        self.Strength = {"Infantry": 0, "AFV": 0, "Antitank": 0, "Artillery": 0,
+                                "Air Defence": 0, "Aircraft": 0}
         # strength values are in the followin categories:
         # infantry, afv, antitank, arty, air defence and air
         for eq in self.equipment:
@@ -452,7 +479,16 @@ class formation():
                     self.Strength["Air Defence"] += eq.OLI
                 elif eq.type in ["Helicopter","Aircraft"]:
                     self.Strength["Aircraft"] += eq.OLI
-        
+    
+    def GetVehicles(self):
+        # returns the number of vehicles in this unit
+        vehicles = 0
+        for eq in self.equipment:
+            if eq is not None:
+                if eq.type not in ["Infantry","Antitank","Artillery","Air Defence"]:
+                    vehicles += 1
+        return vehicles
+    
     def PrintStrength(self):
         total = 0
         print("*"*50)
@@ -469,12 +505,15 @@ class Frontline():
     red     = (255,0,0)
     
     def __init__(self,mapdata):
-        self.name = mapdata["mapName"]
-        self.desc = mapdata["mapDesc"]
-        self.scale = mapdata["mapPixelsPerKM"]
+        self.name           = mapdata["mapName"]
+        self.desc           = mapdata["mapDesc"]
+        self.scale          = mapdata["mapPixelsPerKM"]
         self.TerrainCover   = Image.open("./data/maps/{}".format(mapdata["mapTerrainCover"]))
         self.TerrainType    = Image.open("./data/maps/{}".format(mapdata["mapTerrainType"]))
         self.Territory      = Image.open("./data/maps/{}".format(mapdata["mapTerritory"]))
+        
+        self.weather        = mapdata["weather"]
+        self.season         = mapdata["season"]
         
         self.FrontlinePoints = []
         self.FrontlineCoords = []
@@ -498,7 +537,7 @@ class Frontline():
             for x in range(size[0]):
                 newcolour = px[x,y]
                 if colour != newcolour and not self.InFrontlineList(x,y) and (255,255,255) not in [newcolour, colour]:
-                    self.FrontlinePoints.append(FrontlinePoint((x,y),pxCover[x,y],pxType[x,y]))
+                    self.FrontlinePoints.append(FrontlinePoint(self,(x,y),pxCover[x,y],pxType[x,y]))
                 colour = newcolour
         # repeat the check vertically
         print("Vertical Frontline check")
@@ -509,7 +548,7 @@ class Frontline():
             for y in range(size[1]):
                 newcolour = px[x,y]
                 if colour != newcolour and not self.InFrontlineList(x,y) and (255,255,255) not in [newcolour, colour]:
-                    self.FrontlinePoints.append(FrontlinePoint((x,y),pxCover[x,y],pxType[x,y]))
+                    self.FrontlinePoints.append(FrontlinePoint(self,(x,y),pxCover[x,y],pxType[x,y]))
                 colour = newcolour
                         
     def InFrontlineList(self,x,y):
@@ -532,7 +571,7 @@ class Frontline():
         
     def AssociateUnits(self,units):
         # runs through each frontline point and attaches units to it
-        unitrange = 30 # units can affect the frontline from within this many km
+        unitrange = 60 # units can affect the frontline from within this many km
         maxrad = unitrange / self.scale * 2
         
         # first determine how many points are in range
@@ -549,15 +588,46 @@ class Frontline():
                         influence = 2 - dist/(maxrad/2)
                     pt.AddUnit(unit,influence)
                     unit.NumPoints+=1
+                    
+    def RunCombat(self):
+        for pt in self.FrontlinePoints:
+            pt.Combat()
+                    
+    def Advance(self):
+        px = self.Territory.load()
+        # iterates through all the frontline points and advances them per their property
+        for pt in self.FrontlinePoints:
+            idx = 0
+            for attacker in pt.attackers:
+                wp  = attacker.waypoint
+                dir = make_unit([wp[0] - pt.x, wp[1]-pt.y])
+                n = 100 # number of samples to take
+                advance = pt.advance[idx]
+                
+                # draw pixels for advances
+                for i in linspace(advance,n):
+                    x = round(pt.x + dir[0] * i,0)
+                    y = round(pt.y + dir[1] * i,0)
+                    px[x,y] = (0,255,0)
+                    
+        self.Territory.show()
                    
         
 class FrontlinePoint():
-    def __init__(self,xy,terrcover,terrtype):
+    def __init__(self,parent,xy,terrcover,terrtype):
         self.x = xy[0]
         self.y = xy[1]
         self.xy = xy
         self.units = []
         self.unitinfl = [] # vector with influence of unit applied to point (reduces advance rate for far points)
+        self.advance = [] # advance rate
+        
+        self.terrainCover = terrcover
+        self.terrainType = terrtype
+        
+        self.parent = parent
+        
+        self.attackers = []
         
         
     def AddUnit(self,unit,influence):
@@ -566,21 +636,101 @@ class FrontlinePoint():
         self.unitinfl.append(influence)
         
     def Combat(self):
-        # gather sides:
-        BLU = []
-        RED = []
-        BLUStr = 0
-        REDStr = 0
+		# need to determine the attacker and defender.
+		#	if both are attacking - side with fewer personnel is defending
+        self.attackers = []
+        self.defenders = []
+        attackersRED = 0
+        attackersBLU = 0
         for unit in self.units:
-            if unit.nation in REDFOR:
-                RED.append(unit)
-                REDStr += unit.Strength["AFV"] / unit.NumPoints
+            if unit.stance == "attacking":
+                self.attackers.append(unit)
+                if unit.nation in REDFOR:
+                    # print(unit.name, unit.stance)
+                    attackersRED += unit.personnel
+                else:
+                    attackersBLU += unit.personnel
             else:
-                BLU.append(unit)
-                BLUStr += unit.Strength["AFV"] / unit.NumPoints
-        if BLUStr != 0:
-            PowerRatio = REDStr / BLUStr
-            print("Ratio: {}".format(PowerRatio))
+                self.defenders.append(unit)
+        # determine which side is attacking
+        # quit here if there are no self.attackers
+        if self.attackers == []:
+            return
+        # print(self.attackers)
+        self.attackers = []
+        self.defenders = []
+        # combat strengths are a Counter dict, so we can just update them with the units
+        attackerStr = Counter({"Infantry": 0, "AFV": 0, "Antitank": 0, "Artillery": 0,
+                                "Air Defence": 0, "Aircraft": 0})
+        defenderStr = Counter({"Infantry": 0, "AFV": 0, "Antitank": 0, "Artillery": 0,
+                                "Air Defence": 0, "Aircraft": 0})
+        
+        if attackersRED > attackersBLU:
+            # redo the attacker list without BLUFOR
+            for unit in self.units:
+                if unit.stance == "attacking" and unit.nation in REDFOR:
+                    self.attackers.append(unit)
+                    # print(attackerStr)
+                elif unit.nation in BLUFOR:
+                    self.defenders.append(unit)
+        else:
+            # redo the attacker list without REDFOR
+            for unit in self.units:
+                if unit.stance == "attacking" and unit.nation in BLUFOR:
+                    self.attackers.append(unit)
+                elif unit.nation in REDFOR:
+                    self.defenders.append(unit)
+        # splitting out the strength calculation so we only have to code it once (I know it's inefficient -Tom)
+        for unit in self.attackers:
+            attackerStr += unit.Strength
+        # stance precendence means all units will use the first in the list
+        stancePrecedence = ["fortified","prepared","delay","hasty","attacking"]
+        defenderStance = stancePrecedence[-1]
+        for unit in self.defenders:
+            defenderStr += unit.Strength
+            if stancePrecedence.index(unit.stance) < stancePrecedence.index(defenderStance):
+                defenderStance = unit.stance
+
+        if self.units != []:
+            # This finds the advance rate and sets the casualty rates
+            
+            # Units apply full combat power at every point in influence
+            #   Not ideal solution, but NumPoints will divide casualties
+            
+            # N is the number of personnel, J is the number of vehicles
+            #       involved in this combat
+            N_attacker = sum([j.personnel for j in self.attackers])
+            J_attacker = sum([j.GetVehicles() for j in self.attackers])
+            N_defender = sum([j.personnel for j in self.defenders])
+            J_defender = sum([j.GetVehicles() for j in self.defenders])
+            
+            # HANDLE TERRAIN ###############################
+            # types of terrain are:
+            # ["rugged, heavily wooded","rugged, mixed","rugged, bare",
+            # "rolling, heavily wooded","rolling, mixed","rolling, bare",
+            # "flat, heavily wooded","flat, mixed","flat, bare, hard",
+            # "flat, desert","desert, sandy dunes","swamp, jungled",
+            # "swamp, mixed or open", "urban"]
+            roughDict = {(216,0,255): "urban", (208,192,82): "rolling",
+                        (208,144,82): "rugged", (255,255,255): "flat",}
+            coverDict = {(26,113,0): "heavily wooded",
+                        (229,247,107): "mixed", (255,255,255): "bare",}
+            
+            if roughDict[self.terrainType] == "urban":
+                terrain = "urban"
+            else:
+                terrain = roughDict[self.terrainType] + ", " + coverDict[self.terrainCover]
+          
+            
+            for unit in self.attackers:
+                if self.defenders == []:
+                    # no defenders, maximum advance rate
+                    self.advance.append(100)
+                else:
+                    self.advance.append(40)
+        
+        
+
         
 if __name__ == '__main__':
     import os
@@ -598,9 +748,8 @@ if __name__ == '__main__':
     
     # associate the units to the frontline
     db.frontline.AssociateUnits(db.formations)
-    
-    for flpt in db.frontline.FrontlinePoints:
-        flpt.Combat()
+    db.frontline.RunCombat()
+    db.frontline.Advance()
         
     print("MISSING OBJECTS:", missing)
     

@@ -33,5 +33,5 @@ equipment:
     TMM:            4
     Engineer Veh:   24
 location: [2755,1016]
-waypoints: null
+waypoints: [2500,1016]
 stance: attacking

@@ -4,3 +4,6 @@ mapPixelsPerKM: 1
 mapTerrainCover: germany83_cover.bmp
 mapTerrainType: germany83_terrain.bmp
 mapTerritory: germany83_territory.bmp
+date: 1983-11-22
+season: fall, temperate
+weather: dry, overcast, temperate

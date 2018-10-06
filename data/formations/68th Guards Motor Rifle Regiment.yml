@@ -35,5 +35,5 @@ equipment:
     MT-55: 1
     TMM: 4
 location: [2751,976]
-waypoints: null
+waypoints: [2200,800]
 stance: attacking
