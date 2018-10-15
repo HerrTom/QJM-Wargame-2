@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (UK) 4th Armoured Division
+shortname: 4.ARM(UK)
+command: I.Corps(UK)
+type: armour
+SIDC: SFGPUCA----I
+coords: [52.1152245, 8.6711118]
+CEV: 2.33
+personnel: 0
+faction: UK
+equipment:
+    None: 0

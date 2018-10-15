@@ -1,0 +1,36 @@
+#!!python/object:db_formation.formation
+name: (NL) 11th Mechanized Infantry Brigade
+shortname: 11.NLMBde
+command: 1.NLMD
+type: mech
+SIDC: SFGPUCIZ---H
+coords: [52.0380763, 5.9307772]
+CEV: 1.58
+personnel: 3310
+faction: NL
+equipment:
+    YP-408 PWRDR: 6
+    Laro: 48
+    FN MAG: 159
+    FN FAL: 666
+    M72 LAW: 160
+    Carl Gustav: 61
+    YP-408 PWCO: 24
+    YP-408 PWI-PC: 18
+    YP-408 PWI-GR: 54
+    M47 Dragon: 36
+    YP-408 PWAT: 12
+    YP-408 PWMR: 12
+    120mm mortar: 6
+    Centurion Mk.V: 56
+    ARV: 5
+    M113: 45
+    M557: 11
+    M106: 3
+    YPR-765: 20
+    YPR-765 TOW: 24
+    AMX-13 (105): 6
+    M113 Lynx: 16
+    AVLB: 2
+    M109: 18
+    Truck: 799

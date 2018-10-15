@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (USSR) 3rd Combined Arms Army
+shortname: 3.CAA
+command: GSFG
+type: mech
+SIDC: SFGPUCIZ---J
+coords: [52.120533, 11.627624]
+CEV: 1.90
+personnel: 0
+faction: USSR
+equipment:
+    None: 0

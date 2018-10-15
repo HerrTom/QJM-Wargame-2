@@ -1,0 +1,22 @@
+#!!python/object:db_formation.formation
+name: (US) 2nd Brigade/8th Infantry
+shortname: 2/8.Bde(US)
+command: 8.INF(US)
+type: armour
+SIDC: SFGPUCIZ---H
+coords: [49.602392, 7.333259]
+CEV: 2.59
+personnel: 3246
+faction: USA
+equipment:
+    M16: 757
+    M16/M203: 281
+    M60 MMG: 145
+    M72 LAW: 132
+    M47 Dragon: 36
+    M113: 251
+    M901: 36
+    M106: 30
+    M557: 38
+    Truck: 244
+    M60A3: 140

@@ -7,28 +7,28 @@ import breeze_resources
 
 import qjm_data
 
-print(QtWidgets.QStyleFactory.keys())
-
-
 equipTypes  = ["Infantry","Antitank","Artillery","SP Antitank","SP Artillery","APC","IFV","Tank","Air Defence","SP Air Defence","Aircraft","Helicopter"]
 armourList  = ["Steel","Aluminum","Early Composite","Composite","Reactive","Modern Reactive"]
 LLCFList    = ["Minimum","Active IR","Passive IR","Thermal","Advanced Thermal"]
 RgFFList    = ["Stadiametric","Coincident","Ranging Rifle","Laser"]
 weaponTypesList = ["Gun","ATGM","Bomb","AAM"]
 
-guidanceList = ['SACLOS wire day', 'SACLOS wire day/night', 'SACLOS radio','LOSLBR','F&F']
+guidanceList = ['MCLOS','SACLOS wire day', 'SACLOS wire day/night', 'SACLOS radio','LOSLBR','F&F']
 guidanceListAAM = ['Optical','BR','IR','SARH','ARH']
 
 class WeaponGui(QtWidgets.QWidget):
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self,parent=None,db=None):
+        super().__init__(parent)
         
-        self.initDB()
+        self.initDB(db=db)
         self.initUI()
         
-    def initDB(self):
-        self.db = qjm_data.database()
+    def initDB(self,db=None):
+        if db is None:
+            self.db = qjm_data.database()
+        else:
+            self.db = db
         
     def initUI(self):
         

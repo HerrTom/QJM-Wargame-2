@@ -1,0 +1,22 @@
+#!!python/object:db_formation.formation
+name: (US) 2nd Brigade/1st Armored
+shortname: 2/1.Bde(US)
+command: 1.ARM(US)
+type: mech
+SIDC: SFGPUCA----H
+coords: [49.5981187, 11.003645]
+CEV: 2.59
+personnel: 2443
+faction: USA
+equipment:
+    M16: 439
+    M16/M203: 138
+    M60 MMG: 67
+    M72 LAW: 86
+    M47 Dragon: 12
+    M113: 114
+    M901: 12
+    M106: 24
+    M557: 36
+    Truck: 268
+    M60A3: 210

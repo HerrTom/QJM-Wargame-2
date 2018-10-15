@@ -1,0 +1,43 @@
+SIDC: SFGPUCIZ---G
+equipment:
+  2B11: 24
+  2S1 Gvozdika: 18
+  2S6 Tunguska: 4
+  9K31 Strela-1: 4
+  9K32 Strela-2: 30
+  AGS-17: 18
+  AK-74: 806
+  BMP-1: 129
+  BRDM-2: 4
+  BRDM-2 9P148: 9
+  BRDM-2U: 22
+  BRM-1: 1
+  BTR-60PA (FAC): 1
+  BTR-60PB: 4
+  GAZ-66: 62
+  MT-55: 1
+  PKM: 54
+  PRP-3: 1
+  RPG-7V: 146
+  RPK-74: 102
+  T-64B: 40
+  TMM: 4
+  UAZ-469: 22
+  Ural-375: 23
+  Ural-375 POL: 26
+  ZIL-130: 36
+  ZIL-131: 14
+hq: 10.GTD
+location:
+- 917.0
+- 431.0
+name: (USSR) 248th Motor Rifle Regiment
+nation: USSR
+personnel: 2320
+proficiency: 1.9
+shortname: 248.MRR
+stance: attacking
+type: mechanised
+waypoints:
+- 153
+- 809

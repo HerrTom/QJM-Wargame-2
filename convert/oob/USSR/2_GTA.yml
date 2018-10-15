@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (USSR) 2nd Guards Tank Army
+shortname: 2.GTA
+command: GSFG
+type: mech
+SIDC: SFGPUCA----J
+coords: [53.180770, 13.144284]
+CEV: 1.90
+personnel: 0
+faction: USSR
+equipment:
+    None: 0

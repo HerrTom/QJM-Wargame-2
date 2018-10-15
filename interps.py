@@ -1,3 +1,5 @@
+import csv
+
 from scipy.interpolate import pchip_interpolate, interp1d
 from numpy import loadtxt
 
@@ -12,7 +14,7 @@ def dict_from_csv(file):
             headers = row[1:]
         else:
             key = row[0]
-            result[key] = float(row[1:])
+            result[key] = [float(x) for x in row[1:]]
         n += 1
     return result, headers
 
@@ -110,7 +112,8 @@ def ARMF(armour):
     
     
 def GuidanceAccuracy(guidance):
-    mapping = {'SACLOS wire day': 1.6,
+    mapping = {'MCLOS': 1.2,
+               'SACLOS wire day': 1.6,
                'SACLOS wire day/night': 1.7,
                'SACLOS radio': 1.7,
                'LOSLBR': 1.8,
@@ -119,7 +122,38 @@ def GuidanceAccuracy(guidance):
 
 def terrain(terrainType,factor):
     terrainDict, headers = dict_from_csv("./data/lookups/terrain.csv")
+    idx = headers.index(factor)
+    return terrainDict[terrainType][idx]
     
+def season(seasonName,factor):
+    seasonDict, headers = dict_from_csv("./data/lookups/season.csv")
+    idx = headers.index(factor)
+    return seasonDict[seasonName][idx]
+
+def weather(weatherName,factor):
+    weatherDict, headers = dict_from_csv("./data/lookups/weather.csv")
+    idx = headers.index(factor)
+    return weatherDict[weatherName][idx]
+    
+    
+def vuln_posture_factor(posture):
+    pos_dict = {"attacking": 1.0,
+                "hasty": 0.7,
+                "prepared": 0.6,
+                "fortified": 0.5,
+                "withdrawal": 0.85,
+                "delay": 0.65}
+    return pos_dict[posture]
+
+def stren_posture_factor(posture):
+    pos_dict = {"attacking": 1.0,
+                "hasty": 1.3,
+                "prepared": 1.5,
+                "fortified": 1.6,
+                "withdrawal": 1.15,
+                "delay": 1.2}
+    return pos_dict[posture]
+
 # advance rate
 def advance_rate_base(ratio,unittype,deftype):
     pratio_pts = [1, 1.1, 1.25, 1.45, 1.75, 2.25, 3.0, 4.25, 6.0]
@@ -150,3 +184,35 @@ def advance_rate_base(ratio,unittype,deftype):
     #else:
     #    base = 60
     return base
+    
+    
+def strength_size_factor(size):
+    data = loadtxt("./data/lookups/strength_size_factor.csv",delimiter=',',
+        skiprows=1)
+    str_pts = data[:,0]
+    factor_pts = data[:,1]
+    str_interp = interp1d(str_pts,factor_pts,'slinear',fill_value='extrapolate')
+    return str_interp(size)
+    
+def tank_size_factor(size):
+    data = loadtxt("./data/lookups/tank_size_factor.csv",delimiter=',',
+        skiprows=1)
+    str_pts = data[:,0]
+    factor_pts = data[:,1]
+    str_interp = interp1d(str_pts,factor_pts,'slinear',fill_value='extrapolate')
+    return str_interp(size)
+    
+def opposition_factor(power):
+    data = loadtxt("./data/lookups/opposition_factor.csv",delimiter=',',
+        skiprows=1)
+    opp_pts = data[:,0]
+    factor_pts = data[:,1]
+    opp_interp = interp1d(opp_pts,factor_pts,'slinear',fill_value='extrapolate')
+    return opp_interp(power)
+    
+    
+if __name__ == '__main__':
+    import os
+    abspath = os.path.abspath(__file__)
+    dname = os.path.dirname(abspath)
+    os.chdir(dname)

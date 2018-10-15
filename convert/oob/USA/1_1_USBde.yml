@@ -1,0 +1,22 @@
+#!!python/object:db_formation.formation
+name: (US) 1st Brigade/1st Armored
+shortname: 1/1.Bde(US)
+command: 1.ARM(US)
+type: mech
+SIDC: SFGPUCA----H
+coords: [49.5020006, 10.4175301]
+CEV: 2.59
+personnel: 2550
+faction: USA
+equipment:
+    M16: 558
+    M16/M203: 200
+    M60 MMG: 102
+    M72 LAW: 100
+    M47 Dragon: 24
+    M113: 176
+    M901: 24
+    M106: 24
+    M557: 32
+    Truck: 216
+    M60A3: 140

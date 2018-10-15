@@ -1,0 +1,28 @@
+#!!python/object:db_formation.formation
+name: (BEL) 7th Mechanized Brigade
+shortname: 7.MBde(BEL)
+command: 1.Div(BEL)
+type: mech
+SIDC: SFGPUCIZ---H
+coords: [50.25, 5.72]
+CEV: 1.58
+personnel: 1436
+faction: BEL
+equipment:
+    FN FAL: 228
+    FN MAG: 44
+    Blindicide: 20
+    MILAN: 36
+    M113: 116
+    60mm mortar: 18
+    81mm mortar: 20
+    FV101 Scorpion: 8
+    FV107 Scimitar: 8
+    FV103 Spartan: 6
+    Jeep MILAN: 20
+    20mm Oerlikon: 10
+    Leopard 1: 40
+    Jagdpanzer Kanone: 14
+    M109: 18
+    ARV: 17
+    Truck: 120

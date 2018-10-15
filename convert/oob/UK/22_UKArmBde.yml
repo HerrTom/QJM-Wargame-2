@@ -1,0 +1,26 @@
+#!!python/object:db_formation.formation
+name: (UK) 22nd Armoured Brigade
+shortname: 22.AB(UK)
+command: 1.ARM(UK)
+type: mech
+SIDC: SFGPUCA----H
+coords: [52.5879853, 10.374822]
+CEV: 2.33
+personnel: 2526
+faction: UK
+equipment:
+    FV432 L16A1: 16
+    FV432: 156
+    FV107 Scimitar: 16
+    FV701(C) Ferret: 22
+    MILAN: 48
+    FN FAL: 542
+    FN MAG: 112
+    Carl Gustav: 54
+    51mm mortar: 18
+    LSW: 108
+    Chieftain Mk.V: 114
+    FV105 Sultan CV: 6
+    FV-438 Swingfire: 18
+    FV101 Scorpion: 16
+    Truck: 296

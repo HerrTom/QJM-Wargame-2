@@ -1,0 +1,23 @@
+#!!python/object:db_formation.formation
+name: (UK) 6th Airmobile Brigade
+shortname: 6.AMB(UK)
+command: 3.ARM(UK)
+type: mech
+SIDC: SFGPUCIS---H
+coords: [51.5784166, 8.1043635]
+CEV: 2.33
+personnel: 2753
+faction: UK
+equipment:
+    MILAN: 84
+    FN FAL: 1286
+    FN MAG: 358
+    Carl Gustav: 72
+    L16A1: 36
+    FV433 Abbot: 8
+    LAAD Javelin: 12
+    CH-47: 10
+    Puma HC.1: 16
+    Lynx AH.1 TOW: 9
+    Gazelle AH.1: 3
+    Land Rover: 84

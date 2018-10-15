@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (USA) VII US Corps
+shortname: VII.Corps(US)
+command: SACEUR
+type: mech
+SIDC: SFGPUH-----J
+coords: [48.7784485, 9.1800132]
+CEV: 2.59
+personnel: 0
+faction: USA
+equipment:
+    None: 0

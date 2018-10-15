@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (BRD) 12. Panzerdivision
+shortname: 12.PzDv
+command: III.Korps
+type: mech
+SIDC: SFGPUCA----I
+coords: [49.828465, 9.888354]
+CEV: 1.58
+personnel: 0
+faction: BRD
+equipment:
+    None: 0

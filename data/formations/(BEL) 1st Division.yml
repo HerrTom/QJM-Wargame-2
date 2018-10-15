@@ -1,0 +1,15 @@
+SIDC: SFGPUCIZ---I
+equipment:
+  None: 0
+hq: I.Corps(BEL)
+location:
+- 419.0
+- 631.0
+name: (BEL) 1st Division
+nation: BEL
+personnel: 500
+proficiency: 1.58
+shortname: 1.Div(BEL)
+stance: hasty
+type: mechanised
+waypoints: null

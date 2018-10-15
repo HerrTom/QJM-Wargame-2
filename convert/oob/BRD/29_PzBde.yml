@@ -1,0 +1,25 @@
+#!!python/object:db_formation.formation
+name: (BRD) 29. Panzerbrigade
+shortname: 29.PzBde
+command: 10.PzD
+type: mech
+SIDC: SFGPUCA----H
+coords: [48.0855844, 9.2178879]
+CEV: 1.58
+personnel: 1346
+faction: BRD
+equipment:
+    Leopard 1A3: 110
+    Marder: 46
+    M113A2: 15
+    MILAN: 18
+    M113 M252: 6
+    M109G: 18
+    Jaguar 2: 12
+    SpPz Luchs: 12
+    G3A3: 135
+    MG-3: 33
+    PzF-44: 27
+    G3-SG1: 21
+    Truck: 282
+    

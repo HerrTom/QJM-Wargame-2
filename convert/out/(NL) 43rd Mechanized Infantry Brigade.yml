@@ -1,0 +1,32 @@
+SIDC: SFGPUCIZ---H
+equipment:
+  120mm mortar: 18
+  AMX-13 (105): 6
+  ARV: 5
+  AVLB: 2
+  Carl Gustav: 25
+  FN FAL: 768
+  FN MAG: 149
+  Laro: 94
+  Leopard 1: 56
+  M106: 3
+  M109: 18
+  M113: 85
+  M113 Lynx: 16
+  M557: 35
+  M72 LAW: 112
+  Truck: 793
+  YPR-765: 110
+  YPR-765 TOW: 30
+hq: 4.NLMD
+location:
+- 438.0
+- 395.0
+name: (NL) 43rd Mechanized Infantry Brigade
+nation: NL
+personnel: 3236
+proficiency: 1.58
+shortname: 43.NLMBde
+stance: hasty
+type: mechanised
+waypoints: null

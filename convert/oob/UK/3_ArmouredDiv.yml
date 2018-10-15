@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (UK) 3rd Armoured Division
+shortname: 3.ARM(UK)
+command: I.Corps(UK)
+type: armour
+SIDC: SFGPUCA----I
+coords: [51.5725501, 8.1061259]
+CEV: 2.33
+personnel: 0
+faction: UK
+equipment:
+    None: 0

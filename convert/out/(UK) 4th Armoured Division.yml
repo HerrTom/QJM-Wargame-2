@@ -1,0 +1,15 @@
+SIDC: SFGPUCA----I
+equipment:
+  None: 0
+hq: I.Corps(UK)
+location:
+- 613.0
+- 468.0
+name: (UK) 4th Armoured Division
+nation: UK
+personnel: 500
+proficiency: 2.33
+shortname: 4.ARM(UK)
+stance: hasty
+type: armoured
+waypoints: null

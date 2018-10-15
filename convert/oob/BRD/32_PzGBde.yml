@@ -1,0 +1,24 @@
+#!!python/object:db_formation.formation
+name: (BRD) 32. Panzergrenadierbrigade
+shortname: 32.PzGBde
+command: 11.PzGD
+type: mech
+SIDC: SFGPUCIZ---H
+coords: [53.232094, 8.590819]
+CEV: 1.58
+personnel: 1583
+faction: BRD
+equipment:
+    Leopard 1A3: 67
+    Marder: 79
+    M113A2: 32
+    MILAN: 27
+    M113 M252: 12
+    M109G: 18
+    Jaguar 2: 12
+    SpPz Luchs: 12
+    G3A3: 270
+    MG-3: 54
+    PzF-44: 54
+    G3-SG1: 54
+    Truck: 294

@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (BRD) 11. Panzergrenadierdivision
+shortname: 11.PzGD
+command: I.Korps
+type: mech
+SIDC: SFGPUCIZ---I
+coords: [53.146054, 8.260519]
+CEV: 1.58
+personnel: 0
+faction: BRD
+equipment:
+    None: 0

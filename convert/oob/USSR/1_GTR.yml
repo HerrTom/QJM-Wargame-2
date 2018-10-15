@@ -1,0 +1,36 @@
+#!!python/object:db_formation.formation
+name: (USSR) 1st Guards Tank Regiment
+shortname: 1.GTR
+command: 20.GMRD
+type: mech
+SIDC: SFGPUCA----G
+coords: [50.818776, 12.545171]
+CEV: 1.90
+personnel: 1143
+faction: USSR
+equipment:
+    T-80B: 94
+    2S1 Gvozdika: 18
+    9K35 Strela-10: 4
+    2S6 Tunguska: 4
+    9K32 Strela-2: 3
+    RPG-7V: 36
+    RPK-74: 21
+    AK-74: 275
+    BRDM-2U: 12
+    BRM-1: 1
+    BTR-60PB: 4
+    BTR-60PA (FAC): 1
+    PRP-3: 1
+    BRDM-2: 4
+    BMP-2: 3
+    UAZ-469: 13
+    GAZ-66: 17
+    ZIL-131: 73
+    Ural-375: 22
+    ZIL-130: 9
+    Van Truck: 25
+    Ural-375 POL: 26
+    MT-55: 1
+    TMM: 4
+    Engineer Vehicle: 24

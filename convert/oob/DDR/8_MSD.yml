@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (DDR) 8. Mot. Schützendivision
+shortname: 8.MSD
+command: MB.V
+type: mech
+SIDC: SFGPUCIZ---I
+coords: [53.557372, 11.460042]
+CEV: 1.58
+personnel: 0
+faction: DDR
+equipment:
+    None: 0

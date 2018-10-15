@@ -1,0 +1,22 @@
+#!!python/object:db_formation.formation
+name: (US) 3rd Brigade/8th Infantry
+shortname: 3/8.Bde(US)
+command: 8.INF(US)
+type: mech
+SIDC: SFGPUCA----H
+coords: [49.489591, 8.467236]
+CEV: 2.59
+personnel: 1854
+faction: USA
+equipment:
+    M16: 359
+    M16/M203: 119
+    M60 MMG: 59
+    M72 LAW: 68
+    M47 Dragon: 12
+    M113: 101
+    M901: 12
+    M106: 18
+    M557: 26
+    Truck: 188
+    M60A3: 140

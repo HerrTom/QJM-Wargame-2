@@ -1,0 +1,32 @@
+SIDC: SFGPUCRVA--G
+equipment:
+  AH-64: 26
+  AVLB: 6
+  Eng. Vehicle: 28
+  M1 Abrams: 129
+  M106: 18
+  M109A2: 24
+  M113: 53
+  M16: 1664
+  M163 VADS: 12
+  M3 CFV: 111
+  M557: 30
+  M60 MMG: 196
+  M628 CEV: 3
+  M72 LAW: 260
+  OH-58: 32
+  Stinger: 28
+  Truck: 890
+  UH-60: 25
+hq: V.Corps(US)
+location:
+- 682.0
+- 636.0
+name: (US) 11th Armored Cavalry Regiment
+nation: USA
+personnel: 5000
+proficiency: 2.59
+shortname: 11.ACAV(US)
+stance: hasty
+type: mechanised
+waypoints: null

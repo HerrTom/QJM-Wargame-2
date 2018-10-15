@@ -1,0 +1,27 @@
+SIDC: SFGPUCIZ---H
+equipment:
+  G3-SG1: 54
+  G3A3: 270
+  Jaguar 2: 12
+  Leopard 1A3: 67
+  M109G: 18
+  M113 M252: 12
+  M113A2: 32
+  MG-3: 54
+  MILAN: 27
+  Marder: 79
+  PzF-44: 54
+  SpPz Luchs: 12
+  Truck: 294
+hq: 5.PzDv
+location:
+- 609.0
+- 635.0
+name: (BRD) 13. Panzergrenadierbrigade
+nation: BRD
+personnel: 1583
+proficiency: 1.58
+shortname: 13.PzGBde
+stance: hasty
+type: mechanised
+waypoints: null

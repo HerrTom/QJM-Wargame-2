@@ -1,0 +1,25 @@
+SIDC: SFGPUCIZ---H
+equipment:
+  M106: 30
+  M113: 251
+  M16: 757
+  M16/M203: 281
+  M47 Dragon: 36
+  M557: 38
+  M60 MMG: 145
+  M60A3: 140
+  M72 LAW: 132
+  M901: 36
+  Truck: 244
+hq: 8.INF(US)
+location:
+- 521.0
+- 737.0
+name: (US) 2nd Brigade/8th Infantry
+nation: USA
+personnel: 3246
+proficiency: 2.59
+shortname: 2/8.Bde(US)
+stance: hasty
+type: armoured
+waypoints: null

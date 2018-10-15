@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (NL) 1st Mechanized Division
+shortname: 1.NLMD
+command: I.Corps(NL)
+type: mech
+SIDC: SFGPUCIZ---I
+coords: [52.0380763, 5.9307772]
+CEV: 1.58
+personnel: 0
+faction: NL
+equipment:
+    None: 0

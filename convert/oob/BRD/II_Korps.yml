@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (BRD) II Korps
+shortname: II.Korps
+command: SACEUR
+type: mech
+SIDC: SFGPUH-----J
+coords: [48.372653, 9.945449]
+CEV: 1.58
+personnel: 0
+faction: BRD
+equipment:
+    None: 0

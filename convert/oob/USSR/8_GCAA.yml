@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (USSR) 8th Guards Combined Arms Army
+shortname: 8.GCAA
+command: GSFG
+type: mech
+SIDC: SFGPUCIZ---J
+coords: [50.960361, 11.255523]
+CEV: 1.90
+personnel: 0
+faction: USSR
+equipment:
+    None: 0

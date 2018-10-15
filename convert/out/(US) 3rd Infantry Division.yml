@@ -1,0 +1,15 @@
+SIDC: SFGPUCIZ---I
+equipment:
+  None: 0
+hq: VII.Corps(US)
+location:
+- 557.0
+- 711.0
+name: (US) 3rd Infantry Division
+nation: USA
+personnel: 500
+proficiency: 2.59
+shortname: 3.INF(US)
+stance: hasty
+type: mechanised
+waypoints: null

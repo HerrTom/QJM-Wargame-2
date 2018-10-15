@@ -1,0 +1,41 @@
+#!!python/object:db_formation.formation
+name: (DDR) Motor Schuetzenregiment 18
+shortname: MSR.18
+command: 11.MSD
+type: mech
+SIDC: SFGPUCIZ---G
+coords: [49.5438546, 11.5416089]
+CEV: 1.58
+personnel: 2320
+faction: DDR
+equipment:
+    T-55A: 40
+    2S1 Gvozdika: 18
+    2B11: 24
+    9K31 Strela-1: 4
+    ZSU-23-4 Shilka: 4
+    9K32 Strela-2: 30
+    BRDM-2 9P111: 9
+    9K14P Malyutka: 12
+    SPG-9: 21
+    RPG-7V: 148
+    AGS-17: 18
+    RPK: 102
+    MPi-KM: 806
+    PKM: 27
+    BRDM-2: 21
+    BRM-1: 1
+    BTR-70: 143
+    BTR-60PA (FAC): 1
+    PRP-3: 1
+    BRDM-2U: 4
+    BMP-1: 3
+    UAZ-469: 22
+    GAZ-66: 67
+    ZIL-130: 14
+    Ural 375: 57
+    ZIL-131: 36
+    Ural-375 POL: 26
+    MT-55: 1
+    TMM: 4
+    Eng Vehicle: 24

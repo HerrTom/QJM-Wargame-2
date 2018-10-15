@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (USSR) 1st Guards Tank Army
+shortname: 1.GTA
+command: GSFG
+type: mech
+SIDC: SFGPUCA----J
+coords: [51.050409, 13.737262]
+CEV: 1.90
+personnel: 0
+faction: USSR
+equipment:
+    None: 0

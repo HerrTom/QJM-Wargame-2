@@ -1,0 +1,22 @@
+#!!python/object:db_formation.formation
+name: (US) 2nd Brigade/3 Armored
+shortname: 2/3.Bde(US)
+command: 3.ARM(US)
+type: armour
+SIDC: SFGPUCIZ---H
+coords: [50.2028622, 9.190486]
+CEV: 2.59
+personnel: 1971
+faction: USA
+equipment:
+    M16: 478
+    M16/M203: 181
+    M60 MMG: 94
+    M72 LAW: 82
+    M47 Dragon: 24
+    M113: 163
+    M901: 24
+    M106: 18
+    M557: 22
+    Truck: 136
+    M60A3: 70

@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (US) 1st Armored Division
+shortname: 1.ARM(US)
+command: VII.Corps(US)
+type: armour
+SIDC: SFGPUCA----I
+coords: [51.6982506, 9.8691556]
+CEV: 2.59
+personnel: 0
+faction: USA
+equipment:
+    None: 0

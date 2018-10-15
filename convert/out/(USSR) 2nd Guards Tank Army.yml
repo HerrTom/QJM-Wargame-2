@@ -1,0 +1,17 @@
+SIDC: SFGPUCA----J
+equipment:
+  None: 0
+hq: GSFG
+location:
+- 922.0
+- 354.0
+name: (USSR) 2nd Guards Tank Army
+nation: USSR
+personnel: 500
+proficiency: 1.9
+shortname: 2.GTA
+stance: attacking
+type: mechanised
+waypoints:
+- 153
+- 809

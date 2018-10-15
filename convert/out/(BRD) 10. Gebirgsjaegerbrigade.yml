@@ -1,0 +1,24 @@
+SIDC: SFGPUCIO---H
+equipment:
+  120mm mortar: 32
+  Carl Gustav: 218
+  G3-SG1: 70
+  G3A3: 2024
+  Jagdpanzer: 17
+  M102: 18
+  MG-3: 308
+  MILAN: 24
+  Rh202: 64
+  Truck: 170
+hq: 1.GJD
+location:
+- 903.0
+- 939.0
+name: (BRD) 10. Gebirgsjaegerbrigade
+nation: BRD
+personnel: 3584
+proficiency: 1.58
+shortname: 10.GJB
+stance: hasty
+type: mechanised
+waypoints: null

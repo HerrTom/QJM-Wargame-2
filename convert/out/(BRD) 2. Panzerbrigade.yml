@@ -1,0 +1,27 @@
+SIDC: SFGPUCA----H
+equipment:
+  G3-SG1: 21
+  G3A3: 135
+  Jaguar 2: 12
+  Leopard 1A3: 110
+  M109G: 18
+  M113 M252: 6
+  M113A2: 15
+  MG-3: 33
+  MILAN: 18
+  Marder: 46
+  PzF-44: 27
+  SpPz Luchs: 12
+  Truck: 282
+hq: 1.PzD
+location:
+- 696.0
+- 433.0
+name: (BRD) 2. Panzerbrigade
+nation: BRD
+personnel: 1346
+proficiency: 1.58
+shortname: 2.PzBde
+stance: hasty
+type: mechanised
+waypoints: null

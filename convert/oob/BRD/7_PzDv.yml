@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (BRD) 7. Panzerdivision
+shortname: 7.PzDv
+command: I.Korps
+type: mech
+SIDC: SFGPUCA----I
+coords: [51.919928, 8.744689]
+CEV: 1.58
+personnel: 0
+faction: BRD
+equipment:
+    None: 0

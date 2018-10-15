@@ -1,0 +1,15 @@
+SIDC: SFGPUH-----J
+equipment:
+  None: 0
+hq: SACEUR
+location:
+- 426.0
+- 457.0
+name: (NL) I Netherlands Corps
+nation: NL
+personnel: 500
+proficiency: 2.33
+shortname: I.Corps(NL)
+stance: hasty
+type: mechanised
+waypoints: null

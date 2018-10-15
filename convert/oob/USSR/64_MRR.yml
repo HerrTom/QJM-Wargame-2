@@ -1,0 +1,42 @@
+#!!python/object:db_formation.formation
+name: (USSR) 64th Motor Rifle Regiment
+shortname: 64.MRR
+command: 35.MRD
+type: mech
+SIDC: SFGPUCIM---G
+coords: [52.537412, 12.980245]
+CEV: 1.90
+personnel: 2523
+faction: USSR
+equipment:
+    T-64A: 40
+    D-30: 18
+    2B11: 24
+    9K31 Strela-1: 4
+    ZSU-23-4 Shilka: 4
+    9K32 Strela-2: 30
+    BRDM-2 9P148: 9
+    9K111 Fagot: 12
+    9K115 Metis: 27
+    SPG-9: 6
+    RPG-7V: 148
+    AGS-17: 18
+    RPK-74: 102
+    AK-74: 806
+    PKM: 27
+    BRDM-2U: 21
+    BRM-1: 1
+    BTR-60PB: 143
+    BTR-60PA (FAC): 1
+    PRP-3: 1
+    BRDM-2: 4
+    BMP-1P: 3
+    UAZ-469: 22
+    GAZ-66: 67
+    ZIL-131: 14
+    Ural-375: 57
+    ZIL-130: 36
+    Ural-375 POL: 26
+    MT-55: 1
+    TMM: 4
+    Engineer Vehicle: 24

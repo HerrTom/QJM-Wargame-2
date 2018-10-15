@@ -1,0 +1,33 @@
+SIDC: SFGPUCFHE--G
+equipment:
+  1V12 ACRV: 16
+  1V18 ACRV: 8
+  2S3 Akatsiya: 36
+  AK-74: 252
+  BM-21: 18
+  BTR-60PB: 6
+  GAZ-66: 31
+  MT-LB: 1
+  PRP-3: 3
+  RPG-7V: 40
+  RPK-74: 36
+  UAZ-469: 21
+  Ural-375: 72
+  Ural-375 POL: 14
+  Van Truck: 13
+  ZIL-130: 49
+  ZIL-131: 8
+hq: 12.GTD
+location:
+- 828.0
+- 439.0
+name: (USSR) 117th Guards Artillery Regiment
+nation: USSR
+personnel: 1062
+proficiency: 1.9
+shortname: 117.GAR
+stance: attacking
+type: mechanised
+waypoints:
+- 153
+- 809

@@ -1,0 +1,38 @@
+#!!python/object:db_formation.formation
+name: (USSR) 249th Guards Motor Rifle Regiment
+shortname: 249.MRR
+command: 11.GTD
+type: mech
+SIDC: SFGPUCIZ---G
+coords: [51.106368, 13.757598]
+CEV: 1.90
+personnel: 2320
+faction: USSR
+equipment:
+    T-80B: 40
+    2S1 Gvozdika: 18
+    2B11: 24
+    9K31 Strela-1: 4
+    2S6 Tunguska: 4
+    9K32 Strela-2: 30
+    BRDM-2 9P148: 9
+    RPG-7V: 146
+    AGS-17: 18
+    RPK-74: 102
+    AK-74: 806
+    PKM: 54
+    BRDM-2U: 22
+    BRM-1: 1
+    BTR-60PB: 4
+    BTR-60PA (FAC): 1
+    PRP-3: 1
+    BRDM-2: 4
+    BMP-2: 129
+    UAZ-469: 22
+    GAZ-66: 62
+    ZIL-131: 14
+    Ural-375: 23
+    ZIL-130: 36
+    Ural-375 POL: 26
+    MT-55: 1
+    TMM: 4

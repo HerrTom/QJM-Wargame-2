@@ -1,0 +1,39 @@
+SIDC: SFGPUCIZ---H
+equipment:
+  120mm mortar: 6
+  AMX-13 (105): 6
+  ARV: 5
+  AVLB: 2
+  Carl Gustav: 61
+  Centurion Mk.V: 56
+  FN FAL: 666
+  FN MAG: 159
+  Laro: 48
+  M106: 3
+  M109: 18
+  M113: 45
+  M113 Lynx: 16
+  M47 Dragon: 36
+  M557: 11
+  M72 LAW: 160
+  Truck: 799
+  YP-408 PWAT: 12
+  YP-408 PWCO: 24
+  YP-408 PWI-GR: 54
+  YP-408 PWI-PC: 18
+  YP-408 PWMR: 12
+  YP-408 PWRDR: 6
+  YPR-765: 20
+  YPR-765 TOW: 24
+hq: 4.NLMD
+location:
+- 467.0
+- 374.0
+name: (NL) 42nd Mechanized Infantry Brigade
+nation: NL
+personnel: 3310
+proficiency: 1.58
+shortname: 42.NLMBde
+stance: hasty
+type: mechanised
+waypoints: null

@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (DDR) Military District V
+shortname: MB.V
+command: LaSK
+type: mech
+SIDC: SFGPUH-----K
+coords: [53.573071, 13.299804]
+CEV: 1.58
+personnel: 0
+faction: DDR
+equipment:
+    None: 0

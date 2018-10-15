@@ -1,0 +1,15 @@
+SIDC: SFGPUCIZ---I
+equipment:
+  None: 0
+hq: I.Corps(NL)
+location:
+- 403.0
+- 443.0
+name: (NL) 4th Mechanized Division
+nation: NL
+personnel: 500
+proficiency: 1.58
+shortname: 4.NLMD
+stance: hasty
+type: mechanised
+waypoints: null

@@ -1,0 +1,29 @@
+#!!python/object:db_formation.formation
+name: (US) 2nd Armored Cavalry Regiment
+shortname: 2.ACAV(US)
+command: VII.Corps(US)
+type: mech
+SIDC: SFGPUCRVA--G
+coords: [49.8926723, 10.8876149]
+CEV: 2.59
+personnel: 5000
+faction: USA
+equipment:
+    M1 Abrams: 129
+    M3 CFV: 111
+    M113: 53
+    M557: 30
+    M109A2: 24
+    M106: 18
+    M163 VADS: 12
+    Stinger: 28
+    Eng. Vehicle: 28
+    M628 CEV: 3
+    AVLB: 6
+    OH-58: 32
+    AH-64: 26
+    UH-60: 25
+    M16: 1664
+    M60 MMG: 196
+    M72 LAW: 260
+    Truck: 890

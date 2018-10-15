@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (UK) 1st Armoured Division
+shortname: 1.ARM(UK)
+command: I.Corps(UK)
+type: armour
+SIDC: SFGPUCA----I
+coords: [52.922341, 9.228153]
+CEV: 2.33
+personnel: 0
+faction: UK
+equipment:
+    None: 0

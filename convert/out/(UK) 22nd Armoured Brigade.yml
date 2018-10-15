@@ -1,0 +1,29 @@
+SIDC: SFGPUCA----H
+equipment:
+  51mm mortar: 18
+  Carl Gustav: 54
+  Chieftain Mk.V: 114
+  FN FAL: 542
+  FN MAG: 112
+  FV-438 Swingfire: 18
+  FV101 Scorpion: 16
+  FV105 Sultan CV: 6
+  FV107 Scimitar: 16
+  FV432: 156
+  FV432 L16A1: 16
+  FV701(C) Ferret: 22
+  LSW: 108
+  MILAN: 48
+  Truck: 296
+hq: 1.ARM(UK)
+location:
+- 731.0
+- 417.0
+name: (UK) 22nd Armoured Brigade
+nation: UK
+personnel: 2526
+proficiency: 2.33
+shortname: 22.AB(UK)
+stance: hasty
+type: mechanised
+waypoints: null

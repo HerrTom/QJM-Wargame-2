@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (DDR) 9. Panzerdivision
+shortname: 9.PzD
+command: MB.V
+type: mech
+SIDC: SFGPUCA----I
+coords: [53.672781, 14.083328]
+CEV: 1.58
+personnel: 0
+faction: DDR
+equipment:
+    None: 0

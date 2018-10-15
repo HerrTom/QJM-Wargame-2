@@ -1,0 +1,13 @@
+season,attack,arty,air
+"winter, jungle",1.1,0.9,0.7
+"winter, desert",1,1,1
+"winter, temperate",1,1,1
+"spring, jungle",1.1,0.9,0.7
+"spring, desert",1,1,1
+"spring, temperate",1.1,1,0.9
+"summer, jungle",1.1,0.9,0.7
+"summer, desert",1,1,1
+"summer, temperate",1.1,0.9,1
+"fall, jungle",1.1,0.9,0.7
+"fall, desert",1,1,1
+"fall, temperate",1.1,1,0.9

@@ -1,0 +1,12 @@
+#!!python/object:db_formation.formation
+name: (DDR) 11. Mot. Schützendivision
+shortname: 11.MSD
+command: MB.III
+type: mech
+SIDC: SFGPUCIZ---I
+coords: [51.489515, 11.974689]
+CEV: 1.58
+personnel: 0
+faction: DDR
+equipment:
+    None: 0

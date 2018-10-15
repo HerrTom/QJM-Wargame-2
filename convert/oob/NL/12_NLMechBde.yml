@@ -1,0 +1,36 @@
+#!!python/object:db_formation.formation
+name: (NL) 12th Mechanized Infantry Brigade
+shortname: 12.NLMBde
+command: 1.NLMD
+type: mech
+SIDC: SFGPUCIZ---H
+coords: [52.37852, 5.78078]
+CEV: 1.58
+personnel: 3273
+faction: NL
+equipment:
+    YP-408 PWRDR: 3
+    Laro: 71
+    FN MAG: 154
+    FN FAL: 717
+    M72 LAW: 136
+    Carl Gustav: 43
+    YP-408 PWCO: 12
+    YP-408 PWI-PC: 9
+    YP-408 PWI-GR: 27
+    M47 Dragon: 18
+    YP-408 PWAT: 6
+    YP-408 PWMR: 6
+    120mm mortar: 12
+    Centurion Mk.V: 56
+    ARV: 5
+    M113: 65
+    M557: 23
+    M106: 3
+    YPR-765: 65
+    YPR-765 TOW: 27
+    AMX-13 (105): 6
+    M113 Lynx: 16
+    AVLB: 2
+    M109: 18
+    Truck: 796

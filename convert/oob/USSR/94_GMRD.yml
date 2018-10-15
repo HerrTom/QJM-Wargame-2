@@ -1,0 +1,41 @@
+#!!python/object:db_formation.formation
+name: (USSR) 94th Guards Motor Rifle Division
+shortname: 94.GMRD
+command: 2.GTA
+type: mech
+SIDC: SFGPUCIZ---I
+coords: [53.698864, 11.366231]
+CEV: 1.90
+personnel: 0
+faction: USSR
+equipment:
+    T-64B: 6
+    9K52 Luna-M: 4
+    2K12 Kub: 20
+    9K32 Strela-2: 27
+    BRDM-2 9P148: 9
+    MT-12: 12
+    AK-74: 1667
+    RPG-7V: 63
+    RPK-74: 28
+    Mi-2: 6
+    Mi-17: 4
+    Mi-8T: 2
+    Mi-24: 6
+    BTR-60PB: 36
+    BRM-1: 3
+    BMP-1P: 12
+    MT-LB: 14
+    BRDM-2: 6
+    UAZ-469: 65
+    GAZ-66: 137
+    ZIL-131: 242
+    Ural-375: 148
+    ZIL-151: 66
+    Ural-375 POL: 1
+    NBC Truck: 112
+    BRDM-2rkh: 22
+    Ambulance: 11
+    Engineering Truck: 29
+    TMM: 40
+    IMR: 8
