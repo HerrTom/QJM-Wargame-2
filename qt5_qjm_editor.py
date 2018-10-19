@@ -2,7 +2,7 @@ import os
 import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import breeze_resources
+import ui.breeze_resources
 
 import qjm_data
 import qt5_qjm_equips

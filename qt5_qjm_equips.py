@@ -3,7 +3,7 @@ import sys
 from collections import OrderedDict
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import breeze_resources
+import ui.breeze_resources
 
 import qjm_data
 
