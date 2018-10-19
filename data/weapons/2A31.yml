@@ -1,0 +1,13 @@
+name: 2A31
+type: Gun
+range: '15300'
+rateOfFire: ''
+calibre: '122'
+muzzleVel: '680'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: None
+atgmMinRange: None
+atgmEnhancement: None

@@ -1,0 +1,25 @@
+name: SPz Luchs
+nation: BRD
+type: IFV
+weapons:
+  MG-3 (Mounted): '2000'
+  Mk 20 RH-202: '375'
+roadSpeed: '90'
+horsepower: '390'
+groundPress: '0.68'
+radiusOfAction: '730'
+weight: '20'
+length: '7.7'
+height: '2.9'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Passive IR
+rangefinder: Coincident
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: true
+crew: 4

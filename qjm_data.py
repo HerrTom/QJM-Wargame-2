@@ -17,8 +17,8 @@ global Di
 Di = 5000
 
 global simTime
-simDuration = 7 # days
-simSteps    = 6*7
+simDuration = 3 # days
+simSteps    = 6*3
 simTime = simDuration / simSteps
 
 # for debug only
@@ -206,7 +206,7 @@ class equipment():
             self.name           = ""
             self.nation         = ""
             self.type           = ""
-            self.weapons        = []
+            self.weapons        = {}
             self.roadSpeed      = ""
             self.horsepower     = ""
             self.groundPress    = ""
@@ -483,7 +483,21 @@ class database():
         for unit in self.formations:
             casualties += unit.casualties
         print("Total casualties this turn: {:5,.0f} KIA, {:5,.0f} WIA".format(casualties["Killed"],casualties["Wounded"]))
+    
+    def LossesBySide(self):
+        sides = [BLUFOR, REDFOR]
+        for factions in sides:
+            losses = Counter()
+            casualties = Counter()
+            for unit in self.formations:
+                if unit.nation in factions:
+                    casualties += unit.casualties
+                    losses += unit.losses
+            print("## Total losses for {} ##".format(factions))
+            print("Casualties: {:5,.0f} KIA, {:5,.0f} WIA".format(casualties["Killed"],casualties["Wounded"]))
+            print_losses(losses)
         
+    
 # Formations contain equipment objects
 class formation():
     def __init__(self,data=None):
@@ -533,7 +547,7 @@ class formation():
         
     def GenStrength(self):
         # TODO remove infantry bonus for testing
-        self.Strength = {"Infantry": 500, "AFV": 0, "Antitank": 0, "Artillery": 0,
+        self.Strength = {"Infantry": 1, "AFV": 0, "Antitank": 0, "Artillery": 0,
                                 "Air Defence": 0, "Aircraft": 0}
         # strength values are in the followin categories:
         # infantry, afv, antitank, arty, air defence and air
@@ -714,8 +728,12 @@ class Frontline():
         # first determine how many points are in range
         # print("Associating Formations with the Frontline")
         for unit in units:
-            unitrange = 20 * (unit.personnel / Di)**.5 # units can affect the frontline from within this many km
+            unitrange = unit.personnel / 120 / 2  # units can affect the frontline from within this many km
+            # calibrated so 1200 men affect 10 km frontage
             # handle min ranges
+            # attacking units use lower frontage
+            if unit.stance == "attacking":
+                unitrange = unitrange/2
             if unitrange <= 2:
                 unitrange = 2
             maxrad = unitrange / self.scale * 2
@@ -902,22 +920,22 @@ class FrontlinePoint():
             Wdad = 0
             Wdai = 0
             
-            # get weapon strengths
+            # get weapon strengths, divide by NumPoints so that concentration is applied
             for unit in self.attackers:
-                Wain += unit.Strength["Infantry"]
-                Waat += unit.Strength["Antitank"]
-                Watn += unit.Strength["AFV"]
-                Waar += unit.Strength["Artillery"]
-                Waad += unit.Strength["Air Defence"]
-                Waai += unit.Strength["Aircraft"]
+                Wain += unit.Strength["Infantry"] / unit.NumPoints 
+                Waat += unit.Strength["Antitank"] / unit.NumPoints 
+                Watn += unit.Strength["AFV"] / unit.NumPoints 
+                Waar += unit.Strength["Artillery"] / unit.NumPoints 
+                Waad += unit.Strength["Air Defence"] / unit.NumPoints 
+                Waai += unit.Strength["Aircraft"] / unit.NumPoints 
                 
             for unit in self.defenders:
-                Wdin += unit.Strength["Infantry"]
-                Wdat += unit.Strength["Antitank"]
-                Wdtn += unit.Strength["AFV"]
-                Wdar += unit.Strength["Artillery"]
-                Wdad += unit.Strength["Air Defence"]
-                Wdai += unit.Strength["Aircraft"]
+                Wdin += unit.Strength["Infantry"] / unit.NumPoints 
+                Wdat += unit.Strength["Antitank"] / unit.NumPoints 
+                Wdtn += unit.Strength["AFV"] / unit.NumPoints 
+                Wdar += unit.Strength["Artillery"] / unit.NumPoints 
+                Wdad += unit.Strength["Air Defence"] / unit.NumPoints 
+                Wdai += unit.Strength["Aircraft"] / unit.NumPoints 
             
             # deal with the overmatches in AT and AD combat power
             Waat = overmatch(Waat,Wdtn)
@@ -1113,6 +1131,8 @@ if __name__ == '__main__':
     im.show()
     
     db.TotalCasualties()
+    
+    db.LossesBySide()
     
     # print("MISSING OBJECTS:", missing)
     

@@ -1,0 +1,24 @@
+name: M113A1
+nation: USA
+type: Infantry
+weapons:
+  M2HB: '2000'
+roadSpeed: '64'
+horsepower: '212'
+groundPress: '0.55'
+radiusOfAction: '483'
+weight: '11.2'
+length: '4.86'
+height: '2.5'
+armour: Aluminum
+enclosed: true
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: true
+crew: 2

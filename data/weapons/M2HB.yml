@@ -1,0 +1,13 @@
+name: M2HB
+type: Gun
+range: '1800'
+rateOfFire: '450'
+calibre: '12.7'
+muzzleVel: '890'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: None
+atgmMinRange: None
+atgmEnhancement: None

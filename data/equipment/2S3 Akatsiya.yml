@@ -1,0 +1,24 @@
+name: 2S3 Akatsiya
+nation: USSR
+type: SP Artillery
+weapons:
+  2A33: '46'
+roadSpeed: '60'
+horsepower: '520'
+groundPress: '.59'
+radiusOfAction: '500'
+weight: '27.5'
+length: '7.77'
+height: '3.05'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Minimum
+rangefinder: Coincident
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 4

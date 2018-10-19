@@ -1,0 +1,13 @@
+name: 2A33
+type: Gun
+range: '18500'
+rateOfFire: ''
+calibre: '152.4'
+muzzleVel: '655'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: None
+atgmMinRange: None
+atgmEnhancement: None

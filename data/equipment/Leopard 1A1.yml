@@ -1,0 +1,25 @@
+name: Leopard 1A1
+nation: BRD
+type: Tank
+weapons:
+  L7A1: '55'
+  MG 3: '2000'
+roadSpeed: '65'
+horsepower: '830'
+groundPress: '0.88'
+radiusOfAction: '600'
+weight: '44'
+length: '7.09'
+height: '2.61'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Active IR
+rangefinder: Coincident
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: true
+amphibious: false
+crew: 4

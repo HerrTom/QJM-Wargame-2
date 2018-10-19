@@ -1,0 +1,27 @@
+name: T-64BV
+nation: USSR
+type: Tank
+weapons:
+  2A46M-2: '36'
+  9M112 Kobra: '6'
+  NSVT: '500'
+  PKT: '1250'
+roadSpeed: '60'
+horsepower: '700'
+groundPress: '0.84'
+radiusOfAction: '500'
+weight: '39'
+length: '6.54'
+height: '2.2'
+armour: Reactive
+enclosed: true
+traverse: true
+lowLight: Passive IR
+rangefinder: Laser
+fcCant: true
+fcAmmo: true
+fcWind: true
+fcBarrel: false
+stabilised: true
+amphibious: false
+crew: 3

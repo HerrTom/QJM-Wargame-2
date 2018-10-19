@@ -1,0 +1,25 @@
+name: Chieftain Mk.V
+nation: UK
+type: Tank
+weapons:
+  FN MAG: '6000'
+  L11A5: '64'
+roadSpeed: '48'
+horsepower: '750'
+groundPress: '0.9'
+radiusOfAction: '500'
+weight: '55'
+length: '7.52'
+height: '2.9'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Passive IR
+rangefinder: Laser
+fcCant: false
+fcAmmo: true
+fcWind: false
+fcBarrel: false
+stabilised: true
+amphibious: false
+crew: 4

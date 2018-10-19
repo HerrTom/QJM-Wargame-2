@@ -16,7 +16,7 @@ height: '2.22'
 armour: Composite
 enclosed: true
 traverse: true
-lowLight: Minimum
+lowLight: Passive IR
 rangefinder: Laser
 fcCant: true
 fcAmmo: true

@@ -1,0 +1,13 @@
+name: Mk 20 RH-202
+type: Gun
+range: '2500'
+rateOfFire: '1030'
+calibre: '20'
+muzzleVel: '1100'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: MCLOS
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

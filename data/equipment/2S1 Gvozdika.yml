@@ -1,0 +1,24 @@
+name: 2S1 Gvozdika
+nation: USSR
+type: SP Artillery
+weapons:
+  2A31: '40'
+roadSpeed: '62'
+horsepower: '300'
+groundPress: '0.49'
+radiusOfAction: '500'
+weight: '15.7'
+length: '7.26'
+height: '2.29'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Active IR
+rangefinder: Coincident
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: true
+crew: 4

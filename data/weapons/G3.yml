@@ -1,0 +1,13 @@
+name: G3
+type: Gun
+range: '500'
+rateOfFire: '600'
+calibre: '7.62'
+muzzleVel: '800'
+accuracy: 0.85
+barrels: 1
+crew: false
+guidance: SACLOS wire day
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

@@ -1,0 +1,13 @@
+name: MG-3 (Mounted)
+type: Gun
+range: '1200'
+rateOfFire: '1300'
+calibre: '7.62'
+muzzleVel: '820'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: None
+atgmMinRange: None
+atgmEnhancement: None

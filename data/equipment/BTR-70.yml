@@ -1,0 +1,25 @@
+name: BTR-70
+nation: USSR
+type: APC
+weapons:
+  KPVT: '500'
+  PKT: '2000'
+roadSpeed: '80'
+horsepower: '240'
+groundPress: '0.9'
+radiusOfAction: '600'
+weight: '11.5'
+length: '7.535'
+height: '2.235'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: true
+crew: 2

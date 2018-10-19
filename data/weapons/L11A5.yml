@@ -1,0 +1,13 @@
+name: L11A5
+type: Gun
+range: '3000'
+rateOfFire: ''
+calibre: '120'
+muzzleVel: '1370'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

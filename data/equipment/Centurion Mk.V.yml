@@ -1,0 +1,25 @@
+name: Centurion Mk.V
+nation: UK
+type: Tank
+weapons:
+  L7A1: '55'
+  M1919: '2000'
+roadSpeed: '35'
+horsepower: '650'
+groundPress: '0.95'
+radiusOfAction: '190'
+weight: '51.8'
+length: '7.6'
+height: '3.01'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Minimum
+rangefinder: Ranging Rifle
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 4

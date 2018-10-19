@@ -1,0 +1,13 @@
+name: FN MAG
+type: Gun
+range: '800'
+rateOfFire: '1000'
+calibre: '7.62'
+muzzleVel: '840'
+accuracy: 0.85
+barrels: 1
+crew: true
+guidance: SACLOS wire day
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

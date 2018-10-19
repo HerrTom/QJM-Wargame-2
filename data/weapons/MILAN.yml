@@ -1,0 +1,13 @@
+name: MILAN
+type: ATGM
+range: '3000'
+rateOfFire: ''
+calibre: '103'
+muzzleVel: '200'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: SACLOS wire day
+atgmPenetration: '350'
+atgmMinRange: '200'
+atgmEnhancement: '1.1'

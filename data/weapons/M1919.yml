@@ -1,0 +1,13 @@
+name: M1919
+type: Gun
+range: '900'
+rateOfFire: '600'
+calibre: '7.62'
+muzzleVel: '850'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: None
+atgmMinRange: None
+atgmEnhancement: None

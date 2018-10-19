@@ -1,0 +1,25 @@
+name: Marder 1
+nation: BRD
+type: IFV
+weapons:
+  MG-3 (Mounted): '5000'
+  Mk 20 RH-202: '1250'
+roadSpeed: '75'
+horsepower: '600'
+groundPress: '0.83'
+radiusOfAction: '520'
+weight: '29.2'
+length: '6.79'
+height: '2.99'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Passive IR
+rangefinder: Laser
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: true
+crew: 3

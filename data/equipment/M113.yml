@@ -1,0 +1,24 @@
+name: M113
+nation: USA
+type: Infantry
+weapons:
+  M2HB: '2000'
+roadSpeed: '64'
+horsepower: '209'
+groundPress: '0.53'
+radiusOfAction: '322'
+weight: '10.4'
+length: '4.86'
+height: '2.5'
+armour: Aluminum
+enclosed: true
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: true
+crew: 2

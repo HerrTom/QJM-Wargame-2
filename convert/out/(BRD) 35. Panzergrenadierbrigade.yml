@@ -7,11 +7,11 @@ equipment:
   M109G: 18
   M113 M252: 12
   M113A2: 32
-  MG-3: 54
+  MG3: 54
   MILAN: 27
-  Marder: 79
+  Marder 1: 79
   PzF-44: 54
-  SpPz Luchs: 12
+  SPz Luchs: 12
   Truck: 294
 hq: 12.PzDv
 location:
