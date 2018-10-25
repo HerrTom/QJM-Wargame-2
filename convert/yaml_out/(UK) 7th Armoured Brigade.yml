@@ -1,0 +1,29 @@
+SIDC: SFGPUCA----H
+equipment:
+  51mm mortar: 9
+  Carl Gustav: 27
+  Chieftain Mk.V: 114
+  FN MAG: 78
+  FV-438 Swingfire: 18
+  FV101 Scorpion: 16
+  FV105 Sultan CV: 6
+  FV107 Scimitar: 8
+  FV432: 78
+  FV432 L16A1: 8
+  FV701(C) Ferret: 18
+  L1A1: 408
+  LSW: 54
+  MILAN: 24
+  Truck: 232
+hq: 1.ARM(UK)
+location:
+- 694.0
+- 375.0
+name: (UK) 7th Armoured Brigade
+nation: UK
+personnel: 1846
+proficiency: 2.33
+shortname: 7.AB(UK)
+stance: hasty
+type: mechanised
+waypoints: null

@@ -1,0 +1,15 @@
+SIDC: SFGPUCIO---I
+equipment:
+  None: 0
+hq: II.Korps
+location:
+- 780.0
+- 964.0
+name: (BRD) 1. Gibirgsjager Division
+nation: BRD
+personnel: 500
+proficiency: 1.58
+shortname: 1.GJD
+stance: hasty
+type: mechanised
+waypoints: null

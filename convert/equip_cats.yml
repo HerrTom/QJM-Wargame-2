@@ -1,0 +1,19 @@
+Infantry: [AK-74,PKM,RPK-74,AGS-17,RPG-7V,RPK,MPi-KM,G3A3,PzF-44,MG-3,G3-SG1,FN FAL,FN MAG,
+            M72 LAW,M16,M60 MMG,M16/M203,LSW,MG3,Blindicide]
+Antitank: [9K115 Metis,9K111 Fagot,9K113 Konkurs,BRDM-2 9P148,BRDM-2 9P111,SPG-9,9K14P Malyutka,
+            Jaguar 2,MILAN,MT-12,Carl Gustav,M47 Dragon,Jagdpanzer,FV-438 Swingfire,M901,
+            M151 TOW,Jeep MILAN]
+APC/IFV: [BRM-1,BMP-1,BMP-1P,BMP-2,BTR-60PB,BTR-60PA (FAC),BTR-70,PRP-3,BRDM-2,BRDM-2rkh,BRDM-2U,
+        MT-LB,BTR-60PA,Marder,M113A2,SpPz Luchs,YP-408 PWRDR,YP-408 PWCO,YP-408 PWI-PC,YP-408 PWI-GR,
+        YP-408 PWAT,YP-408 PWMR,YPR-765,YPR-765 TOW,M113,M557,M113 Lynx,FV432,FV701(C) Ferret,
+        FV103 Spartan,FV105 Sultan CV,M3 CFV]
+AFV: [T-80B,T-64B,T-64A,T-55A,T-62A,Leopard 1A3,Leopard 2,Leopard 1,Centurion Mk.V,AMX-13 (105),
+        M1 Abrams, M60A3,Chieftain Mk.V,FV101 Scorpion,FV107 Scimitar,M628 CEV, Jagdpanzer Kanone,
+        ]
+Artillery: [9K52 Luna-M,2S1 Gvozdika,2S3 Akatsiya,2B11,2B7,D-30,BM-21,M109G,M113 M252,M109,
+            120mm mortar,M106,M102,60mm mortar, 81mm mortar,51mm mortar,L16A1,FV432 L16A1,
+            FV433 Abbot,M109A2,M252]
+Antiair: [9K31 Strela-1,9K32 Strela-2,2S6 Tunguska,ZSU-23-4 Shilka,9K35 Strela-10,2K12 Kub,
+        LAAD Javelin,Stinger,20mm Oerlikon,Rh202,Stinger,M163 VADS]
+Aircraft: [Mi-8T,Mi-24P,Mi-8,CH-47,Puma HC.1,Lynx AH.1 TOW,Gazelle AH.1,OH-58,AH-64,UH-60]
+Other: [null]

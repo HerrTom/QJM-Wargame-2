@@ -1,0 +1,17 @@
+SIDC: SFGPUCIZ---I
+equipment:
+  None: 0
+hq: MB.III
+location:
+- 841.0
+- 535.0
+name: "(DDR) 11. Mot. Sch\xC3\xBCtzendivision"
+nation: DDR
+personnel: 500
+proficiency: 1.58
+shortname: 11.MSD
+stance: attacking
+type: mechanised
+waypoints:
+- 153
+- 809

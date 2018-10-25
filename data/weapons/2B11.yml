@@ -1,0 +1,13 @@
+name: 2B11
+type: Gun
+range: '7180'
+rateOfFire: '15'
+calibre: '120'
+muzzleVel: '890'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: MCLOS
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

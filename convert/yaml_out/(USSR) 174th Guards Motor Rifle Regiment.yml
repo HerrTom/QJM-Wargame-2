@@ -1,0 +1,46 @@
+SIDC: SFGPUCIZ---G
+equipment:
+  2B11: 24
+  9K111 Fagot: 12
+  9K115 Metis: 27
+  9K31 Strela-1: 4
+  9K32 Strela-2: 30
+  AGS-17: 18
+  AK-74: 806
+  BMP-1P: 3
+  BRDM-2: 4
+  BRDM-2 9P148: 9
+  BRDM-2U: 21
+  BRM-1: 1
+  BTR-60PA (FAC): 1
+  BTR-60PB: 143
+  D-30: 18
+  GAZ-66: 67
+  MT-55: 1
+  PKM: 27
+  PRP-3: 1
+  RPG-7V: 148
+  RPK-74: 102
+  SPG-9: 6
+  T-80B: 40
+  TMM: 4
+  UAZ-469: 22
+  Ural-375: 57
+  Ural-375 POL: 26
+  ZIL-130: 36
+  ZIL-131: 14
+  ZSU-23-4 Shilka: 4
+hq: 57.GMRD
+location:
+- 842.0
+- 566.0
+name: (USSR) 174th Guards Motor Rifle Regiment
+nation: USSR
+personnel: 2523
+proficiency: 1.9
+shortname: 174.GMRR
+stance: attacking
+type: mechanised
+waypoints:
+- 153
+- 809

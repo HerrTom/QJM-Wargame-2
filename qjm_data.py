@@ -465,7 +465,11 @@ class database():
             for eq in needs:
                 self.formations[-1].AddEquipment(self.getEquipmentByName(eq))
             self.formations[-1].GenStrength()
-            
+    
+    def dumpFormations(self):
+        # this function will dump formation data back out as YAML
+        pass
+    
     def loadFrontline(self):
         # load in a map
         with open("./data/maps/germany1983.yml") as f:

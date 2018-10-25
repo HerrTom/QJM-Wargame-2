@@ -67,7 +67,7 @@ def convert_file(file):
             "stance": stance,
             }
             
-    with open("./out/{}.yml".format(pv.sanitize_filename(data["name"])),'w+') as f:
+    with open("./yaml_out/{}.yml".format(pv.sanitize_filename(data["name"])),'w+') as f:
         f.write(yaml.dump(new, default_flow_style=False))
     
 def convert_all(files):
@@ -80,7 +80,7 @@ if __name__ == '__main__':
     dname = os.path.dirname(abspath)
     os.chdir(dname)
     
-    files = glob.glob("./oob/*/*.yml")
+    files = glob.glob("./web_yaml/*/*.yml")
     
     convert_all(files)
     

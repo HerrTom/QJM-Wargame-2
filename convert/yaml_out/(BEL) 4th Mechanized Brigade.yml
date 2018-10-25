@@ -1,0 +1,31 @@
+SIDC: SFGPUCIZ---H
+equipment:
+  20mm Oerlikon: 10
+  60mm mortar: 18
+  81mm mortar: 20
+  ARV: 17
+  Blindicide: 20
+  FN MAG: 44
+  FV101 Scorpion: 8
+  FV103 Spartan: 6
+  FV107 Scimitar: 8
+  Jagdpanzer Kanone: 14
+  Jeep MILAN: 20
+  L1A1: 228
+  Leopard 1: 40
+  M109: 18
+  M113: 116
+  MILAN: 36
+  Truck: 120
+hq: 16.Div(BEL)
+location:
+- 574.0
+- 526.0
+name: (BEL) 4th Mechanized Brigade
+nation: BEL
+personnel: 1436
+proficiency: 1.58
+shortname: 4.MBde(BEL)
+stance: hasty
+type: mechanised
+waypoints: null
