@@ -1,15 +1,7 @@
 SIDC: SFGPUCA----H
 equipment:
-  M106: 24
   M113: 176
-  M16: 558
-  M16/M203: 200
-  M47 Dragon: 24
-  M557: 32
-  M60 MMG: 102
   M60A3: 140
-  M72 LAW: 100
-  M901: 24
   Truck: 216
 hq: 3.INF(US)
 location:

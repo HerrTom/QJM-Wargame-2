@@ -1,6 +1,5 @@
 SIDC: SFGPUCIZ---I
-equipment:
-  None: 0
+equipment: {}
 hq: I.Corps(NL)
 location:
 - 424.0

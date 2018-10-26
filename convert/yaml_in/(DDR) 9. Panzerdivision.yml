@@ -1,10 +1,9 @@
 SIDC: SFGPUCA----I
-equipment:
-  None: 0
+equipment: {}
 hq: MB.V
 location:
-- 986.0
-- 301.0
+- 932.0
+- 331.0
 name: (DDR) 9. Panzerdivision
 nation: DDR
 personnel: 500

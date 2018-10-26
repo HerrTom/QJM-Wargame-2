@@ -17,8 +17,8 @@ global Di
 Di = 5000
 
 global simTime
-simDuration = 3 # days
-simSteps    = 6*3
+simDuration = 1 # days
+simSteps    = 6
 simTime = simDuration / simSteps
 
 # for debug only
@@ -468,7 +468,10 @@ class database():
     
     def dumpFormations(self):
         # this function will dump formation data back out as YAML
-        pass
+        for f in self.formations:
+            filename = "./convert/yaml_in/{}.yml".format(pv.sanitize_filename(f.name))
+            f.WriteYaml(filename)
+        
     
     def loadFrontline(self):
         # load in a map
@@ -537,7 +540,21 @@ class formation():
             
     def __repr__(self):
         return "formation({})".format(self.name)
+    
+    def WriteYaml(self,file):
+        self.data["location"] = self.xy
+        self.data["personnel"] = self.personnel
+        eqDict = Counter()
+        for eq in self.equipment:
+            if eq is not None:
+                if eq.state == "Intact":
+                    eqDict.update({eq.name: 1})
+        self.data["equipment"] = dict(eqDict)
         
+        with open(file,'w+') as f:
+            d = yaml.dump(self.data,default_flow_style=False)
+            f.write(d)
+    
     def GetEquipmentNeeds(self):
         needs = []
         for key, val in self.data["equipment"].items():
@@ -1138,6 +1155,7 @@ if __name__ == '__main__':
     
     db.LossesBySide()
     
+    db.dumpFormations()
     # print("MISSING OBJECTS:", missing)
     
     

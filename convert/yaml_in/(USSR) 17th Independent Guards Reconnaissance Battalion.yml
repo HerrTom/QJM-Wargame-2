@@ -5,19 +5,14 @@ equipment:
   BRDM-2: 6
   BRDM-2U: 1
   BRM-1: 3
-  BTR-60PA: 2
   BTR-60PB: 5
-  GAZ-66: 17
   RPG-7V: 13
   RPK-74: 25
   T-64B: 6
-  UAZ-469: 19
-  Ural-375 POL: 2
-  ZIL-131: 11
 hq: 16.GTD
 location:
-- 915.0
-- 332.0
+- 867.0
+- 362.0
 name: (USSR) 17th Independent Guards Reconnaissance Battalion
 nation: USSR
 personnel: 285

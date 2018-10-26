@@ -1,10 +1,9 @@
 SIDC: SFGPUCIZ---J
-equipment:
-  None: 0
+equipment: {}
 hq: GSFG
 location:
-- 966.0
-- 391.0
+- 912.0
+- 421.0
 name: (USSR) 20th Guards Combined Arms Army
 nation: USSR
 personnel: 500

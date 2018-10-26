@@ -1,26 +1,14 @@
 SIDC: SFGPUCFHE--G
 equipment:
-  1V12 ACRV: 24
-  1V18 ACRV: 8
   2S3 Akatsiya: 54
   AK-74: 378
-  BM-21: 18
   BTR-60PB: 6
-  GAZ-66: 38
-  MT-LB: 1
-  PRP-3: 4
   RPG-7V: 58
   RPK-74: 54
-  UAZ-469: 22
-  Ural-375: 90
-  Ural-375 POL: 16
-  Van Truck: 15
-  ZIL-130: 51
-  ZIL-131: 8
 hq: 20.GMRD
 location:
-- 907.0
-- 571.0
+- 847.0
+- 589.0
 name: (USSR) 944th Guards Artillery Regiment
 nation: USSR
 personnel: 1062

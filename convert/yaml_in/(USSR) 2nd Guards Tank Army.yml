@@ -1,10 +1,9 @@
 SIDC: SFGPUCA----J
-equipment:
-  None: 0
+equipment: {}
 hq: GSFG
 location:
-- 922.0
-- 354.0
+- 868.0
+- 384.0
 name: (USSR) 2nd Guards Tank Army
 nation: USSR
 personnel: 500

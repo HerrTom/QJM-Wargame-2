@@ -1,15 +1,7 @@
 SIDC: SFGPUCIZ---H
 equipment:
-  M106: 18
   M113: 163
-  M16: 478
-  M16/M203: 181
-  M47 Dragon: 24
-  M557: 22
-  M60 MMG: 94
   M60A3: 70
-  M72 LAW: 82
-  M901: 24
   Truck: 136
 hq: 3.ARM(US)
 location:

@@ -1,6 +1,5 @@
 SIDC: SFGPUCIZ---I
-equipment:
-  None: 0
+equipment: {}
 hq: II.Korps
 location:
 - 854.0

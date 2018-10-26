@@ -1,6 +1,5 @@
 SIDC: SFGPUCA----I
-equipment:
-  None: 0
+equipment: {}
 hq: I.Corps(UK)
 location:
 - 574.0

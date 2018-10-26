@@ -1,10 +1,9 @@
 SIDC: SFGPUCA----J
-equipment:
-  None: 0
+equipment: {}
 hq: GSFG
 location:
-- 962.0
-- 582.0
+- 902.0
+- 600.0
 name: (USSR) 1st Guards Tank Army
 nation: USSR
 personnel: 500

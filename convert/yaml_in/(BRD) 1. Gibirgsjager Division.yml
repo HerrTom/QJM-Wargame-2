@@ -1,6 +1,5 @@
 SIDC: SFGPUCIO---I
-equipment:
-  None: 0
+equipment: {}
 hq: II.Korps
 location:
 - 780.0

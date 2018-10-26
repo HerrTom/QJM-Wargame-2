@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    .link {
+      fill: none;
+      stroke: rgb(200, 200, 200);
+      shape-rendering: crispEdges;
+    }
+  </style>
+  <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="https://raw.githack.com/HerrTom/QJM_Wargame/master/web/milsymbol.js"></script>
+  <script src="https://raw.githack.com/HerrTom/QJM-Wargame-2/master/convert/json_out/situation.js"></script>
+
+</head>
+
+<body onload="renderOrbat()">
+
+  Orientation of the tree:
+  <input onclick="update()" type="radio" name="orientation" value="vertical">Top to Bottom
+  <input onclick="update()" type="radio" name="orientation" value="horizontal" checked>Left to Right
+  <br>
+
+  <div id="orbattree"></div>
+
+  <script>
+	function shadeRGBColor(color, percent) {
+		var f=color.split(","),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=parseInt(f[0].slice(4)),G=parseInt(f[1]),B=parseInt(f[2]);
+		return "rgb("+(Math.round((t-R)*p)+R)+","+(Math.round((t-G)*p)+G)+","+(Math.round((t-B)*p)+B)+")";
+	}
+
+    function geoJson2tree(data, name, command) {
+      var rawdata = {};
+      for (var key in data.features) {
+        rawdata[data.features[key].properties[name]] = data.features[key];
+        rawdata[data.features[key].properties[name]].children = [];
+      }
+
+      var tree = { "properties": { "orbatName": "milsymbol Orbat", "SIDC": "SUGP------" }, "children": [] };
+      for (var key in rawdata) {
+        if (rawdata.hasOwnProperty(rawdata[key].properties[command])) {
+          rawdata[rawdata[key].properties[command]].children.push(rawdata[key]);
+        } else {
+          var newCommand = { "properties": { "name": rawdata[key].properties[command], "SIDC": "SFGP------", 
+												"color": rawdata[key].properties["color"] }, "children": [rawdata[key]] };
+          rawdata[rawdata[key].properties[command]] = newCommand;
+          tree.children.push(newCommand);
+        }
+      }
+
+      return tree;
+    }
+
+    var structure = geoJson2tree(situation, "name", "command");
+
+    var tree, diagonal, svg;
+    var p = 0,
+      duration = 750,
+      root;
+
+    var sof, orientation, _source;
+
+    var margin = { top: 100, right: 200, bottom: 200, left: 100 };
+
+    function renderOrbat() {
+      tree = d3.layout.tree().separation(function (a, b) { return a.parent === b.parent ? 1 : 1; })
+
+      svg = d3.select("#orbattree").append("svg")
+        .attr("width", 500)
+        .attr("height", 500)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      structure.x0 = 500 / 2;
+      structure.y0 = 0;
+
+      function collapse(d) {
+        if (d.children) {
+          d._children = d.children;
+          d._children.forEach(collapse);
+          d.children = null;
+        }
+      }
+      structure.children.forEach(collapse);
+
+      update(structure);
+    }
+    function update(source) {
+      var radios = document.getElementsByName('orientation');
+      for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+          orientation = radios[i].value;
+          break;
+        }
+      }
+
+      if (orientation == "horizontal") { tree.nodeSize([70, 200]) } else { tree.nodeSize([120, 150]) };
+
+      // Compute the new tree layout.
+      var nodes = tree.nodes(structure),
+        links = tree.links(nodes);
+
+      var minX = 0;
+      var maxX = 0;
+      var maxY = 0;
+      nodes.forEach(function (d) {
+        maxY = Math.max(d.y, maxY);
+        maxX = Math.max(d.x, maxX);
+        minX = Math.min(d.x, minX)
+      });
+
+      nodes.forEach(function (d) { d.x = d.x - minX; });
+
+      if (orientation == "horizontal") {
+        d3.select("#orbattree").select("svg").transition()
+          .duration(duration)
+          .attr("height", (maxX - minX) + margin.top + margin.bottom)
+          .attr("width", maxY + margin.left + margin.right);
+      } else {
+        d3.select("#orbattree").select("svg").transition()
+          .duration(duration)
+          .attr("width", (maxX - minX) + margin.top + margin.bottom)
+          .attr("height", maxY + margin.left + margin.right);
+      }
+
+      // Update the nodes…
+      var node = svg.selectAll("g.node")
+        .data(nodes, function (d) { return d.id || (d.id = ++p); });
+
+      // Enter any new nodes at the parent's previous position.
+      var nodeEnter = node.enter().append("g")
+        .attr("class", "node")
+        .attr("transform", function (d) { return orientation == "horizontal" ? ("translate(" + source.y0 + "," + source.x0 + ")") : ("translate(" + source.x0 + "," + source.y0 + ")"); })
+        .on("contextmenu", altclick).on("click", click)
+
+      // Transition nodes to their new position.
+      var nodeUpdate = node.transition()
+        .duration(duration)
+        .attr("transform", function (d) { return orientation == "horizontal" ? ("translate(" + d.y + "," + d.x + ")") : ("translate(" + d.x + "," + d.y + ")"); });
+
+      //Update all node symbols so that the color reflect if they have hidden children or not.
+      node.select(".symbol").remove()
+      node.append("g")
+        .attr("class", "symbol")
+        .attr("transform", function (d) {
+          <!-- if (d.properties.SIDC) d.symbol = new ms.Symbol(d.properties.SIDC, { size: 30, uniqueDesignation: (d.properties.name), colorMode: (d._children && d._children != "" ? ms.getColorMode("Medium") : ms.getColorMode("Light")) }); -->
+          if (d.properties.SIDC) d.symbol = new ms.Symbol(d.properties.SIDC, { size: 30, uniqueDesignation: (d.properties.name),
+			colorMode: (d._children && d._children != "" ? ms.ColorMode(shadeRGBColor(d.properties.color,-.3),shadeRGBColor(d.properties.color,-.3),shadeRGBColor(d.properties.color,-.3),shadeRGBColor(d.properties.color,-.3),shadeRGBColor(d.properties.color,-.3)) : ms.ColorMode(d.properties.color,d.properties.color,d.properties.color,d.properties.color,d.properties.color))});
+          return "translate(" + (-d.symbol.octagonAnchor.x) + "," + (-d.symbol.octagonAnchor.y) + ")"
+        })
+        .each(function (d) { this.appendChild(d.symbol.asDOM()) })
+
+      // Transition exiting nodes to the parent's new position.
+      var nodeExit = node.exit().transition()
+        .duration(duration)
+        .attr("transform", function (d) { return orientation == "horizontal" ? ("translate(" + source.y + "," + source.x + ")") : ("translate(" + source.x + "," + source.y + ")"); })
+        .remove();
+
+      // Update the links…
+      var link = svg.selectAll("path.link")
+        .data(links, function (d) { return d.target.id; });
+
+      // Enter any new links at the parent's previous position.
+      link.enter().insert("path", "g")
+        .attr("class", "link")
+        .attr("d", function (d) {
+          var o = { x: source.x0, y: source.y0 };
+          return elbow({ source: o, target: o });
+        });
+
+      // Transition links to their new position.
+      link.transition()
+        .duration(duration)
+        .attr("d", elbow);
+
+      // Transition exiting nodes to the parent's new position.
+      link.exit().transition()
+        .duration(duration)
+        .attr("d", function (d) {
+          var o = { x: source.x, y: source.y };
+          return elbow({ source: o, target: o });
+        })
+        .remove();
+
+      // Stash the old positions for transition.
+      nodes.forEach(function (d) {
+        d.x0 = d.x;
+        d.y0 = d.y;
+      });
+      root = structure;
+      _source = source;
+    }
+
+    // Toggle children on click.
+    function click(d) {
+      if (d.children) {
+        d._children = d.children;
+        d.children = null;
+      } else {
+        d.children = d._children;
+        d._children = null;
+      }
+      update(d);
+    }
+	
+	function altclick(d) {
+		alert(d.equipment)
+	}
+	
+    function expand(d) {
+      if (d._children) {
+        d.children = d._children;
+        d._children = null;
+      }
+    }
+
+    // Draws the line between nodes
+    function elbow(d, i) {
+      if (orientation == "horizontal") return "M" + d.source.y + "," + d.source.x
+        + " l" + (d.target.y - d.source.y) / 2 + "," + 0 + " "
+        + " 0," + (d.target.x - d.source.x) + " "
+        + "L" + d.target.y + "," + d.target.x;
+
+      return "M" + d.source.x + "," + d.source.y
+        + " l" + 0 + "," + (d.target.y - d.source.y) / 2 + " "
+        + " " + (d.target.x - d.source.x) + ",0 "
+        + "L" + d.target.x + "," + d.target.y;
+    }
+
+  </script>
+</body>

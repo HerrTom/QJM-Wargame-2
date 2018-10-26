@@ -1,6 +1,5 @@
 SIDC: SFGPUH-----J
-equipment:
-  None: 0
+equipment: {}
 hq: SACEUR
 location:
 - 701.0

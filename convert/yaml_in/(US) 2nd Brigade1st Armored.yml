@@ -1,15 +1,7 @@
 SIDC: SFGPUCA----H
 equipment:
-  M106: 24
   M113: 114
-  M16: 439
-  M16/M203: 138
-  M47 Dragon: 12
-  M557: 36
-  M60 MMG: 67
   M60A3: 210
-  M72 LAW: 86
-  M901: 12
   Truck: 268
 hq: 1.ARM(US)
 location:
