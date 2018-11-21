@@ -1,10 +1,10 @@
 SIDC: SFGPUCRVA--G
 equipment:
-  M113: 53
-  Truck: 882
+  M113: 45
+  Truck: 828
 hq: V.Corps(US)
 location:
-- 682.0
+- 680.0
 - 636.0
 name: (US) 11th Armored Cavalry Regiment
 nation: USA

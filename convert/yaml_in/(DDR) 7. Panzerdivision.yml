@@ -2,8 +2,8 @@ SIDC: SFGPUCA----I
 equipment: {}
 hq: MB.III
 location:
-- 896.0
-- 600.0
+- 782.0
+- 630.0
 name: (DDR) 7. Panzerdivision
 nation: DDR
 personnel: 500

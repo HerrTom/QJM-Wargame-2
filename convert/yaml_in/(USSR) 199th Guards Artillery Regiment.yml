@@ -1,14 +1,14 @@
 SIDC: SFGPUCFHE--G
 equipment:
   2S3 Akatsiya: 54
-  AK-74: 378
+  AK-74: 376
   BTR-60PB: 6
   RPG-7V: 58
-  RPK-74: 54
+  RPK-74: 53
 hq: 94.GMRD
 location:
-- 760.0
-- 308.0
+- 730.0
+- 342.0
 name: (USSR) 199th Guards Artillery Regiment
 nation: USSR
 personnel: 1062

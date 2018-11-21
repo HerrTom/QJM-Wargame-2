@@ -1,21 +1,20 @@
 SIDC: SFGPUCIM---G
 equipment:
   2B11: 24
-  AK-74: 806
-  BMP-2: 129
+  AK-74: 762
+  BMP-2: 95
   BRDM-2: 4
-  BRDM-2 9P148: 9
-  BRDM-2U: 22
-  BRM-1: 1
-  BTR-60PB: 4
-  PKM: 54
-  RPG-7V: 146
-  RPK-74: 102
-  T-64B: 40
+  BRDM-2 9P148: 7
+  BRDM-2U: 20
+  BTR-60PB: 3
+  PKM: 50
+  RPG-7V: 145
+  RPK-74: 96
+  T-64B: 31
 hq: 207.MRD
 location:
-- 759.0
-- 496.0
+- 689.0
+- 521.0
 name: (USSR) 245th Guards Motor Rifle Regiment
 nation: USSR
 personnel: 2523

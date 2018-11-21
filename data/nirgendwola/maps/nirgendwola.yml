@@ -1,0 +1,11 @@
+mapName: Nirgendwolan Civil War
+mapDesc: War between East and West Nirgendwola
+mapPixelsPerKM: 1
+mapTerrainCover: nirgendwola_cover.bmp
+mapTerrainType: nirgendwola_terrain.bmp
+mapTerritory: nirgendwola_territory.bmp
+mapWater: nirgendwola_water.bmp
+mapRoads: nirgendwola_roads.bmp
+date: 1983-11-22
+season: fall, temperate
+weather: dry, overcast, temperate

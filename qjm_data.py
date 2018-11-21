@@ -11,13 +11,13 @@ from PIL import Image
 from tqdm import tqdm
 
 import interps
-
+import supply_network
 
 global Di
 Di = 5000
 
 global simTime
-simDuration = 1 # days
+simDuration = 3 # days
 simSteps    = 6
 simTime = simDuration / simSteps
 
@@ -45,7 +45,7 @@ waterDict = {riverColour: "river", waterColour: "water",
             (255,255,255): "land"}
 
 
-def print_losses(losses,cols = 3):
+def print_losses(losses,cols = 3, quiet=False):
     idx = 0
     lossStr = ""
     for key, val in losses.items():
@@ -54,7 +54,10 @@ def print_losses(losses,cols = 3):
         if idx == cols:
             idx = 0
             lossStr += "\n"
-    print(lossStr)
+    if quiet:
+        return lossStr
+    else:
+        print(lossStr)
             
 def represent_ordereddict(dumper, data):
     value = []
@@ -352,9 +355,8 @@ class database():
     def __init__(self):
         self.loadWeaps()
         self.loadEquip()
-        self.loadFormations()
         
-        print("MISSING OBJECTS:", missing)
+        
         
     def loadWeaps(self):
         self.weaps = []
@@ -453,9 +455,9 @@ class database():
         equipNations = list(equipNations)
         return equipNations
         
-    def loadFormations(self):
+    def loadFormations(self,path="./data/formations/"):
         self.formations = []
-        files = glob.glob("./data/formations/*.yml")
+        files = glob.glob("{}*.yml".format(path))
         # print(files)
         for fid in files:
             with open(fid) as f:
@@ -465,17 +467,32 @@ class database():
             for eq in needs:
                 self.formations[-1].AddEquipment(self.getEquipmentByName(eq))
             self.formations[-1].GenStrength()
+        print("MISSING OBJECTS:", missing)
+    
+    def getFormationByShortName(self,name):
+        for f in self.formations:
+            if f.shortname == name:
+                return f
+        # If the loop runs out, this equipment is not in the list
+        return None
+
+    def getFormationByName(self,name):
+        for f in self.formations:
+            if f.name == name:
+                return f
+        # If the loop runs out, this equipment is not in the list
+        return None
     
     def dumpFormations(self):
         # this function will dump formation data back out as YAML
         for f in self.formations:
             filename = "./convert/yaml_in/{}.yml".format(pv.sanitize_filename(f.name))
             f.WriteYaml(filename)
-        
+
     
-    def loadFrontline(self):
+    def loadFrontline(self,path):
         # load in a map
-        with open("./data/maps/germany1983.yml") as f:
+        with open(path) as f:
             mapdata = yaml.load(f)
         self.frontline = Frontline(self,mapdata)
         
@@ -510,6 +527,7 @@ class formation():
     def __init__(self,data=None):
         self.Strength = None
         self.name = ""
+        self.shortname = ""
         self.equipment = []
         self.nation = ""
         self.type = ""
@@ -517,6 +535,8 @@ class formation():
         self.personnel = 0
         self.proficiency = 0
         self.stance = ""
+        self.hq = None
+        self.SIDC = "SFGPU-------"
         
         self.losses = Counter()
         self.casualties = Counter({"Killed": 0, "Wounded": 0})
@@ -526,11 +546,14 @@ class formation():
         
         if data is not None:
             self.name   = data["name"]
+            self.shortname   = data["shortname"]
             self.nation = data["nation"]
             self.type   = data["type"]
             self.waypoint = data["waypoints"]
             self.personnel = data["personnel"]
             self.proficiency = data["proficiency"]
+            self.hq         = data["hq"]
+            self.SIDC       = data["SIDC"]
             self.stance = data["stance"]
             
             self.xy     = data["location"]
@@ -661,6 +684,35 @@ class formation():
         print_losses(self.losses)
         # print("Losses: {}".format(self.losses))
         print("*"*60)
+    
+    def GetStatus(self):
+        losses = print_losses(self.losses,quiet=True)
+        
+        eqIntact    = Counter()
+        eqDamaged   = Counter()
+        eqDestroyed = Counter()
+        
+        for eq in self.equipment:
+            if eq is not None:
+                # this adds the entry to each, regardless of its state
+                eqIntact.update({eq.name: 0})
+                eqDamaged.update({eq.name: 0})
+                eqDestroyed.update({eq.name: 0})
+                
+                if eq.state == "Intact":
+                    eqIntact.update({eq.name: 1})
+                elif eq.state == "Damaged":
+                    eqDamaged.update({eq.name: 1})
+                else:
+                    eqDestroyed.update({eq.name: 1})
+        
+        inventory = "{:>24} | {:>9} | {:>9} | {:>9} \n".format("Equipment","Intact","Damaged","Destroyed")
+        for eq in eqIntact.keys():
+            inventory += "{:>24} | {:9,} | {:9,} | {:9,}\n".format(eq, eqIntact[eq], eqDamaged[eq], eqDestroyed[eq])
+        
+        data = "{}\n{}\n{}\n  Losses: {}".format(self.name,"*"*len(self.name),inventory,losses)
+        
+        return data
         
         
 class Frontline():
@@ -673,6 +725,7 @@ class Frontline():
         self.TerrainType    = Image.open("./data/maps/{}".format(mapdata["mapTerrainType"]))
         self.Territory      = Image.open("./data/maps/{}".format(mapdata["mapTerritory"]))
         self.TerrainWater   = Image.open("./data/maps/{}".format(mapdata["mapWater"]))
+        self.Roads          = Image.open("./data/maps/{}".format(mapdata["mapRoads"]))
         
         self.weather        = mapdata["weather"]
         self.season         = mapdata["season"]
@@ -770,7 +823,11 @@ class Frontline():
                         influence = 2 - dist/(maxrad/2)
                     pt.AddUnit(unit,influence)
                     unit.NumPoints+=1
-                    
+    
+    def generateSupplyNetwork(self):
+        self.supplyRED = supply_network.generate_weighted_graph(self.Roads,self.terrainWater,self.terrainCover,self.Territory,RED)
+        self.supplyBLU = supply_network.generate_weighted_graph(self.Roads,self.terrainWater,self.terrainCover,self.Territory,BLU)
+    
     def RunCombat(self):
         for pt in self.FrontlinePoints:
             pt.Combat()
@@ -790,7 +847,7 @@ class Frontline():
                 wp  = attacker.waypoint
                 dir = make_unit([wp[0] - attacker.x, wp[1]-attacker.y])
                 n = 300 # number of samples to take
-                advance = pt.advance[idx]
+                advance = pt.advance[idx] / len(pt.attackers)
                 
                 # draw pixels for advances
                 adv = True
@@ -1119,43 +1176,53 @@ if __name__ == '__main__':
     dname = os.path.dirname(abspath)
     os.chdir(dname)
     
+    
+    mapname = "nirgendwola"
+    # mapname = "germany1983"
+    dbconfig = "./data/{}/".format(mapname)
+    dbforms = "{}formations/".format(dbconfig)
+    mapconfig = "{}maps/{}.yml".format(dbconfig,mapname)
+    
     db = database()
+    db.loadFormations(dbconfig)
     # for form in db.formations:
         # form.PrintStrength()
     
-    db.loadFrontline()
-    
-    # dev stuff to visiualize front
-    im = copy(db.frontline.TerrainWater)
-    db.frontline.DrawFrontline(im,(100,100,100))
-    
-    # associate the units to the frontline
-    db.frontline.AssociateUnits(db.formations)
-    # run combat for 6 turns
-    print("Running combat...")
-    for x in tqdm(range(simSteps)):
-        db.frontline.RunCombat()
-        db.frontline.Advance()
-        db.MoveIdleUnits()
-        db.frontline.FindFL()
+    ans = input("Run simulation? (y/n) > ")
+    if ans.lower == "y":
+        db.loadFrontline(mapconfig)
+        
+        # dev stuff to visiualize front
+        im = copy(db.frontline.TerrainWater)
+        db.frontline.DrawFrontline(im,(100,100,100))
+        
+        # associate the units to the frontline
         db.frontline.AssociateUnits(db.formations)
+        # run combat for 6 turns
+        print("Running combat...")
+        for x in tqdm(range(simSteps)):
+            db.frontline.RunCombat()
+            db.frontline.Advance()
+            db.MoveIdleUnits()
+            db.frontline.FindFL()
+            db.frontline.AssociateUnits(db.formations)
+            db.frontline.DrawFrontline(im,(190,190,190))
+            
+        db.frontline.Territory.show()
         
+        for form in db.formations:
+            form.PrintStrength()
         
-    db.frontline.Territory.show()
-    
-    for form in db.formations:
-        form.PrintStrength()
-    
-    # show units on the map
-    db.frontline.DrawFrontline(im,(0,0,0))
-    db.frontline.DrawUnits(im)
-    im.show()
-    
-    db.TotalCasualties()
-    
-    db.LossesBySide()
-    
-    db.dumpFormations()
-    # print("MISSING OBJECTS:", missing)
+        # show units on the map
+        db.frontline.DrawFrontline(im,(0,0,0))
+        db.frontline.DrawUnits(im)
+        im.show()
+        
+        db.TotalCasualties()
+        
+        db.LossesBySide()
+        
+        db.dumpFormations()
+        # print("MISSING OBJECTS:", missing)
     
     

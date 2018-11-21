@@ -1,0 +1,15 @@
+SIDC: SFGPUCA----I
+equipment:
+  None: 0
+hq: I.Korps
+location:
+- 696.0
+- 448.0
+name: (BRD) 1. Panzer Division
+nation: BRD
+personnel: 500
+proficiency: 1.58
+shortname: 1.PzD
+stance: hasty
+type: mechanised
+waypoints: null

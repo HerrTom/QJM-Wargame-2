@@ -1,0 +1,17 @@
+SIDC: SFGPUCIZ---J
+equipment:
+  None: 0
+hq: GSFG
+location:
+- 817.0
+- 468.0
+name: (USSR) 3rd Combined Arms Army
+nation: USSR
+personnel: 500
+proficiency: 1.9
+shortname: 3.CAA
+stance: attacking
+type: mechanised
+waypoints:
+- 153
+- 809

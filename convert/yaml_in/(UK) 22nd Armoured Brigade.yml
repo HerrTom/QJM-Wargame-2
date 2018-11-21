@@ -1,9 +1,9 @@
 SIDC: SFGPUCA----H
 equipment:
-  Chieftain Mk.V: 114
-  L1A1: 542
+  Chieftain Mk.V: 108
+  L1A1: 540
   MILAN: 48
-  Truck: 296
+  Truck: 293
 hq: 1.ARM(UK)
 location:
 - 731.0

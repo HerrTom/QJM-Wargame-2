@@ -1,20 +1,19 @@
 SIDC: SFGPUCIM---G
 equipment:
   2B11: 24
-  AK-74: 806
+  AK-74: 774
   BMP-1: 3
-  BRDM-2: 4
+  BRDM-2: 2
   BRDM-2 9P148: 9
-  BRDM-2U: 21
-  BRM-1: 1
-  BTR-60PB: 143
-  PKM: 27
-  RPG-7V: 148
-  RPK-74: 102
+  BRDM-2U: 14
+  BTR-60PB: 105
+  PKM: 26
+  RPG-7V: 146
+  RPK-74: 94
 hq: 47.GTD
 location:
-- 766.0
-- 497.0
+- 699.0
+- 523.0
 name: (USSR) 246th Guards Motor Rifle Regiment
 nation: USSR
 personnel: 2523

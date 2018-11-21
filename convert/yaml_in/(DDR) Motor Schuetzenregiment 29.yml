@@ -12,8 +12,8 @@ equipment:
   T-55A: 40
 hq: 8.MSD
 location:
-- 903.0
-- 255.0
+- 807.0
+- 327.0
 name: (DDR) Motor Schuetzenregiment 29
 nation: DDR
 personnel: 2320

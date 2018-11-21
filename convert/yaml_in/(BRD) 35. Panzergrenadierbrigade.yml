@@ -1,13 +1,13 @@
 SIDC: SFGPUCIZ---H
 equipment:
-  G3A3: 270
-  Leopard 1A3: 67
+  G3A3: 266
+  Leopard 1A3: 66
   M113A2: 32
   MG3: 54
   MILAN: 27
-  Marder 1: 79
+  Marder 1: 78
   SPz Luchs: 12
-  Truck: 294
+  Truck: 292
 hq: 12.PzDv
 location:
 - 701.0

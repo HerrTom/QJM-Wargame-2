@@ -1,0 +1,17 @@
+SIDC: SFGPUH-----K
+equipment:
+  None: 0
+hq: LaSK
+location:
+- 868.0
+- 551.0
+name: (DDR) Military District III
+nation: DDR
+personnel: 500
+proficiency: 1.58
+shortname: MB.III
+stance: attacking
+type: mechanised
+waypoints:
+- 153
+- 809

@@ -2,20 +2,20 @@ SIDC: SFGPUCIZ---G
 equipment:
   2B11: 24
   2S1 Gvozdika: 18
-  AK-74: 806
-  BMP-1P: 126
+  AK-74: 790
+  BMP-1P: 119
   BRDM-2: 4
   BRDM-2 9P148: 9
-  BRDM-2U: 22
+  BRDM-2U: 20
   BRM-1: 1
   BTR-60PB: 4
-  PKM: 54
+  PKM: 51
   RPG-7V: 146
   RPK-74: 102
 hq: 39.GMRD
 location:
-- 720.0
-- 631.0
+- 679.0
+- 637.0
 name: (USSR) 117th Guards Motor Rifle Regiment
 nation: USSR
 personnel: 2424

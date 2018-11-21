@@ -1,19 +1,19 @@
 SIDC: SFGPUCA----G
 equipment:
   2S1 Gvozdika: 18
-  AK-74: 275
+  AK-74: 257
   BMP-2: 3
-  BRDM-2: 4
-  BRDM-2U: 12
+  BRDM-2: 3
+  BRDM-2U: 8
   BRM-1: 1
-  BTR-60PB: 4
+  BTR-60PB: 3
   RPG-7V: 36
-  RPK-74: 21
-  T-80B: 94
+  RPK-74: 20
+  T-80B: 74
 hq: 94.GMRD
 location:
-- 761.0
-- 339.0
+- 681.0
+- 395.0
 name: (USSR) 74th Guards Tank Regiment
 nation: USSR
 personnel: 1143

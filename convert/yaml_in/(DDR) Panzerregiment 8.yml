@@ -2,16 +2,16 @@ SIDC: SFGPUCA----G
 equipment:
   2S1 Gvozdika: 18
   BMP-1: 3
-  BRDM-2: 4
-  BRDM-2U: 12
+  BRDM-2: 3
+  BRDM-2U: 10
   BRM-1: 1
   BTR-70: 4
   RPG-7V: 36
-  T-55A: 94
+  T-55A: 81
 hq: 8.MSD
 location:
-- 801.0
-- 346.0
+- 715.0
+- 410.0
 name: (DDR) Panzerregiment 8
 nation: DDR
 personnel: 1143

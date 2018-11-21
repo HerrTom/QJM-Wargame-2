@@ -1,0 +1,15 @@
+SIDC: SFGPUH-----J
+equipment:
+  None: 0
+hq: SACEUR
+location:
+- 701.0
+- 869.0
+name: (BRD) II Korps
+nation: BRD
+personnel: 500
+proficiency: 1.58
+shortname: II.Korps
+stance: hasty
+type: mechanised
+waypoints: null

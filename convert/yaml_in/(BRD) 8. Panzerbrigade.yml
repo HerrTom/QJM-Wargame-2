@@ -1,12 +1,12 @@
 SIDC: SFGPUCA----H
 equipment:
-  G3A3: 135
-  M113A2: 15
-  MG3: 33
-  MILAN: 18
-  Marder 1: 46
-  SPz Luchs: 12
-  Truck: 281
+  G3A3: 83
+  M113A2: 6
+  MG3: 16
+  MILAN: 17
+  Marder 1: 4
+  SPz Luchs: 1
+  Truck: 182
 hq: 3.PzD
 location:
 - 736.0
