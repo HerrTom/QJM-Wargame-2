@@ -30,8 +30,8 @@ equipment:
   ZSU-23-4 Shilka: 4
 hq: 2.MSD
 location:
-- 928.0
-- 400.0
+- 277
+- 363
 name: (VRN) Motor Schuetzenregiment 21
 nation: DDR
 personnel: 2320

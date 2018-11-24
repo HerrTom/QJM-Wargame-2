@@ -1,6 +1,8 @@
+import os
 import glob
 import pprint
 from collections import OrderedDict, Counter
+from concurrent.futures import ThreadPoolExecutor as PoolExecutor
 from random import random
 
 from copy import copy
@@ -81,7 +83,10 @@ def signed_sqrt(x):
 def make_unit(vec):
     # turns an (x,y) vector into a unit vector
     magnitude = (vec[0]**2 + vec[1]**2)**.5
-    return [vec[0]/magnitude, vec[1]/magnitude]
+    if magnitude == 0:
+        return [0,0]
+    else:
+        return [vec[0]/magnitude, vec[1]/magnitude]
     
 def multiply_dict(A,B):
     # multiplies keys in dict A by equivalent keys in BEL
@@ -356,7 +361,34 @@ class database():
         self.loadWeaps()
         self.loadEquip()
         
+    def Simulate(self):
         
+        # dev stuff to visiualize front
+        # im = copy(db.frontline.TerrainWater)
+        # db.frontline.DrawFrontline(im,(100,100,100))
+        
+        # associate the units to the frontline
+        # db.frontline.AssociateUnits(db.formations)
+        # run combat for 6 turns
+        print("Running combat...")
+        for x in tqdm(range(simSteps)):
+            self.frontline.AssociateUnits()
+            self.frontline.RunCombat()
+            self.frontline.Advance()
+            self.MoveIdleUnits()
+            self.frontline.FindFL()
+            
+            # db.frontline.DrawFrontline(im,(190,190,190))
+            
+        # db.frontline.Territory.show()
+        
+        # for form in db.formations:
+            # form.PrintStrength()
+        
+        # show units on the map
+        # db.frontline.DrawFrontline(im,(0,0,0))
+        # db.frontline.DrawUnits(im)
+        # im.show()
         
     def loadWeaps(self):
         self.weaps = []
@@ -492,9 +524,10 @@ class database():
     
     def loadFrontline(self,path):
         # load in a map
+        dir, file = os.path.split(path)
         with open(path) as f:
             mapdata = yaml.load(f)
-        self.frontline = Frontline(self,mapdata)
+        self.frontline = Frontline(self,mapdata,dir)
         
     def MoveIdleUnits(self):
         # moves all units that don't see combat
@@ -706,26 +739,22 @@ class formation():
                 else:
                     eqDestroyed.update({eq.name: 1})
         
-        inventory = "{:>24} | {:>9} | {:>9} | {:>9} \n".format("Equipment","Intact","Damaged","Destroyed")
-        for eq in eqIntact.keys():
-            inventory += "{:>24} | {:9,} | {:9,} | {:9,}\n".format(eq, eqIntact[eq], eqDamaged[eq], eqDestroyed[eq])
-        
-        data = "{}\n{}\n{}\n  Losses: {}".format(self.name,"*"*len(self.name),inventory,losses)
-        
-        return data
+        data = "{}\n{}\n  Losses: {}".format(self.name,"*"*len(self.name),losses)
+        states = {"Intact": eqIntact, "Damaged": eqDamaged, "Destroyed": eqDestroyed}
+        return data, states
         
         
 class Frontline():
     
-    def __init__(self,parent,mapdata):
+    def __init__(self,parent,mapdata,directory):
         self.name           = mapdata["mapName"]
         self.desc           = mapdata["mapDesc"]
         self.scale          = mapdata["mapPixelsPerKM"]
-        self.TerrainCover   = Image.open("./data/maps/{}".format(mapdata["mapTerrainCover"]))
-        self.TerrainType    = Image.open("./data/maps/{}".format(mapdata["mapTerrainType"]))
-        self.Territory      = Image.open("./data/maps/{}".format(mapdata["mapTerritory"]))
-        self.TerrainWater   = Image.open("./data/maps/{}".format(mapdata["mapWater"]))
-        self.Roads          = Image.open("./data/maps/{}".format(mapdata["mapRoads"]))
+        self.TerrainCover   = Image.open("{}/{}".format(directory,mapdata["mapTerrainCover"]))
+        self.TerrainType    = Image.open("{}/{}".format(directory,mapdata["mapTerrainType"]))
+        self.Territory      = Image.open("{}/{}".format(directory,mapdata["mapTerritory"]))
+        self.TerrainWater   = Image.open("{}/{}".format(directory,mapdata["mapWater"]))
+        self.Roads          = Image.open("{}/{}".format(directory,mapdata["mapRoads"]))
         
         self.weather        = mapdata["weather"]
         self.season         = mapdata["season"]
@@ -737,7 +766,9 @@ class Frontline():
         
         self.FindFL()
         
+    def CheckFL(self,xy):
         
+    
     def FindFL(self):
         # march through image from L to R, and drop a FrontlinePoint on each type
         size = self.Territory.size
@@ -797,12 +828,13 @@ class Frontline():
             else:
                 px[unit.x,unit.y] = (0,0,255)
         
-    def AssociateUnits(self,units):
+    def AssociateUnits(self):
         # runs through each frontline point and attaches units to it
         # first determine how many points are in range
         # print("Associating Formations with the Frontline")
+        units = self.parent.formations
         for unit in units:
-            unitrange = unit.personnel / 120 / 2  # units can affect the frontline from within this many km
+            unitrange = unit.personnel / 120  # units can affect the frontline from within this many km
             # calibrated so 1200 men affect 10 km frontage
             # handle min ranges
             # attacking units use lower frontage
@@ -1191,32 +1223,7 @@ if __name__ == '__main__':
     ans = input("Run simulation? (y/n) > ")
     if ans.lower == "y":
         db.loadFrontline(mapconfig)
-        
-        # dev stuff to visiualize front
-        im = copy(db.frontline.TerrainWater)
-        db.frontline.DrawFrontline(im,(100,100,100))
-        
-        # associate the units to the frontline
-        db.frontline.AssociateUnits(db.formations)
-        # run combat for 6 turns
-        print("Running combat...")
-        for x in tqdm(range(simSteps)):
-            db.frontline.RunCombat()
-            db.frontline.Advance()
-            db.MoveIdleUnits()
-            db.frontline.FindFL()
-            db.frontline.AssociateUnits(db.formations)
-            db.frontline.DrawFrontline(im,(190,190,190))
-            
-        db.frontline.Territory.show()
-        
-        for form in db.formations:
-            form.PrintStrength()
-        
-        # show units on the map
-        db.frontline.DrawFrontline(im,(0,0,0))
-        db.frontline.DrawUnits(im)
-        im.show()
+        db.Simulate()
         
         db.TotalCasualties()
         
