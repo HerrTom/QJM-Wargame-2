@@ -2,7 +2,7 @@ import os
 import glob
 import pprint
 from collections import OrderedDict, Counter
-from concurrent.futures import ThreadPoolExecutor as PoolExecutor
+
 from random import random
 
 from copy import copy
@@ -19,7 +19,7 @@ global Di
 Di = 5000
 
 global simTime
-simDuration = 3 # days
+simDuration = 1 # days
 simSteps    = 6
 simTime = simDuration / simSteps
 
@@ -766,9 +766,7 @@ class Frontline():
         
         self.FindFL()
         
-    def CheckFL(self,xy):
         
-    
     def FindFL(self):
         # march through image from L to R, and drop a FrontlinePoint on each type
         size = self.Territory.size

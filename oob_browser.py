@@ -181,6 +181,8 @@ class MainGui(QtWidgets.QMainWindow):
             self.populate_eqTable(states)
             x,y = form.xy
             
+            form.PrintStrength()
+            
             self.unitLabel.setText(". {}".format(form.shortname))
             size = self.unitLabel.size()
             pos = self.maplbl.pos()
