@@ -20,6 +20,15 @@ def gen_OOB_dict(db):
     
     return OOB
 
+def ColourIcon(pixmap,colour):
+    colour = QtGui.QColor(colour[0],colour[1],colour[2],)
+    mask = pixmap.createMaskFromColor(QtGui.QColor(128,224,255),QtCore.Qt.MaskOutColor)
+    painter = QtGui.QPainter(pixmap)
+    painter.setPen(colour)
+    painter.drawPixmap(pixmap.rect(),mask,mask.rect())
+    painter.end()
+    
+    return pixmap
 
 def get_children(parent, relations):
     children = (r[1] for r in relations if r[0] == parent)
@@ -52,7 +61,20 @@ class MapLabel(QtWidgets.QLabel):
             x = self.mapFromGlobal(QtGui.QCursor.pos()).x()
             y = self.mapFromGlobal(QtGui.QCursor.pos()).y()
             self.RightClickSignal.emit([x,y])
+
+            
+class UnitIcon(QtWidgets.QLabel):
+    LeftClickSignal = QtCore.pyqtSignal(str)
+    RightClickSignal = QtCore.pyqtSignal(str)
+    def __init__(self, *args, **kwargs):
+        QtWidgets.QLabel.__init__(self, *args, **kwargs)
+        self.QJMName = None
     
+    def mousePressEvent(self, event):
+        if event.button() == QtCore.Qt.LeftButton:
+            self.LeftClickSignal.emit(self.QJMName)
+        elif event.button() == QtCore.Qt.RightButton:
+            self.RightClickSignal.emit(self.QJMName)
         
 class StretchedLabel(QtWidgets.QLabel):
     def __init__(self, *args, **kwargs):
@@ -90,6 +112,11 @@ class MainGui(QtWidgets.QMainWindow):
         self.Water = self.ag.addAction(QtWidgets.QAction("Terrain Water",self,checkable=True))
         view.addAction(self.Water)
         self.Water.setChecked(True)
+        view.addSeparator()
+        self.viewUnits = QtWidgets.QAction("Show all units",checkable=True)
+        self.viewUnits.triggered.connect(self.ShowAllUnits)
+        self.viewUnits.setChecked(True)
+        view.addAction(self.viewUnits)
         
         # connect actions
         self.simulate.triggered.connect(self.OnSimulate)
@@ -110,13 +137,16 @@ class MainGui(QtWidgets.QMainWindow):
         self.map = MakePixmap(self.db.frontline.TerrainWater)
         # self.map = QtGui.QPixmap("./data/nirgendwola/maps/nirgendwola_water.bmp")
         
+        # scroll area
         mapview = QtWidgets.QScrollArea(self)
         mapview.setWidgetResizable(True)
-        # mapview.setMinimumHeight(300)
+        mapview.setMinimumHeight(600)
+        QtWidgets.QScroller.grabGesture(mapview.viewport(),QtWidgets.QScroller.LeftMouseButtonGesture)
+        
         layout.addWidget(mapview,0,0,2,2)
         # self.maplbl = QtWidgets.QGraphicsView(mapview)
         self.maplbl = MapLabel(parent=mapview)
-        self.maplbl.RightClickSignal.connect(self.onMapClick)
+        self.maplbl.RightClickSignal.connect(self.OnMapClick)
         # self.maplbl = QtWidgets.QLabel(mapview)
         mapview.setWidget(self.maplbl)
         mapview.setAlignment(QtCore.Qt.AlignTop)
@@ -131,10 +161,16 @@ class MainGui(QtWidgets.QMainWindow):
         # mapviewLayout.addStretch()
         # layout.addWidget(self.maplbl,0,0,2,2)
         
-        self.unitLabel = StretchedLabel(" "*18,parent=self.maplbl)
-        # self.unitLabel = QtWidgets.QLabel("X",parent=self.maplbl)
+        # unit name label
+        self.unitLabel = QtWidgets.QLabel(" "*18,parent=self.maplbl)
         self.unitLabel.setAlignment(QtCore.Qt.AlignBottom)
         
+        # SIDC label
+        self.SIDCLabel = StretchedLabel("     ",parent=self.maplbl)
+        self.SIDCLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.SIDCLabel.setScaledContents(True)
+        
+        # waypoint label
         self.wpLabel = StretchedLabel("X",parent=self.maplbl)
         self.wpLabel.setAlignment(QtCore.Qt.AlignRight)
         
@@ -146,12 +182,12 @@ class MainGui(QtWidgets.QMainWindow):
         self.OOBTree.setUniformRowHeights(True)
         layout.addWidget(self.OOBTree,2,0,2,1)
         
-        self.OOBTree.clicked.connect(self.get_formation_data)
+        self.OOBTree.clicked.connect(self.GetFormationData)
         
         
         OOB = gen_OOB_dict(self.db)
         self.icons = get_icons("./data/_sidc/*.png")
-        self.populate_OOBTree(OOB,self.OOBModel.invisibleRootItem())
+        self.PopulateOOBTree(OOB,self.OOBModel.invisibleRootItem())
         
         # details box
         fixed_font = QtGui.QFont("monospace")
@@ -168,29 +204,46 @@ class MainGui(QtWidgets.QMainWindow):
         self.eqTable.header().setSectionResizeMode(3) #resize to contents
         # self.eqTable.verticalHeader().hide()
         
+        # list for all units labels
+        self.GenUnitIcons()
+        self.ShowAllUnits(None)
+        
         
         self.show()
         
-    def get_formation_data(self,event):
+    def GetFormationData(self):
         # find the formation
         name = self.OOBTree.currentIndex().data()
         form = self.db.getFormationByName(name)
         if form is not None:
             info, states = form.GetStatus()
             self.detailsBox.setText(info)
-            self.populate_eqTable(states)
+            self.PopulateEqTable(states)
             x,y = form.xy
             
             form.PrintStrength()
             
             self.unitLabel.setText(". {}".format(form.shortname))
             size = self.unitLabel.size()
-            pos = self.maplbl.pos()
-            self.unitLabel.move(x,y-size.height()+8) # 4 is offset for text
+            self.unitLabel.move(x+10,y-size.height()+8) # 4 is offset for text
+            
+            # SIDC = form.SIDC
+            # try:
+                # self.SIDCLabel.setPixmap(QtGui.QPixmap(self.icons[SIDC]))
+            # except:
+                # print("SIDC {} not available".format(SIDC))
+                # self.SIDCLabel.setPixmap(QtGui.QPixmap(self.icons["SFGPU-------"]))
+            # self.SIDCLabel.move(x,y)
+            
+            
+            
             if form.waypoint is not None:
                 self.wpLabel.move(form.waypoint[0],form.waypoint[1])
+            else:
+                self.wpLabel.move(-100,-100)
             
-    def populate_eqTable(self,states):
+            
+    def PopulateEqTable(self,states):
         self.eqTable.model().clear()
         names = states["Intact"].keys()
         for eq in names:
@@ -203,7 +256,7 @@ class MainGui(QtWidgets.QMainWindow):
         self.eqTable.model().setHorizontalHeaderLabels(["Type","OK","DAM","DES"])
             
     
-    def populate_OOBTree(self,children,parent):
+    def PopulateOOBTree(self,children,parent):
         for child in sorted(children):
             form = self.db.getFormationByShortName(child)
             if form is not None:
@@ -220,10 +273,65 @@ class MainGui(QtWidgets.QMainWindow):
                 child_item.setIcon(QtGui.QIcon(self.icons["SFGPU-------"]))
             child_item.setEditable(False)
             parent.appendRow(child_item)
-            self.populate_OOBTree(children[child], child_item)
+            self.PopulateOOBTree(children[child], child_item)
+    
+    def GenUnitIcons(self):
+        self.units = []
+        for form in self.db.formations:
+            if form is not None:
+                if form.nation == "DDR":
+                    colour = (174,39,39)
+                else:
+                    colour = (128,224,255)
+                SIDC = form.SIDC
+                formLabel = UnitIcon("     ",parent=self.maplbl)
+                # formLabel = QtWidgets.QLabel("     ",parent=self.maplbl)
+                self.units.append(formLabel)
+                formLabel.setPixmap(ColourIcon(QtGui.QPixmap(self.icons[SIDC]),colour))
+                formLabel.QJMName = form.name
+                
+                formLabel.LeftClickSignal.connect(self.OnUnitLeftClick)
+                
+                try:
+                    formLabel.setPixmap(ColourIcon(QtGui.QPixmap(self.icons[SIDC]),colour))
+                except:
+                    print("SIDC {} not available".format(SIDC))
+                    formLabel.setPixmap(QtGui.QPixmap(self.icons["SFGPU-------"]))
+                formLabel.setAlignment(QtCore.Qt.AlignCenter)
+                formLabel.setScaledContents(True)
+                formLabel.setGeometry(QtCore.QRect(form.x, form.y, 20, 20))
+    
+    def ShowAllUnits(self,event):
+        # delete and recreate self.units
+        for x in self.units:
+            x.hide()
+            
+        # quit here if unchecked
+        if not self.viewUnits.isChecked():
+            return
+        
+        for formLabel in self.units:
+            form = self.db.getFormationByName(formLabel.QJMName)
+            formLabel.setGeometry(QtCore.QRect(form.x-10, form.y-10, 20, 20))
+            formLabel.show()
+    
+    def OnUnitLeftClick(self,event):
+        # event contains the name of the unit clicked
+        model = self.OOBTree.model()
+        idx = model.match(model.index(0,0), 0, event,flags=QtCore.Qt.MatchExactly|QtCore.Qt.MatchRecursive)[0] # [0] makes sure we only select the first item
+        self.OOBTree.setCurrentIndex(idx)
+        
+        # trigger formation data collection
+        self.GetFormationData()
     
     def OnSimulate(self,event):
         self.db.Simulate()
+        # update the view
+        self.ShowAllUnits(None)
+        self.OnView(None)
+        
+    def OnOOBClick(self,event):
+        self.GetFormationData(self)
         
     def OnView(self,event):
         if self.ag.checkedAction() is self.Water:
@@ -235,7 +343,7 @@ class MainGui(QtWidgets.QMainWindow):
         else:
             self.maplbl.setPixmap(MakePixmap(self.db.frontline.TerrainType))
             
-    def onMapClick(self,coords):
+    def OnMapClick(self,coords):
         name = self.OOBTree.currentIndex().data()
         form = self.db.getFormationByName(name)
         if form is not None:

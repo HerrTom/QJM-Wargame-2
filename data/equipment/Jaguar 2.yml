@@ -1,0 +1,25 @@
+name: Jaguar 2
+nation: BRD
+type: SP Antitank
+weapons:
+  MG-3 (Mounted): '2100'
+  TOW: '12'
+roadSpeed: '70'
+horsepower: '600'
+groundPress: '0.83'
+radiusOfAction: '400'
+weight: '24.8'
+length: '679'
+height: '2.55'
+armour: Steel
+enclosed: true
+traverse: false
+lowLight: Passive IR
+rangefinder: Coincident
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: true
+crew: 4

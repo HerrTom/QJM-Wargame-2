@@ -1,12 +1,12 @@
-name: RPK-74
+name: AKM
 type: Gun
-range: '750'
-rateOfFire: '650'
-calibre: '5.45'
-muzzleVel: '900'
-accuracy: 0.8
+range: '350'
+rateOfFire: '600'
+calibre: '7.62'
+muzzleVel: '715'
+accuracy: 0.7
 barrels: 1
-crew: true
+crew: false
 guidance: SACLOS wire day
 atgmPenetration: ''
 atgmMinRange: ''

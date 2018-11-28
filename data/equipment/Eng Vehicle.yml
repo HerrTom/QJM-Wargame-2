@@ -1,8 +1,7 @@
-name: RPK-74
-nation: USSR
+name: Eng Vehicle
+nation: NA
 type: Infantry
-weapons:
-  RPK-74: '120'
+weapons: {}
 roadSpeed: null
 horsepower: null
 groundPress: null

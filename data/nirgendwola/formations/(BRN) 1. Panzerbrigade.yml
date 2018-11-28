@@ -14,9 +14,7 @@ equipment:
   SPz Luchs: 12
   Truck: 282
 hq: 1.PzGD
-location:
-- 259.0
-- 352.0
+location: [843, 560]
 name: (BRN) 1. Panzerbrigade
 nation: BRD
 personnel: 1346

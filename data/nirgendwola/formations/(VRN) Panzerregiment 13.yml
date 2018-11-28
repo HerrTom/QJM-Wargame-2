@@ -25,13 +25,13 @@ equipment:
   Van Truck: 25
   ZIL-130: 9
   ZIL-131: 73
-hq: 2.MSD
-location: [828, 496]
-name: (VRN) Panzerregiment 23
+hq: 1.MSD
+location: [893, 505]
+name: (VRN) Panzerregiment 13
 nation: DDR
 personnel: 1143
 proficiency: 1.58
-shortname: PzR.23
+shortname: PzR.13
 stance: attacking
 type: armoured
 waypoints: null

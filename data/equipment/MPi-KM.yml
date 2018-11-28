@@ -1,8 +1,8 @@
-name: RPK-74
-nation: USSR
+name: MPi-KM
+nation: DDR
 type: Infantry
 weapons:
-  RPK-74: '120'
+  AKM: '120'
 roadSpeed: null
 horsepower: null
 groundPress: null

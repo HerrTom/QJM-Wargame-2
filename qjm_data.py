@@ -2,9 +2,8 @@ import os
 import glob
 import pprint
 from collections import OrderedDict, Counter
-
+from statistics import mean
 from random import random
-
 from copy import copy
 
 import yaml
@@ -20,7 +19,7 @@ Di = 5000
 
 global simTime
 simDuration = 1 # days
-simSteps    = 6
+simSteps    = 12
 simTime = simDuration / simSteps
 
 # for debug only
@@ -372,11 +371,13 @@ class database():
         # run combat for 6 turns
         print("Running combat...")
         for x in tqdm(range(simSteps)):
+            self.frontline.FindFL()
+            self.TurnAdmin()
             self.frontline.AssociateUnits()
             self.frontline.RunCombat()
             self.frontline.Advance()
             self.MoveIdleUnits()
-            self.frontline.FindFL()
+            
             
             # db.frontline.DrawFrontline(im,(190,190,190))
             
@@ -533,7 +534,32 @@ class database():
         # moves all units that don't see combat
         for unit in self.formations:
             if unit.NumPoints == 0 and unit.waypoint is not None:
-                unit.Move(60)
+                unit.Move(60 * simTime)
+                
+    def TurnAdmin(self):
+        # runs the admin part of turn resolution - destroy encircled units, change stances, check supply
+        entrench_chance = 0.3
+        entrench_odds = 1-(1 - entrench_chance)**simTime
+        
+        # run through each formation and check if it has a waypoint. If yes, set stance to attakcing
+        for form in self.formations:
+            # make a roll to see if this formation can raise its entrenchment level
+            entrench_roll = random()
+            if entrench_roll <= entrench_odds:
+                entrench = True
+            else:
+                entrench = False
+            if form.waypoint is not None:
+                form.stance = "attacking"
+            elif form.waypoint is None and form.stance == "attacking": # if this unit was attacking but no longer
+                form.stance = "delay"
+            elif form.waypoint is None and form.stance == "delay" and entrench:
+                form.stance = "hasty"
+            elif form.waypoint is None and form.stance == "hasty" and entrench:
+                form.stance = "prepared"
+            elif form.waypoint is None and form.stance == "prepared" and entrench:
+                form.stance = "fortified"
+        
                 
     def TotalCasualties(self):
         casualties = Counter()
@@ -576,6 +602,8 @@ class formation():
         
         self.data = data
         self.NumPoints = 0 # this factor determines how many battles this unit is involved in
+        
+        self.advance = []
         
         if data is not None:
             self.name   = data["name"]
@@ -700,8 +728,8 @@ class formation():
         
         # TODO handle if distance is zero
         dir = make_unit([wp[0] - self.x, wp[1]-self.y])
-        self.x = round(self.x + dir[0] * advance * simTime,0)
-        self.y = round(self.y + dir[1] * advance * simTime,0)
+        self.x = round(self.x + dir[0] * advance,0)
+        self.y = round(self.y + dir[1] * advance,0)
         self.xy = [self.x, self.y]
     
     def PrintStrength(self):
@@ -719,7 +747,7 @@ class formation():
         print("*"*60)
     
     def GetStatus(self):
-        losses = print_losses(self.losses,quiet=True)
+        losses = "{} wounded, {} killed".format(self.casualties["Wounded"],self.casualties["Killed"])
         
         eqIntact    = Counter()
         eqDamaged   = Counter()
@@ -832,7 +860,8 @@ class Frontline():
         # print("Associating Formations with the Frontline")
         units = self.parent.formations
         for unit in units:
-            unitrange = unit.personnel / 120  # units can affect the frontline from within this many km
+            unitrange = unit.personnel / 2 / 120  # units can affect the frontline from within this many km
+            
             # calibrated so 1200 men affect 10 km frontage
             # handle min ranges
             # attacking units use lower frontage
@@ -841,6 +870,8 @@ class Frontline():
             if unitrange <= 2:
                 unitrange = 2
             maxrad = unitrange / self.scale * 2
+            
+            unit.maxrange = maxrad
             
             unit.NumPoints = 0 # this value determines how many battles the unit is in
             points = 0
@@ -866,6 +897,8 @@ class Frontline():
         px = self.Territory.load()
         waterPx = self.TerrainWater.load()
         
+        tqdm.write("Advance called.")
+        
         # iterates through all the frontline points and advances them per their property
         for pt in self.FrontlinePoints:
             idx = 0
@@ -877,27 +910,40 @@ class Frontline():
                 wp  = attacker.waypoint
                 dir = make_unit([wp[0] - attacker.x, wp[1]-attacker.y])
                 n = 300 # number of samples to take
-                advance = pt.advance[idx] / len(pt.attackers)
+                
+                range = ((pt.x - attacker.x)**2 + (pt.y - attacker.y)**2)**.5 # range from attacker to this point
+                
+                advance = pt.advance[idx] / len(pt.attackers) * simTime # scale advance rates by SimTime
                 
                 # draw pixels for advances
                 adv = True
                 for i in linspace(advance,n):
                     x = round(pt.x + dir[0] * i,0)
                     y = round(pt.y + dir[1] * i,0)
+                    
                     if waterPx[x,y] == waterColour:
                         # stop the advance if we hit water
-                        adv = False
+                        adv = True
+                        # adv = False
                     elif adv:
                         px[x,y] = colour
+                        moveAmount = i
                 # move the unit by advance / NumPoints
-                moveAmount = i
-                attacker.Move(i/attacker.NumPoints)
+                
+                tqdm.write("Advance {}, {}, {}".format(advance,pt.attackers,pt.defenders))
+                
+                # attacker.Move(moveAmount/attacker.NumPoints)
+                attacker.advance.append(moveAmount)
                 # retreat
                 for defender in pt.defenders:
-                    defender.Move(i/defender.NumPoints/len(pt.attackers),wp = attacker.waypoint)
-            
-
-                   
+                    defender.Move(moveAmount/attacker.NumPoints,wp = attacker.waypoint)
+        
+        # move attackers by average advance
+        for form in self.parent.formations:
+            if form.advance != []:
+                form.Move(mean(form.advance))
+            # reset the "advance" parameter after moving
+            form.advance = []
         
 class FrontlinePoint():
     def __init__(self,parent,xy,terrcover,terrtype,terrwater):

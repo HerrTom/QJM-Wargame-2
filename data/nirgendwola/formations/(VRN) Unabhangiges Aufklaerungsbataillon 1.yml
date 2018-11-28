@@ -1,0 +1,26 @@
+SIDC: SFGPUCRVA--F
+equipment:
+  AK-74: 122
+  BMP-2: 12
+  BRDM-2: 6
+  BRDM-2U: 1
+  BRM-1: 3
+  BTR-60PA: 2
+  BTR-60PB: 5
+  GAZ-66: 17
+  RPG-7V: 13
+  RPK-74: 25
+  T-64B: 6
+  UAZ-469: 19
+  Ural-375 POL: 2
+  ZIL-131: 11
+hq: LaSK
+location: [530, 182]
+name: (VRN) Aufklärungsbataillon 1
+nation: DDR
+personnel: 285
+proficiency: 1.9
+shortname: AkB.1
+stance: attacking
+type: mechanised
+waypoints: null

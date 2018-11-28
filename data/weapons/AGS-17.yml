@@ -1,0 +1,13 @@
+name: AGS-17
+type: Gun
+range: '1700'
+rateOfFire: '400'
+calibre: '30'
+muzzleVel: '185'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: None
+atgmMinRange: None
+atgmEnhancement: None

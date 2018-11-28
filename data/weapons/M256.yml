@@ -1,0 +1,13 @@
+name: M256
+type: Gun
+range: '5000'
+rateOfFire: ''
+calibre: '120'
+muzzleVel: '1750'
+accuracy: 0.9
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

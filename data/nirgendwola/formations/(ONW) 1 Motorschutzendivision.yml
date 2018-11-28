@@ -2,12 +2,12 @@ SIDC: SFGPUCIZ---I
 equipment:
   None: 0
 hq: LaSK
-location: [862, 461]
-name: (VRN) 2. Motor Schuetzendivision
+location: [902, 486]
+name: (VRN) 1. Motor Schuetzendivision
 nation: DDR
 personnel: 2320
 proficiency: 1.58
-shortname: 2.MSD
+shortname: 1.MSD
 stance: attacking
 type: mechanised
 waypoints: null

@@ -1,8 +1,7 @@
-name: RPK-74
+name: ZIL-130
 nation: USSR
 type: Infantry
-weapons:
-  RPK-74: '120'
+weapons: {}
 roadSpeed: null
 horsepower: null
 groundPress: null

@@ -1,0 +1,25 @@
+name: Leopard 2
+nation: BRD
+type: Tank
+weapons:
+  M256: '42'
+  MG 3: '4750'
+roadSpeed: '72'
+horsepower: '1500'
+groundPress: '0.83'
+radiusOfAction: '550'
+weight: '55.15'
+length: '7.72'
+height: '2.79'
+armour: Early Composite
+enclosed: true
+traverse: true
+lowLight: Active IR
+rangefinder: Laser
+fcCant: true
+fcAmmo: true
+fcWind: true
+fcBarrel: false
+stabilised: true
+amphibious: false
+crew: 4

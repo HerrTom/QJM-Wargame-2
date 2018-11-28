@@ -1,0 +1,13 @@
+name: M109
+type: Gun
+range: '18000'
+rateOfFire: ''
+calibre: '155'
+muzzleVel: '800'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

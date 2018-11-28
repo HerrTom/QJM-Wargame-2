@@ -1,0 +1,13 @@
+name: TOW
+type: ATGM
+range: '3000'
+rateOfFire: ''
+calibre: '152'
+muzzleVel: '320'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: SACLOS wire day/night
+atgmPenetration: '430'
+atgmMinRange: '200'
+atgmEnhancement: '1.1'

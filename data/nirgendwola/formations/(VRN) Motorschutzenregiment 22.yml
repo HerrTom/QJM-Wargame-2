@@ -7,7 +7,7 @@ equipment:
   AGS-17: 18
   BMP-1: 129
   BRDM-2: 22
-  BRDM-2 9P111: 9
+  BRDM-2 9P133: 9
   BRDM-2U: 4
   BRM-1: 1
   BTR-60PA (FAC): 1
@@ -23,15 +23,13 @@ equipment:
   T-55A: 40
   TMM: 4
   UAZ-469: 22
-  Ural 375: 57
+  Ural-375: 57
   Ural-375 POL: 26
   ZIL-130: 14
   ZIL-131: 36
   ZSU-23-4 Shilka: 4
 hq: 2.MSD
-location:
-- 284
-- 343
+location: [806, 486]
 name: (VRN) Motor Schuetzenregiment 22
 nation: DDR
 personnel: 2320
@@ -39,6 +37,4 @@ proficiency: 1.58
 shortname: MSR.22
 stance: attacking
 type: mechanised
-waypoints:
-- 153
-- 809
+waypoints: null

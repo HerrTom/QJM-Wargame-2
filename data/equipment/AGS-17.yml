@@ -1,8 +1,8 @@
-name: RPK-74
+name: AGS-17
 nation: USSR
 type: Infantry
 weapons:
-  RPK-74: '120'
+  AGS-17: '200'
 roadSpeed: null
 horsepower: null
 groundPress: null
@@ -21,4 +21,4 @@ fcWind: false
 fcBarrel: false
 stabilised: false
 amphibious: false
-crew: 1
+crew: 3

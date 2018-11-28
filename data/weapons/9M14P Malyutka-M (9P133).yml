@@ -1,0 +1,13 @@
+name: 9M14P Malyutka-M (9P133)
+type: ATGM
+range: '3000'
+rateOfFire: ''
+calibre: '125'
+muzzleVel: '115'
+accuracy: 0.7
+barrels: 4
+crew: true
+guidance: SACLOS wire day
+atgmPenetration: '520'
+atgmMinRange: '500'
+atgmEnhancement: '1.0'

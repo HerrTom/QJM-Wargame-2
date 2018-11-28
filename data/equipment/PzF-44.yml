@@ -1,8 +1,9 @@
-name: RPK-74
-nation: USSR
+name: PzF-44
+nation: BRD
 type: Infantry
 weapons:
-  RPK-74: '120'
+  G3: '80'
+  PzF-44: '3'
 roadSpeed: null
 horsepower: null
 groundPress: null

@@ -1,0 +1,13 @@
+name: PzF-44
+type: Gun
+range: '400'
+rateOfFire: ''
+calibre: '67'
+muzzleVel: '210'
+accuracy: 0.7
+barrels: 1
+crew: false
+guidance: ''
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

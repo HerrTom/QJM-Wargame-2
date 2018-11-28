@@ -28,13 +28,13 @@ equipment:
   ZIL-130: 14
   ZIL-131: 36
   ZSU-23-4 Shilka: 4
-hq: 2.MSD
-location: [787, 481]
-name: (VRN) Motor Schuetzenregiment 21
+hq: 1.MSD
+location: [859, 501]
+name: (VRN) Motor Schuetzenregiment 11
 nation: DDR
 personnel: 2320
 proficiency: 1.58
-shortname: MSR.21
+shortname: MSR.11
 stance: attacking
 type: mechanised
 waypoints: null
