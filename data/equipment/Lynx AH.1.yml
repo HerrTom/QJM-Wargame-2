@@ -1,0 +1,25 @@
+name: Lynx AH.1
+nation: UK
+type: Helicopter
+weapons:
+  FN MAG: '2000'
+roadSpeed: '324'
+horsepower: '1800'
+groundPress: '0'
+radiusOfAction: '320'
+weight: '3.6'
+length: '15.16'
+height: '3.66'
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 2
+ceiling: 0

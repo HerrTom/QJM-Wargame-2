@@ -1,0 +1,20 @@
+SIDC: SFGPUCA----I
+equipment:
+  FN FAL: 130
+  FN MAG: 12
+  LRAC-89: 6
+  M114F: 60
+  VAB VTT: 8
+  VLRA TPK: 500
+hq: HdBRN
+location:
+- 418
+- 238
+name: (BRN) 3. Panzerdivision
+nation: BRN
+personnel: 1084
+proficiency: 1.75
+shortname: 3.PzD
+stance: hasty
+type: mechanised
+waypoints: null

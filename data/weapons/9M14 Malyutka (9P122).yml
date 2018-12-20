@@ -1,0 +1,13 @@
+name: 9M14 Malyutka (9P122)
+type: ATGM
+range: '3000'
+rateOfFire: ''
+calibre: '125'
+muzzleVel: '115'
+accuracy: 0.7
+barrels: 6
+crew: true
+guidance: MCLOS
+atgmPenetration: '300'
+atgmMinRange: '500'
+atgmEnhancement: '1.0'

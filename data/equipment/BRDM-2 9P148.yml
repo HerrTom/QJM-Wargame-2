@@ -21,4 +21,5 @@ fcWind: false
 fcBarrel: false
 stabilised: false
 amphibious: true
-crew: 4
+crew: 2
+ceiling: 0

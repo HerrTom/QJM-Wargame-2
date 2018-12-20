@@ -1,0 +1,20 @@
+SIDC: SFGPUCIZ---I
+equipment:
+  2S3 Akatsiya: 48
+  9K115 Metis: 12
+  AK-74: 180
+  BMP-2: 12
+  PKM: 30
+  Ural-375: 600
+hq: LaSK
+location:
+- 617
+- 158
+name: (VRN) 1st Division
+nation: VRN
+personnel: 1302
+proficiency: 1.4
+shortname: 1D
+stance: hasty
+type: mechanised
+waypoints: null

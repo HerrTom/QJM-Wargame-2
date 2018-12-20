@@ -1,0 +1,13 @@
+name: AAT 52 NF1
+type: Gun
+range: '600'
+rateOfFire: '900'
+calibre: '7.62'
+muzzleVel: '830'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: SACLOS wire day
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

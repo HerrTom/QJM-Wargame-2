@@ -1,0 +1,25 @@
+name: FV101 Scorpion
+nation: UK
+type: Tank
+weapons:
+  FN MAG: '3000'
+  L23A1 Rifled Gun: '40'
+roadSpeed: '65'
+horsepower: '190'
+groundPress: '0.36'
+radiusOfAction: '650'
+weight: '8.9'
+length: '4.79'
+height: '2.1'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Passive IR
+rangefinder: Laser
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 3

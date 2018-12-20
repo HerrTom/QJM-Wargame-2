@@ -1,6 +1,6 @@
 name: M113
 nation: USA
-type: Infantry
+type: APC
 weapons:
   M2HB: '2000'
 roadSpeed: '64'

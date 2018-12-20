@@ -1,0 +1,13 @@
+name: 9M115 Metis
+type: ATGM
+range: '1000'
+rateOfFire: ''
+calibre: '94'
+muzzleVel: '223'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: SACLOS wire day/night
+atgmPenetration: '460'
+atgmMinRange: '40'
+atgmEnhancement: '1.2'

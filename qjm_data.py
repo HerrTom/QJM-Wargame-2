@@ -6,6 +6,7 @@ from statistics import mean
 from random import random
 from copy import copy
 
+import numpy as np
 import yaml
 import pathvalidate as pv
 from PIL import Image
@@ -30,8 +31,14 @@ weap_types = ["gun","atgm","aam","bomb"]
 equipTypes  = ["Infantry","Antitank","Artillery","SP Antitank","SP Artillery",
             "APC","IFV","Tank","Air Defence","SP Air Defence","Aircraft","Helicopter"]
 
-REDFOR = ["USSR","DDR","POL","CZE"]
-BLUFOR = ["USA","BRD","NL","BEL","UK","DAN"]
+# REDFOR = ["USSR","DDR","POL","CZE"]
+# BLUFOR = ["USA","BRD","NL","BEL","UK","DAN"]
+global REDFOR
+global BLUFOR
+
+REDFOR = []
+BLUFOR = []
+
 
 RED = (255,0,0)
 BLU = (6,0,255)
@@ -233,6 +240,8 @@ class equipment():
             self.stab           = False
             self.amphibious     = False
             self.crew           = 0
+            # aircraft special effects
+            self.ceiling        = 0
               
         else:
             self.name           = data['name']
@@ -258,6 +267,11 @@ class equipment():
             self.stab           = data['stabilised']
             self.amphibious     = data['amphibious']
             self.crew           = data['crew']
+            # optional aircraft data
+            try:
+                self.ceiling    = data['ceiling']
+            except:
+                self.ceiling    = 0
             
     
     def AddWeapons(self,weapList):
@@ -279,9 +293,14 @@ class equipment():
         WEAP = 0
         for wp in self.weapObj:
             ammoRatio = float(self.weapons[wp.name]) / float(wp.RF)
-            ASE = interps.AmmoSupplyEffect(ammoRatio)
+            if self.type in ["Infantry","Antitank","Artillery"]:
+                ASE = 1 # ASE does not apply to foot-mobile equipment
+            elif self.type in ["Aircraft","Helicopter"]:
+                ASE = 0.25
+            else:
+                ASE = interps.AmmoSupplyEffect(ammoRatio)
             WEAP += wp.TLI * ASE
-            # print(wp.name,wp.TLI/Di,ASE)
+            # print(self.name,wp.name,wp.TLI/Di,ASE)
             
         if self.type in ["Infantry","Antitank","Artillery","Air Defence"]:
             self.OLI = WEAP / Di
@@ -291,7 +310,10 @@ class equipment():
         
         # PF punishment factor
         ARMF = interps.ARMF(self.armour)
-        PF = 1.2 * ARMF * float(self.weight) / (2 * float(self.length) * float(self.height))
+        if self.type in ["Aircraft", "Helicopter"]:
+            PF = float(self.weight) / 8 * (2* float(self.weight))**0.5
+        else:
+            PF = 1.2 * ARMF * float(self.weight) / (2 * float(self.length) * float(self.height))
         
         # FCF is combined fire control factor
         if self.fcCant:
@@ -344,16 +366,43 @@ class equipment():
             AME = 1.10
         else:
             AME = 1.00
-            
-        VMF = 0.04 * (float(self.horsepower)/float(self.weight) * float(self.roadSpeed)/float(self.groundPress))**0.5
+        
+        if self.type in ["Aircraft", "Helicopter"]:
+            s = int(self.roadSpeed)
+            if s <= 500:
+                A = s
+                B = 0
+                C = 0
+            elif s <= 1500:
+                A = 500
+                B = s-500
+                C = 0
+            else:
+                A = 500
+                B = 1500
+                C = s-1500
+            VMF = 0.15 * (A + 0.1*B + 0.01*C)**0.5
+        else:
+            VMF = 0.04 * (float(self.horsepower)/float(self.weight) * float(self.roadSpeed)/float(self.groundPress))**0.5
         
         RA = 0.08 * (float(self.radiusOfAction))**0.5
         
-        self.OLI = (WEAP / Di) * FCF * AME * VMF * RA * PF
+        # aircraft values
+        if self.type == "Helicopter":
+            CL = 0.6
+        elif self.type == "Aircraft":
+            if self.ceiling >= 9000:
+                CL = 1 + 0.02 * (self.ceiling-9000)/300
+            else:
+                CL = 1 - 0.005 * (self.ceiling-9000)/300
+        else:
+            CL = 1
+        
+        self.OLI = (WEAP / Di) * FCF * AME * VMF * RA * PF * CL
         
         # note that if OLI is smaller than the weapons individually, I modified it to be weapons * (1+total factor)
         if self.OLI < (WEAP / Di):
-            self.OLI = (WEAP / Di) * (1+ FCF * AME * VMF * RA * PF)
+            self.OLI = (WEAP / Di) * (1+ FCF * AME * VMF * RA * PF * CL)
         
 class database():
     def __init__(self):
@@ -559,6 +608,29 @@ class database():
                 form.stance = "prepared"
             elif form.waypoint is None and form.stance == "prepared" and entrench:
                 form.stance = "fortified"
+            
+            curr = self.frontline.GetOwner(form.x,form.y)
+            # check if units are on unfriendly territory and correct
+            maxRad = form.personnel / 200
+            form.NumPoints = 1 # for this purpose, casualties need to occur at once
+            if form.nation in REDFOR:
+                if curr == "BLU":
+                    xy, dist = self.frontline.NearestFriendly(form.x,form.y,RED,maxRad)
+                    tqdm.write("RED on BLU! Range: {}".format(dist))
+                    form.x = xy[0] 
+                    form.y = xy[1]
+                    form.xy = xy
+                    # inflict casualties at rate given by distance
+                    form.Casualties(dist,dist)
+            else:
+                if curr == "RED":
+                    xy, dist = self.frontline.NearestFriendly(form.x,form.y,BLU,maxRad)
+                    tqdm.write("BLU on RED! Range: {}".format(dist))
+                    form.x = xy[0] 
+                    form.y = xy[1]
+                    form.xy = xy
+                    # inflict casualties at rate given by distance
+                    form.Casualties(dist,dist)
         
                 
     def TotalCasualties(self):
@@ -569,6 +641,7 @@ class database():
     
     def LossesBySide(self):
         sides = [BLUFOR, REDFOR]
+        lossStr = ""
         for factions in sides:
             losses = Counter()
             casualties = Counter()
@@ -576,9 +649,11 @@ class database():
                 if unit.nation in factions:
                     casualties += unit.casualties
                     losses += unit.losses
-            print("## Total losses for {} ##".format(factions))
-            print("Casualties: {:5,.0f} KIA, {:5,.0f} WIA".format(casualties["Killed"],casualties["Wounded"]))
-            print_losses(losses)
+            lossStr += "## Total losses for {} ##\n".format(factions)
+            lossStr += "Casualties: {:5,.0f} KIA, {:5,.0f} WIA\n".format(casualties["Killed"],casualties["Wounded"])
+            
+            lossStr += print_losses(losses,quiet=True)
+        return lossStr
         
     
 # Formations contain equipment objects
@@ -682,8 +757,13 @@ class formation():
         
         
         # deal with multiple combat points
-        rate_pers = 1-(1 - rate_pers / self.NumPoints)**simTime
-        rate_arm = 1-(1 - rate_arm / self.NumPoints)**simTime
+        rate_pers = 1-(1-rate_pers)**(1/self.NumPoints)
+        rate_arm = 1-(1-rate_arm)**(1/self.NumPoints)
+        
+        # deal with simulation time
+        rate_pers = 1-(1 - rate_pers)**simTime
+        rate_arm = 1-(1 - rate_arm)**simTime
+        
         for eq in self.equipment:
             if eq is not None:
                 roll = random()
@@ -787,6 +867,12 @@ class Frontline():
         self.weather        = mapdata["weather"]
         self.season         = mapdata["season"]
         
+        # Set the GLOBAL redfor/blufor variables from the file
+        global REDFOR
+        global BLUFOR
+        REDFOR = mapdata["REDFOR"]
+        BLUFOR = mapdata["BLUFOR"]
+        
         self.parent = parent
         
         self.FrontlinePoints = []
@@ -860,7 +946,7 @@ class Frontline():
         # print("Associating Formations with the Frontline")
         units = self.parent.formations
         for unit in units:
-            unitrange = unit.personnel / 2 / 120  # units can affect the frontline from within this many km
+            unitrange = unit.personnel / 200  # units can affect the frontline from within this many km
             
             # calibrated so 1200 men affect 10 km frontage
             # handle min ranges
@@ -878,16 +964,53 @@ class Frontline():
             for pt in self.FrontlinePoints:
                 dist = ((pt.x-unit.x)**2 + (pt.y-unit.y)**2)**0.5
                 if dist < maxrad:
-                    if dist < maxrad/2:
-                        influence = 1
-                    else:
-                        influence = 2 - dist/(maxrad/2)
+                    # if dist < maxrad/2:
+                        # influence = 1
+                    # else:
+                        # influence = 2 - dist/(maxrad/2)
+                    influence = 1/(1+np.exp(-8*(dist/maxrad - 0.5)))
                     pt.AddUnit(unit,influence)
                     unit.NumPoints+=1
     
     def generateSupplyNetwork(self):
         self.supplyRED = supply_network.generate_weighted_graph(self.Roads,self.terrainWater,self.terrainCover,self.Territory,RED)
         self.supplyBLU = supply_network.generate_weighted_graph(self.Roads,self.terrainWater,self.terrainCover,self.Territory,BLU)
+    
+    def GetOwner(self,x,y):
+        px = self.Territory.load()
+        if px[x,y] == RED:
+            return "RED"
+        else:
+            return "BLU"
+            
+    def NearestFriendly(self,x,y,colour,maxrad):
+        # finds the nearest friendly pixel and returns an (x,y) pair and % of maxrad
+        px = self.Territory.load()
+        size = self.Territory.size
+        
+        xBound = (max(0,x-maxrad), min(x+maxrad,size[0]))
+        yBound = (max(0,y-maxrad), min(y+maxrad,size[1]))
+        
+        points  = []
+        rng     = []
+        
+        for xp in np.arange(xBound[0],xBound[1]):
+            for yp in np.arange(yBound[0],yBound[1]):
+                dist = ((xp-x)**2 + (yp-y)**2)**0.5 
+                if dist <= maxrad:
+                    # only if point is within the circle do we want to do something
+                    if px[xp,yp] == colour:
+                        points.append((xp,yp))
+                        rng.append(dist)
+                        
+        # find the minimum distance and return point
+        if rng != []:
+            idx = rng.index(min(rng))
+            return points[idx], rng[idx]/maxrad
+        else:
+            xy = (0,0)
+            return xy, 1
+        
     
     def RunCombat(self):
         for pt in self.FrontlinePoints:
@@ -897,7 +1020,7 @@ class Frontline():
         px = self.Territory.load()
         waterPx = self.TerrainWater.load()
         
-        tqdm.write("Advance called.")
+        # tqdm.write("Advance called.")
         
         # iterates through all the frontline points and advances them per their property
         for pt in self.FrontlinePoints:
@@ -924,13 +1047,14 @@ class Frontline():
                     if waterPx[x,y] == waterColour:
                         # stop the advance if we hit water
                         adv = True
+                        moveAmount = i
                         # adv = False
                     elif adv:
                         px[x,y] = colour
                         moveAmount = i
                 # move the unit by advance / NumPoints
                 
-                tqdm.write("Advance {}, {}, {}".format(advance,pt.attackers,pt.defenders))
+                # tqdm.write("Advance {:.1}@{}, {}, {}".format(advance,pt.unitinfl,pt.attackers,pt.defenders))
                 
                 # attacker.Move(moveAmount/attacker.NumPoints)
                 attacker.advance.append(moveAmount)
@@ -1029,8 +1153,6 @@ class FrontlinePoint():
         if self.defenders != []:
             # This finds the advance rate and sets the casualty rates
             
-            # Units apply full combat power at every point in influence
-            #   Not ideal solution, but NumPoints will divide casualties
             
             # N is the number of personnel, J is the number of vehicles
             #       involved in this combat

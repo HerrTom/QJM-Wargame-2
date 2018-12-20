@@ -1,0 +1,25 @@
+name: SA.341 Gazelle (HOT)
+nation: FRA
+type: Helicopter
+weapons:
+  HOT (4x): '4'
+roadSpeed: '310'
+horsepower: '590'
+groundPress: '0'
+radiusOfAction: '670'
+weight: '1.8'
+length: '11.97'
+height: '3.15'
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Passive IR
+rangefinder: Laser
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: true
+amphibious: false
+crew: 2
+ceiling: 0

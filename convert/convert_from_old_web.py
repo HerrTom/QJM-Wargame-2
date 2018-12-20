@@ -2,11 +2,19 @@ import glob
 import yaml
 import pathvalidate as pv
 
-# constants
-m_lon =  0.01450
-b_lon = -0.21810
-m_lat = -0.00933
-b_lat = 56.48237
+## CONSTANTS ###
+# germany83
+# m_lon =  0.01450
+# b_lon = -0.21810
+# m_lat = -0.00933
+# b_lat = 56.48237
+
+# nirgendwo
+m_lon = 4
+b_lon = 0
+m_lat = -4
+b_lat = 4000
+
 
 typeConvert = {"mech": "mechanised", "armour": "armoured", "inf": "infantry"}
 

@@ -9,3 +9,5 @@ mapRoads: nirgendwola_roads.bmp
 date: 1983-11-22
 season: fall, temperate
 weather: dry, overcast, temperate
+REDFOR: ["NDR","VRN"]
+BLUFOR: ["BRN","NK"]

@@ -1,0 +1,41 @@
+Motor Rifle Rgt 2147
+    AK-74: 441
+    PKM: 180
+    RPG-18: 180
+    9K115 Metis: 54
+    9K32 Strela-2: 27
+    AGS-17: 27
+    BMP-2: 117
+    BRDM-2 9P122: 36
+    T-64B: 40
+    2S11: 54
+    2S3 Akatsiya: 48
+    ZSU-23-4: 56
+
+Tank Rgt 1377
+    AK-74: 147
+    PKM: 60
+    RPG-18: 60
+    9K115 Metis: 18
+    9K32 Strela-2: 9
+    AGS-17: 9
+    BMP-2: 39
+    BRDM-2 9P122: 12
+    T-64B: 120
+    2S11: 18
+    2S3 Akatsiya: 48
+    ZSU-23-4: 72
+
+Division Support 1302
+    AK-74: 180
+    PKM: 30
+    9K115 Metis: 12
+    BMP-2: 12
+    2S3 Akatsiya: 48
+    2S7 Gvozdika: 36
+    Ural-375: 600
+
+Extensive2
+High1.75
+Moderate1.4
+Conscript1

@@ -1,0 +1,25 @@
+name: FV102 Striker
+nation: UK
+type: SP Antitank
+weapons:
+  FN MAG: '3000'
+  Swingfire: '10'
+roadSpeed: '80'
+horsepower: '190'
+groundPress: '0.35'
+radiusOfAction: '650'
+weight: '8.31'
+length: '4.83'
+height: '2.28'
+armour: Steel
+enclosed: true
+traverse: false
+lowLight: Passive IR
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 3

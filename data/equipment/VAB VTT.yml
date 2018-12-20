@@ -1,0 +1,24 @@
+name: VAB VTT
+nation: FRA
+type: APC
+weapons:
+  M2HB: '1200'
+roadSpeed: '110'
+horsepower: '320'
+groundPress: '0.56'
+radiusOfAction: '1200'
+weight: '13.8'
+length: '5.98'
+height: '2.06'
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: true
+crew: 2

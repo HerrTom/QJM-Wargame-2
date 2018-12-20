@@ -1,0 +1,19 @@
+SIDC: SFGPUCIS---I
+equipment:
+    FN FAL: 130
+    LRAC-89: 6
+    FN MAG: 12
+    VAB VTT: 8
+    M114F: 40
+    AS.532 Cougar: 40
+    Lynx AH.1: 60
+hq: HdBRN
+location: [453, 629]
+name: (BRN) 4. Luftsturmdivision
+nation: BRN
+personnel: 1084
+proficiency: 1.75
+shortname: 4.LSD
+stance: hasty
+type: mechanised
+waypoints: null

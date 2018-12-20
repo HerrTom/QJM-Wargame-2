@@ -1,0 +1,25 @@
+name: AMX-10P
+nation: FRA
+type: IFV
+weapons:
+  20mm M693 F2: '760'
+  AAT 52 NF1: '2000'
+roadSpeed: '65'
+horsepower: '300'
+groundPress: '0.53'
+radiusOfAction: '600'
+weight: '14.5'
+length: '5.78'
+height: '8.43'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Passive IR
+rangefinder: Coincident
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 3

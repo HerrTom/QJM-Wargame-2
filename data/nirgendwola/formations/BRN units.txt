@@ -1,0 +1,78 @@
+Tank Regiment
+    AMX-10P: 54
+    FN FAL: 430
+    LRAC-89: 74
+    FN MAG: 128
+    VAB VTT: 26
+    MILAN: 32
+    Chieftain Mk 5: 90
+    VLRA TPK: 24
+    L16 81mm: 36
+    AUF 1: 24
+
+Mechanised Regiment
+    AMX-10P: 90
+    FN FAL: 658
+    LRAC-89: 118
+    FN MAG: 208
+    VAB VTT: 30
+    MILAN: 32
+    Chieftain Mk 5: 54
+    VLRA TPK: 40
+    L16 81mm: 60
+    AUF 1: 24
+    AMX-13 DCA: 12
+
+Motorised Regiment
+    AMX-10P: 9
+    FN FAL: 897
+    LRAC-89: 217
+    FN MAG: 226
+    VAB VTT: 138
+    MILAN: 68
+    Chieftain Mk 5: 27
+    FV102 Striker: 36
+    VLRA TPK: 88
+    L16 81mm: 60
+    M-102: 24
+    AMX-13 DCA: 12
+
+Light Infantry Regiment
+    FN FAL: 964
+    LRAC-89: 140
+    FN MAG: 320
+    MILAN: 108
+    VLRA TPK: 288
+    L16 81mm: 152
+    M-102: 48
+    FV101 Scorpion: 48
+
+Airborne Regiment
+    FN FAL: 864
+    LRAC-89: 108
+    FN MAG: 216
+    MILAN: 144
+    L16 81mm: 108
+    M-102: 18
+    AS.532 Cougar: 18
+    SA.341M Gazelle HOT: 36
+    Lynx AH-1: 216
+	
+	
+Divisional Support
+    FN FAL: 130
+    LRAC-89: 6
+    FN MAG: 12
+    VAB VTT: 8
+    VLRA TPK: 500
+    M-114F: 60
+
+Abn Divisional Sup
+    FN FAL: 130
+    LRAC-89: 6
+    FN MAG: 12
+    VAB VTT: 8
+    M-114F: 40
+    AS.532 Cougar: 40
+    Lynx AH-1: 60
+

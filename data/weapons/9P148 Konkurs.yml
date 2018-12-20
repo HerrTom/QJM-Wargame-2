@@ -1,11 +1,11 @@
 name: 9P148 Konkurs
 type: ATGM
 range: '4000'
-rateOfFire: None
+rateOfFire: ''
 calibre: '135'
 muzzleVel: '208'
 accuracy: 0.7
-barrels: 4
+barrels: 5
 crew: true
 guidance: SACLOS wire day
 atgmPenetration: '600'

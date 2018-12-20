@@ -1,0 +1,13 @@
+name: HOT-2
+type: ATGM
+range: '4000'
+rateOfFire: ''
+calibre: '150'
+muzzleVel: '240'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: SACLOS wire day/night
+atgmPenetration: '900'
+atgmMinRange: '75'
+atgmEnhancement: '1.1'

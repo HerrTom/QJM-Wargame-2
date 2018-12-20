@@ -1,6 +1,6 @@
 name: PzF-44
 nation: BRD
-type: Infantry
+type: Antitank
 weapons:
   G3: '80'
   PzF-44: '3'

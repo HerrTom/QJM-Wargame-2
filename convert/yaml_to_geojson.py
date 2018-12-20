@@ -17,6 +17,11 @@ os.chdir(dname)
 # DEFS ####
 table_style = "width: 90%, border: 1px solid black"
 default_command = "ALL COMMAND"
+colourDicts = {"USSR": "rgb(190,30,45)", "DDR": "rgb(153,69,70)", "USA": "rgb(0,174,239)", "BRD": "rgb(167,169,172)", "NL": "rgb(247,148,30)",
+                "UK": "rgb(255,204,205)", "BEL": "rgb(255,255,0)", "FRA": "rgb(141,198,63)", "DEFAULT": "rgb(255,255,255)",
+                "VRN": "rgb(255,218,218)", "BRN": "rgb(255,255,218)", "NK": "rgb(224,255,218)", "NDR": "rgb(244,218,255)",
+                }
+
 
 # categories:
 with open("equip_cats.yml",'r') as f:
@@ -197,24 +202,10 @@ for ud in unit_list:
     # create a table
     equipment = html_equipment(ud["total_equipment"],ud["name"],ud["total_pers"])
     # create the color entry from the nation
-    if ud["nation"] == "USSR":
-        color = "rgb(190,30,45)"
-    elif ud["nation"] == "DDR":
-        color = "rgb(153,69,70)"
-    elif ud["nation"] == "USA":
-        color = "rgb(0,174,239)"
-    elif ud["nation"] == "BRD":
-        color = "rgb(167,169,172)"
-    elif ud["nation"] == "NL":
-        color = "rgb(247,148,30)"
-    elif ud["nation"] == "UK":
-        color = "rgb(255,204,205)"
-    elif ud["nation"] == "BEL":
-        color = "rgb(255,255,0)"
-    elif ud["nation"] == "FRA":
-        color = "rgb(141,198,63)"
-    else:
-        color = "rgb(255,255,255)"
+    try:
+        color = colourDicts[ud["nation"]]
+    except:
+        color = colourDicts["DEFAULT"]
     coords = xy_to_lon_lat(ud["location"])
     u.append(gen_unit_feature(coords,ud["SIDC"],ud["shortname"],ud["name"],ud["hq"],equipment,color))
     
@@ -222,6 +213,6 @@ for ud in unit_list:
 write_geojson(u,'./json_out/situation.js')
 
 # write an example unit
-print("-----")
-pretty_unit(unit_list,"9.TD")
+# print("-----")
+# pretty_unit(unit_list,unit_list[0])
 # pretty_unit(unit_list,"GSFG")

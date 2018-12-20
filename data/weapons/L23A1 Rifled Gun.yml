@@ -1,0 +1,13 @@
+name: L23A1 Rifled Gun
+type: Gun
+range: '2200'
+rateOfFire: ''
+calibre: '76.2'
+muzzleVel: '792'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

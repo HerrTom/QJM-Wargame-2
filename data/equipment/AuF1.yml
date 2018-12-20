@@ -1,0 +1,24 @@
+name: AuF1
+nation: FRA
+type: SP Artillery
+weapons:
+  M109: '42'
+roadSpeed: '60'
+horsepower: '720'
+groundPress: '0.83'
+radiusOfAction: '450'
+weight: '41.9'
+length: '10.25'
+height: '3.25'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 4

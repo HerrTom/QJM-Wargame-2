@@ -1,0 +1,43 @@
+SIDC: SFGPUCIM---G
+equipment:
+  AMX-10P: 3
+  Chieftain Mk.V: 14
+  FN FAL: 769
+  FN MAG: 195
+  FV102 Striker: 30
+  L16A2: 57
+  LRAC-89: 214
+  MILAN: 66
+  VAB VTT: 74
+  VLRA TPK: 79
+hq: 1.PzD
+location:
+- !!python/object/apply:numpy.core.multiarray.scalar
+  - &id001 !!python/object/apply:numpy.dtype
+    args:
+    - f8
+    - 0
+    - 1
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
+  - !!binary |
+    AAAAAACAgEA=
+- !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAADAaEA=
+name: (BRN) 13. Grenadier Regiment
+nation: BRN
+personnel: 2559
+proficiency: 1.75
+shortname: 13.GR
+stance: hasty
+type: mechanised
+waypoints: null

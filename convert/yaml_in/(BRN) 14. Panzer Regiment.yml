@@ -1,0 +1,24 @@
+SIDC: SFGPUCA----G
+equipment:
+  AMX-10P: 54
+  AuF1: 24
+  Chieftain Mk.V: 90
+  FN FAL: 430
+  FN MAG: 128
+  L16A2: 36
+  LRAC-89: 74
+  MILAN: 32
+  VAB VTT: 26
+  VLRA TPK: 24
+hq: 1.PzD
+location:
+- 523.0
+- 156.0
+name: (BRN) 14. Panzer Regiment
+nation: BRN
+personnel: 1530
+proficiency: 1.75
+shortname: 14.PR
+stance: hasty
+type: armoured
+waypoints: null

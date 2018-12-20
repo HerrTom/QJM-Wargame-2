@@ -1,0 +1,43 @@
+SIDC: SFGPUCIZ---G
+equipment:
+  AMX-10P: 50
+  AuF1: 24
+  Chieftain Mk.V: 30
+  FN FAL: 606
+  FN MAG: 193
+  L16A2: 60
+  LRAC-89: 118
+  MILAN: 32
+  VAB VTT: 14
+  VLRA TPK: 39
+hq: 2.PzD
+location:
+- !!python/object/apply:numpy.core.multiarray.scalar
+  - &id001 !!python/object/apply:numpy.dtype
+    args:
+    - f8
+    - 0
+    - 1
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
+  - !!binary |
+    AAAAAAAIgUA=
+- !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAACga0A=
+name: (BRN) 22. Panzergrenadier Regiment
+nation: BRN
+personnel: 1978
+proficiency: 1.75
+shortname: 22.PzGR
+stance: hasty
+type: mechanised
+waypoints: null

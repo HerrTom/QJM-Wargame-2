@@ -1,0 +1,13 @@
+name: Swingfire
+type: ATGM
+range: '4000'
+rateOfFire: ''
+calibre: '170'
+muzzleVel: '185'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: SACLOS wire day
+atgmPenetration: '800'
+atgmMinRange: '150'
+atgmEnhancement: '1.1'

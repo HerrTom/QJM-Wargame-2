@@ -1,0 +1,21 @@
+SIDC: SFGPUCI----G
+equipment:
+  FN FAL: 964
+  FN MAG: 320
+  FV101 Scorpion: 48
+  L16A2: 152
+  LRAC-89: 140
+  MILAN: 108
+  VLRA TPK: 288
+hq: 7.FD
+location:
+- 589
+- 446
+name: (BRN) 73. Fusilier Regiment
+nation: BRN
+personnel: 3020
+proficiency: 1.4
+shortname: 73.FR
+stance: hasty
+type: infantry
+waypoints: null

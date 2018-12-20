@@ -8,6 +8,12 @@ from PIL.ImageQt import ImageQt
 
 import qjm_data
 
+# nation colours
+
+nationColour = {"DDR": (145,80,71), "USSR": (219,26,0), "UK": (255,218,218), "BRD": (177,177,177),
+                "VRN": (255,218,218), "BRN": (255,255,218), "NK": (224,255,218), "NDR": (244,218,255),
+                }
+
 def gen_OOB_dict(db):
     relations = []
     for formation in db.formations:
@@ -44,11 +50,14 @@ def get_icons(path):
 
 def MakePixmap(image):
         im = image.copy()
-        im = im.convert("RGB")
-        data = im.tobytes("raw","RGB")
-        qim = QtGui.QImage(data, im.size[0], im.size[1], QtGui.QImage.Format_RGB888)
-        # qim = ImageQt(im)
-        return QtGui.QPixmap.fromImage(qim)
+        # im = im.convert("RGB")
+        # data = im.tobytes("raw","RGB")
+        # qim = QtGui.QImage(data, im.size[0], im.size[1], QtGui.QImage.Format_RGB888)
+        qim = ImageQt(im)
+        qtim = QtGui.QImage(qim)
+        pix = QtGui.QPixmap.fromImage(qtim)
+        pix.detach()
+        return pix
 
 class MapLabel(QtWidgets.QLabel):
     RightClickSignal = QtCore.pyqtSignal([list])
@@ -99,6 +108,10 @@ class MainGui(QtWidgets.QMainWindow):
         file = QtWidgets.QMenu("File",self)
         self.load = QtWidgets.QAction("Load Definition",self)
         file.addAction(self.load)
+        self.save = QtWidgets.QAction("Save Definition",self)
+        file.addAction(self.save)
+        self.export = QtWidgets.QAction("Export Definition",self)
+        file.addAction(self.export)
         self.simulate = QtWidgets.QAction("Simulate",self)
         file.addAction(self.simulate)
         view = QtWidgets.QMenu("View",self)
@@ -117,17 +130,23 @@ class MainGui(QtWidgets.QMainWindow):
         self.viewUnits.triggered.connect(self.ShowAllUnits)
         self.viewUnits.setChecked(True)
         view.addAction(self.viewUnits)
+        info = QtWidgets.QMenu("Info",self)
+        self.infoLoss = QtWidgets.QAction("Losses",self)
+        info.addAction(self.infoLoss)
         
         # connect actions
         self.simulate.triggered.connect(self.OnSimulate)
         
         self.ag.triggered.connect(self.OnView)
-        # self.Water.triggered.connect(self.OnView)
-        # self.Roughness.triggered.connect(self.OnView)
+        
+        self.export.triggered.connect(self.OnExportData)
+        
+        self.infoLoss.triggered.connect(self.OnInfoLoss)
         
         menubar = self.menuBar()
         menubar.addMenu(file)
         menubar.addMenu(view)
+        menubar.addMenu(info)
         
         
         layout = QtWidgets.QGridLayout()
@@ -279,15 +298,14 @@ class MainGui(QtWidgets.QMainWindow):
         self.units = []
         for form in self.db.formations:
             if form is not None:
-                if form.nation == "DDR":
-                    colour = (174,39,39)
-                else:
+                try:
+                    colour = nationColour[form.nation]
+                except:
                     colour = (128,224,255)
                 SIDC = form.SIDC
                 formLabel = UnitIcon("     ",parent=self.maplbl)
                 # formLabel = QtWidgets.QLabel("     ",parent=self.maplbl)
                 self.units.append(formLabel)
-                formLabel.setPixmap(ColourIcon(QtGui.QPixmap(self.icons[SIDC]),colour))
                 formLabel.QJMName = form.name
                 
                 formLabel.LeftClickSignal.connect(self.OnUnitLeftClick)
@@ -333,6 +351,12 @@ class MainGui(QtWidgets.QMainWindow):
     def OnOOBClick(self,event):
         self.GetFormationData(self)
         
+    def OnInfoLoss(self,event):
+        print(self.db.LossesBySide())
+        
+    def OnExportData(self,event):
+        self.db.dumpFormations()
+        
     def OnView(self,event):
         if self.ag.checkedAction() is self.Water:
             self.maplbl.setPixmap(MakePixmap(self.db.frontline.TerrainWater))
@@ -349,7 +373,8 @@ class MainGui(QtWidgets.QMainWindow):
         if form is not None:
             form.waypoint = coords
             print(form.shortname,coords)
-            self.wpLabel.move(coords[0],coords[1])
+            self.wpLabel.setGeometry(coords[0]-5,coords[1]-5,10,10)
+            # self.wpLabel.move(coords[0],coords[1])
         
 def main():
     # import qdarkstyle

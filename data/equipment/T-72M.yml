@@ -1,0 +1,26 @@
+name: T-72M
+nation: CZE
+type: Tank
+weapons:
+  2A46M: '45'
+  NSVT: '300'
+  PKT: '2000'
+roadSpeed: '60'
+horsepower: '780'
+groundPress: '0.83'
+radiusOfAction: '460'
+weight: '45.7'
+length: '6.95'
+height: '2.23'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Active IR
+rangefinder: Laser
+fcCant: false
+fcAmmo: true
+fcWind: false
+fcBarrel: false
+stabilised: true
+amphibious: false
+crew: 3

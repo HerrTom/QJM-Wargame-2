@@ -9,3 +9,5 @@ mapRoads: germany1983_roads.bmp
 date: 1983-11-22
 season: fall, temperate
 weather: dry, overcast, temperate
+REDFOR: ["USSR","DDR","POL","CZE"]
+BLUFOR: ["USA","BRD","NL","BEL","UK","DAN"]

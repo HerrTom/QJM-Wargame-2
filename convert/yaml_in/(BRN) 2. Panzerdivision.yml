@@ -1,0 +1,39 @@
+SIDC: SFGPUCA----I
+equipment:
+  FN FAL: 127
+  FN MAG: 12
+  LRAC-89: 6
+  M114F: 60
+  VAB VTT: 7
+  VLRA TPK: 491
+hq: HdBRN
+location:
+- !!python/object/apply:numpy.core.multiarray.scalar
+  - &id001 !!python/object/apply:numpy.dtype
+    args:
+    - f8
+    - 0
+    - 1
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
+  - !!binary |
+    AAAAAADwgEA=
+- !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    AAAAAADgakA=
+name: (BRN) 2. Panzerdivision
+nation: BRN
+personnel: 1084
+proficiency: 1.75
+shortname: 2.PzD
+stance: hasty
+type: mechanised
+waypoints: null

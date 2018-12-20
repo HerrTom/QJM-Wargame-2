@@ -1,0 +1,20 @@
+SIDC: SFGPUCI----G
+equipment:
+    FN FAL: 964
+    LRAC-89: 140
+    FN MAG: 320
+    MILAN: 108
+    VLRA TPK: 288
+    L16A2: 152
+    M-102: 48
+    FV101 Scorpion: 48
+hq: 6.FD
+location: [602, 383]
+name: (BRN) 63. Fusilier Regiment
+nation: BRN
+personnel: 3020
+proficiency: 1.4
+shortname: 63.FR
+stance: hasty
+type: infantry
+waypoints: null

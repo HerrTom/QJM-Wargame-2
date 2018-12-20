@@ -1,0 +1,13 @@
+name: 20mm M693 F2
+type: Gun
+range: '1500'
+rateOfFire: '720'
+calibre: '20'
+muzzleVel: '1050'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: MCLOS
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

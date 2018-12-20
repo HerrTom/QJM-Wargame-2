@@ -280,8 +280,20 @@ class EquipmentGui(QtWidgets.QWidget):
         
         crewLabel = QtWidgets.QLabel("Crew:")
         self.crew = QtWidgets.QSpinBox()
+        self.crew.setMinimum(1)
         miscLayout.addWidget(crewLabel,1,0)
         miscLayout.addWidget(self.crew,1,1)
+        
+        # ceiling
+        ceilingLabel = QtWidgets.QLabel("Ceiling:")
+        self.ceiling = QtWidgets.QSpinBox()
+        self.ceiling.setRange(0,50000)
+        self.ceiling.setSingleStep(1000)
+        self.ceiling.setSuffix(" m")
+        # ceilingUnitLabel = QtWidgets.QLabel("meters")
+        miscLayout.addWidget(ceilingLabel,2,0)
+        miscLayout.addWidget(self.ceiling,2,1)
+        # miscLayout.addWidget(ceilingUnitLabel,2,2)
         
         miscBox.setLayout(miscLayout)
         
@@ -355,7 +367,7 @@ class EquipmentGui(QtWidgets.QWidget):
         index = self.equipList.currentItem().text()
         # index = self.equipList.currentRow()
         equip = self.db.getEquipmentByName(index)
-        print("Populating {}...".format(equip.name))
+        print("Populating {} @ {:,.3f}...".format(equip.name,equip.OLI))
         self.PopulateEquipment(equip)
         
     def PopulateEquipment(self,equip):
@@ -405,6 +417,8 @@ class EquipmentGui(QtWidgets.QWidget):
         
         self.amphibious.setChecked(equip.amphibious)
         self.crew.setValue(equip.crew)
+        
+        self.ceiling.setValue(equip.ceiling)
 
         
     def ReloadEquipmentList(self,typeFilter=None,nationFilter=None):
@@ -465,6 +479,7 @@ class EquipmentGui(QtWidgets.QWidget):
         equip['stabilised']      = self.stabilised.isChecked()
         equip['amphibious']      = self.amphibious.isChecked()
         equip['crew']            = self.crew.value()
+        equip['ceiling']         = self.ceiling.value()
         
         self.db.saveEquipment(equip)
 

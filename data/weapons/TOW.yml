@@ -9,5 +9,5 @@ barrels: 1
 crew: true
 guidance: SACLOS wire day/night
 atgmPenetration: '430'
-atgmMinRange: '200'
+atgmMinRange: '65'
 atgmEnhancement: '1.1'

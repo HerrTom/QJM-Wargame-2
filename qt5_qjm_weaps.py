@@ -200,7 +200,7 @@ class WeaponGui(QtWidgets.QWidget):
     def OnWeapSelected(self):
         index = self.weapList.currentRow()
         weap = self.db.getWeapon(index)
-        print("Populating {}...".format(weap.name))
+        print("Populating {} @ {:,.0f}...".format(weap.name,weap.TLI))
         self.PopulateWeapon(weap)
     
     def PopulateWeapon(self,weap):

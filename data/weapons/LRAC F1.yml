@@ -1,0 +1,13 @@
+name: LRAC F1
+type: Gun
+range: '500'
+rateOfFire: ''
+calibre: '89'
+muzzleVel: '295'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: MCLOS
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''
