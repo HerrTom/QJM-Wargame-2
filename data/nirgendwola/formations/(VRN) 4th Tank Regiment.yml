@@ -1,22 +1,22 @@
 SIDC: SFGPUCA----G
 equipment:
-    AK-74: 441
-    PKM: 180
-    RPG-18: 180
-    9K115 Metis: 54
-    9K32 Strela-2: 27
-    AGS-17: 27
-    BMP-2: 117
-    BRDM-2 9P122: 36
-    T-64B: 40
-    2S11: 54
+    AK-74: 147
+    PKM: 60
+    RPG-18: 60
+    9K115 Metis: 18
+    9K32 Strela-2: 9
+    AGS-17: 9
+    BMP-2: 39
+    BRDM-2 9P122: 12
+    T-64B: 120
+    2B11: 18
     2S3 Akatsiya: 48
-    ZSU-23-4: 56
+    ZSU-23-4: 72
 hq: 1D
 location: [557, 213]
 name: (VRN) 4th Tank Regiment
 nation: VRN
-personnel: 2147
+personnel: 1377
 proficiency: 1.4
 shortname: 4TR
 stance: hasty

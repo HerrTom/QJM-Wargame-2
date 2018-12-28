@@ -34,7 +34,7 @@ Motorised Regiment
     FV102 Striker: 36
     VLRA TPK: 88
     L16 81mm: 60
-    M-102: 24
+    M102: 24
     AMX-13 DCA: 12
 
 Light Infantry Regiment
@@ -44,7 +44,7 @@ Light Infantry Regiment
     MILAN: 108
     VLRA TPK: 288
     L16 81mm: 152
-    M-102: 48
+    M102: 48
     FV101 Scorpion: 48
 
 Airborne Regiment
@@ -53,7 +53,7 @@ Airborne Regiment
     FN MAG: 216
     MILAN: 144
     L16 81mm: 108
-    M-102: 18
+    M102: 18
     AS.532 Cougar: 18
     SA.341M Gazelle HOT: 36
     Lynx AH-1: 216

@@ -1,3 +1,5 @@
+from multiprocessing import Pool
+
 import numpy as np
 import scipy.ndimage as ndimage
 import networkx as nx
@@ -17,6 +19,26 @@ roadDict    = {(0,0,0): "highway", (255,255,255): "none"}
 costDict_road  = {"highway": .2, "none": 1}
 costDict_terr  = {"flat": 1, "urban": 1.2, "rolling": 1.5, "rugged":  2}
 costDict_water = {"land": 1, "river": 10, "water": None}
+
+def get_supply(source,sink,load,graph,size):
+    
+    traffic = np.zeros(size)
+    
+    for i, sn in enumerate(sink):
+        print("Path from {} to {}".format(source,sn))
+        try:
+            length, path = nx.multi_source_dijkstra(graph,source,target=sn,weight="weight")
+            # path = nx.shortest_path(G,source,sn,weight="weight")
+            for coord in path:
+                traffic[coord[0],coord[1]] += 1
+                # traffic[coord[0],coord[1]] += load[i]
+            suppply = length
+            print(path)
+        except:
+            supply = None
+    print(traffic.max())
+    return supply, traffic
+        
 
 def get_neighbours(coords,size):
     # returns a list of valid neighbour coordinates
@@ -88,7 +110,7 @@ def plot_paths(G,source,sink,size):
             print("No path!")
             
     plt.imshow(ndimage.rotate(traffic,90),origin="upper")
-    
+   
                 
 if __name__ == '__main__':
     import os
@@ -96,10 +118,10 @@ if __name__ == '__main__':
     dname = os.path.dirname(abspath)
     os.chdir(dname)
 
-    water   = Image.open("./data/maps/germany1983_water.bmp")
-    roads   = Image.open("./data/maps/germany1983_roads.bmp")
-    terr    = Image.open("./data/maps/germany1983_terrain.bmp")
-    own    = Image.open("./data/maps/germany1983_territory.bmp")
+    water   = Image.open("./data/germany83/maps/germany1983_water.bmp")
+    roads   = Image.open("./data/germany83/maps/germany1983_roads.bmp")
+    terr    = Image.open("./data/germany83/maps/germany1983_terrain.bmp")
+    own     = Image.open("./data/germany83/maps/germany1983_territory.bmp")
     friendlyColour = (255,0,0)
     
     G = generate_weighted_graph(roads,water,terr,own,friendlyColour)

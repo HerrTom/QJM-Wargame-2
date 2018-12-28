@@ -124,6 +124,10 @@ class MainGui(QtWidgets.QMainWindow):
         view.addAction(self.Cover)
         self.Water = self.ag.addAction(QtWidgets.QAction("Terrain Water",self,checkable=True))
         view.addAction(self.Water)
+        self.BLUSupply = self.ag.addAction(QtWidgets.QAction("BLUFOR traffic",self,checkable=True))
+        view.addAction(self.BLUSupply)
+        self.REDSupply = self.ag.addAction(QtWidgets.QAction("REDFOR traffic",self,checkable=True))
+        view.addAction(self.REDSupply)
         self.Water.setChecked(True)
         view.addSeparator()
         self.viewUnits = QtWidgets.QAction("Show all units",checkable=True)
@@ -364,6 +368,10 @@ class MainGui(QtWidgets.QMainWindow):
             self.maplbl.setPixmap(MakePixmap(self.db.frontline.Territory))
         elif self.ag.checkedAction() is self.Cover:
             self.maplbl.setPixmap(MakePixmap(self.db.frontline.TerrainCover))
+        elif self.ag.checkedAction() is self.BLUSupply:
+            self.maplbl.setPixmap(MakePixmap(self.db.frontline.TrafficBLU))
+        elif self.ag.checkedAction() is self.REDSupply:
+            self.maplbl.setPixmap(MakePixmap(self.db.frontline.TrafficRED))
         else:
             self.maplbl.setPixmap(MakePixmap(self.db.frontline.TerrainType))
             

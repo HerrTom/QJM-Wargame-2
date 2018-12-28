@@ -80,6 +80,13 @@ def represent_ordereddict(dumper, data):
 ## handle ordered dicts nicely
 yaml.add_representer(OrderedDict, represent_ordereddict)
 
+def normalize_matrix(x):
+    if x.max() != 0:
+        tqdm.write("{}".format(x.max()))
+        return x / x.max() * 255
+    else:
+        return x*255
+        
 def signed_sqrt(x):
     if x >= 0:
         return x**0.5
@@ -672,6 +679,8 @@ class formation():
         self.hq = None
         self.SIDC = "SFGPU-------"
         
+        self.supply = 1 # default is fully supplied
+        
         self.losses = Counter()
         self.casualties = Counter({"Killed": 0, "Wounded": 0})
         
@@ -880,6 +889,9 @@ class Frontline():
         
         self.FindFL()
         
+        self.GetSupplySources()
+        self.GetSupplyStatus()
+        
         
     def FindFL(self):
         # march through image from L to R, and drop a FrontlinePoint on each type
@@ -915,7 +927,45 @@ class Frontline():
                 if colour != newcolour and not self.InFrontlineList(x,y) and (255,255,255) not in [newcolour, colour]:
                     self.FrontlinePoints.append(FrontlinePoint(self,(x,y),pxCover[x,y],pxType[x,y],pxWater[x,y]))
                 colour = newcolour
-                        
+    
+    def GetSupplySources(self):
+        self.SupplySources = []
+        for form in self.parent.formations:
+            if form.type == "supply":
+                self.SupplySources.append(form.xy) # supply can't cross ownership so we can do all of them
+        tqdm.write("Creating BLU supply network")
+        self.SupplyGraphBLUFOR = supply_network.generate_weighted_graph(self.Roads,self.TerrainWater,self.TerrainType,self.Territory,BLU)
+        tqdm.write("Creating RED supply network")
+        self.SupplyGraphREDFOR = supply_network.generate_weighted_graph(self.Roads,self.TerrainWater,self.TerrainType,self.Territory,RED)
+    
+    def GetSupplyStatus(self):
+        size = self.Territory.size
+        
+        REDFOR_pos = []
+        BLUFOR_pos = []
+        
+        REDFOR_load = []
+        BLUFOR_load = []
+        
+        for form in self.parent.formations:
+            if form.nation in BLUFOR:
+                BLUFOR_pos.append(form.xy)
+                BLUFOR_load.append(form.personnel / 10)
+            else:
+                REDFOR_pos.append(form.xy)
+                REDFOR_load.append(form.personnel / 10)
+        tqdm.write("Running BLU supply")
+        SupplyBLU, TrafficBLU = supply_network.get_supply(self.SupplySources,BLUFOR_pos,BLUFOR_load,self.SupplyGraphBLUFOR,size)
+        tqdm.write("Running RED supply")
+        SupplyRED, TrafficRED = supply_network.get_supply(self.SupplySources,REDFOR_pos,REDFOR_load,self.SupplyGraphREDFOR,size)
+        
+        # convert the traffic maps to images
+        print((normalize_matrix(TrafficBLU)).astype('uint8'))
+        self.TrafficBLU = Image.fromarray((normalize_matrix(TrafficBLU)).astype('uint8'))
+        self.TrafficRED = Image.fromarray((normalize_matrix(TrafficRED)).astype('uint8'))
+        
+        self.TrafficBLU.show()
+        
     def InFrontlineList(self,x,y):
         if self.FrontlineCoords == []:
             # generate the frontline coords
@@ -971,11 +1021,7 @@ class Frontline():
                     influence = 1/(1+np.exp(-8*(dist/maxrad - 0.5)))
                     pt.AddUnit(unit,influence)
                     unit.NumPoints+=1
-    
-    def generateSupplyNetwork(self):
-        self.supplyRED = supply_network.generate_weighted_graph(self.Roads,self.terrainWater,self.terrainCover,self.Territory,RED)
-        self.supplyBLU = supply_network.generate_weighted_graph(self.Roads,self.terrainWater,self.terrainCover,self.Territory,BLU)
-    
+        
     def GetOwner(self,x,y):
         px = self.Territory.load()
         if px[x,y] == RED:
@@ -1382,7 +1428,7 @@ if __name__ == '__main__':
     mapconfig = "{}maps/{}.yml".format(dbconfig,mapname)
     
     db = database()
-    db.loadFormations(dbconfig)
+    db.loadFormations(dbforms)
     # for form in db.formations:
         # form.PrintStrength()
     

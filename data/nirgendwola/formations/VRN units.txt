@@ -8,7 +8,7 @@ Motor Rifle Rgt 2147
     BMP-2: 117
     BRDM-2 9P122: 36
     T-64B: 40
-    2S11: 54
+    2B11: 54
     2S3 Akatsiya: 48
     ZSU-23-4: 56
 
@@ -22,7 +22,7 @@ Tank Rgt 1377
     BMP-2: 39
     BRDM-2 9P122: 12
     T-64B: 120
-    2S11: 18
+    2B11: 18
     2S3 Akatsiya: 48
     ZSU-23-4: 72
 
