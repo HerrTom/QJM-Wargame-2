@@ -20,7 +20,7 @@ Di = 5000
 
 global simTime
 simDuration = 1 # days
-simSteps    = 1
+simSteps    = 6
 simTime = simDuration / simSteps
 
 # for debug only
@@ -818,8 +818,8 @@ class formation():
         
         # TODO handle if distance is zero
         dir = make_unit([wp[0] - self.x, wp[1]-self.y])
-        self.x = round(self.x + dir[0] * advance,0)
-        self.y = round(self.y + dir[1] * advance,0)
+        self.x = int(self.x + dir[0] * advance)
+        self.y = int(self.y + dir[1] * advance)
         self.xy = [self.x, self.y]
     
     def PrintStrength(self):
@@ -1046,7 +1046,7 @@ class Frontline():
                 if dist <= maxrad:
                     # only if point is within the circle do we want to do something
                     if px[xp,yp] == colour:
-                        points.append((xp,yp))
+                        points.append((int(xp),int(yp)))
                         rng.append(dist)
                         
         # find the minimum distance and return point

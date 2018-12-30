@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 from scipy import ndimage
 from tqdm import tqdm
 
+import graph_tool as gt
+
 roughDict = {(172,35,167): "urban", (254,230,154): "rolling",
             (186,134,43): "rugged", (255,255,255): "flat",}
 waterColour = (37,98,129)
@@ -26,22 +28,46 @@ costDict_water = {"land": 1, "river": 10, "water": None}
 
 def get_supply(source,sink,load,graph,size):
     t = time.time()
-    
+        
     traffic = np.zeros(size)
-    tqdm.write(str(source))
-    tqdm.write(str(sink))
-    for i, sn in enumerate(sink):
-        try:
-            length, path = nx.multi_source_dijkstra(graph,source,target=sn,weight="weight")
+    tqdm.write("Sources: " + str(source))
+    tqdm.write("Sinks: " + str(sink))
+    
+    partial_supply = partial(parallel_supply, source=source, graph=graph)
+    with Pool() as P:
+        output = P.map(partial_supply,list(zip(sink,load)))
+    
+    output_unzipped = list(zip(*output))
+    supply = output_unzipped[0]
+    paths = output_unzipped[1]
+    
+    tqdm.write("Supply: " + str(supply))
+    
+    for idx,path in enumerate(paths):
+        for coord in path:
+            traffic[coord[0],coord[1]] += load[idx]
+    
+    # for i, sn in enumerate(sink):
+        # try:
+            # length, path = nx.multi_source_dijkstra(graph,source,target=sn,weight="weight")
             # path = nx.shortest_path(G,source,sn,weight="weight")
-            for coord in path:
-                traffic[coord[0],coord[1]] += load[i]
-            supply = length
-        except:
-            supply = None
+            # for coord in path:
+                # traffic[coord[0],coord[1]] += load[i]
+            # supply = length
+        # except:
+            # supply = None
     tqdm.write("Supply calculation {}s".format(time.time()-t))
     return supply, traffic
-        
+    
+def parallel_supply(sinkload,source,graph):
+    sink = sinkload[0]
+    load = sinkload[1]
+    try:
+        length, path = nx.multi_source_dijkstra(graph,source,target=sink,weight="weight")
+    except:
+        length  = None
+        path    = []
+    return (length, path)
 
 def get_neighbours(coords,size):
     # returns a list of valid neighbour coordinates
@@ -113,7 +139,6 @@ def generate_weighted_graph(roads,water,terrain,ownership,friendlyColour):
             graph.update({(x,y): tg})
     tqdm.write("Graph generation {}s".format(time.time()-t))
     g = nx.Graph(graph)
-    tqdm.write(str(g[(459,288)]))
     return g
     
 def graph_point(xy,g,roads,water,terrain,ownership,friendlyColour):
