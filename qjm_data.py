@@ -20,7 +20,7 @@ Di = 5000
 
 global simTime
 simDuration = 1 # days
-simSteps    = 12
+simSteps    = 1
 simTime = simDuration / simSteps
 
 # for debug only
@@ -82,7 +82,6 @@ yaml.add_representer(OrderedDict, represent_ordereddict)
 
 def normalize_matrix(x):
     if x.max() != 0:
-        tqdm.write("{}".format(x.max()))
         return x / x.max() * 255
     else:
         return x*255
@@ -434,6 +433,8 @@ class database():
             self.frontline.Advance()
             self.MoveIdleUnits()
             
+            self.frontline.GetSupplySources()
+            self.frontline.GetSupplyStatus()
             
             # db.frontline.DrawFrontline(im,(190,190,190))
             
@@ -856,7 +857,7 @@ class formation():
                 else:
                     eqDestroyed.update({eq.name: 1})
         
-        data = "{}\n{}\n  Losses: {}".format(self.name,"*"*len(self.name),losses)
+        data = "{}\n{}\n  Losses: {}\nSupply: {}\n".format(self.name,"*"*len(self.name),losses,self.supply)
         states = {"Intact": eqIntact, "Damaged": eqDamaged, "Destroyed": eqDestroyed}
         return data, states
         
@@ -932,12 +933,13 @@ class Frontline():
         self.SupplySources = []
         for form in self.parent.formations:
             if form.type == "supply":
-                self.SupplySources.append(form.xy) # supply can't cross ownership so we can do all of them
+                self.SupplySources.append((form.x,form.y)) # supply can't cross ownership so we can do all of them
         tqdm.write("Creating BLU supply network")
         self.SupplyGraphBLUFOR = supply_network.generate_weighted_graph(self.Roads,self.TerrainWater,self.TerrainType,self.Territory,BLU)
         tqdm.write("Creating RED supply network")
         self.SupplyGraphREDFOR = supply_network.generate_weighted_graph(self.Roads,self.TerrainWater,self.TerrainType,self.Territory,RED)
-    
+        
+        
     def GetSupplyStatus(self):
         size = self.Territory.size
         
@@ -949,10 +951,10 @@ class Frontline():
         
         for form in self.parent.formations:
             if form.nation in BLUFOR:
-                BLUFOR_pos.append(form.xy)
+                BLUFOR_pos.append((form.x,form.y))
                 BLUFOR_load.append(form.personnel / 10)
             else:
-                REDFOR_pos.append(form.xy)
+                REDFOR_pos.append((form.x,form.y))
                 REDFOR_load.append(form.personnel / 10)
         tqdm.write("Running BLU supply")
         SupplyBLU, TrafficBLU = supply_network.get_supply(self.SupplySources,BLUFOR_pos,BLUFOR_load,self.SupplyGraphBLUFOR,size)
@@ -960,11 +962,9 @@ class Frontline():
         SupplyRED, TrafficRED = supply_network.get_supply(self.SupplySources,REDFOR_pos,REDFOR_load,self.SupplyGraphREDFOR,size)
         
         # convert the traffic maps to images
-        print((normalize_matrix(TrafficBLU)).astype('uint8'))
-        self.TrafficBLU = Image.fromarray((normalize_matrix(TrafficBLU)).astype('uint8'))
-        self.TrafficRED = Image.fromarray((normalize_matrix(TrafficRED)).astype('uint8'))
+        self.TrafficBLU = Image.fromarray(255-(normalize_matrix(TrafficBLU)).astype('uint8')).rotate(-90).transpose(Image.FLIP_LEFT_RIGHT)
+        self.TrafficRED = Image.fromarray(255-(normalize_matrix(TrafficRED)).astype('uint8')).rotate(-90).transpose(Image.FLIP_LEFT_RIGHT)
         
-        self.TrafficBLU.show()
         
     def InFrontlineList(self,x,y):
         if self.FrontlineCoords == []:
