@@ -1,0 +1,25 @@
+name: M16A2
+nation: USA
+type: Infantry
+weapons:
+  M16A2: '120'
+roadSpeed: null
+horsepower: null
+groundPress: null
+radiusOfAction: null
+weight: null
+length: null
+height: null
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 1
+ceiling: 0

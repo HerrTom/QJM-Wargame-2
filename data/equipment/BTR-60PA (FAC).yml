@@ -1,0 +1,25 @@
+name: BTR-60PA (FAC)
+nation: USSR
+type: APC
+weapons:
+  DShK: '2000'
+roadSpeed: '80'
+horsepower: '180'
+groundPress: '0.9'
+radiusOfAction: '500'
+weight: '11.4'
+length: '7.56'
+height: '2.31'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: true
+crew: 2
+ceiling: 0

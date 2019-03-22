@@ -1,0 +1,26 @@
+name: FV438 Swingfire
+nation: UK
+type: SP Antitank
+weapons:
+  FN MAG: '2000'
+  Swingfire (2x bin): '16'
+roadSpeed: '70'
+horsepower: '240'
+groundPress: '0.79'
+radiusOfAction: '580'
+weight: '16.2'
+length: '5.25'
+height: '2.28'
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 2
+ceiling: 0

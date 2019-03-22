@@ -124,6 +124,8 @@ class MainGui(QtWidgets.QMainWindow):
         view.addAction(self.Cover)
         self.Water = self.ag.addAction(QtWidgets.QAction("Terrain Water",self,checkable=True))
         view.addAction(self.Water)
+        self.Roads = self.ag.addAction(QtWidgets.QAction("Terrain Roads",self,checkable=True))
+        view.addAction(self.Roads)
         self.BLUSupply = self.ag.addAction(QtWidgets.QAction("BLUFOR traffic",self,checkable=True))
         view.addAction(self.BLUSupply)
         self.REDSupply = self.ag.addAction(QtWidgets.QAction("REDFOR traffic",self,checkable=True))
@@ -170,6 +172,7 @@ class MainGui(QtWidgets.QMainWindow):
         # self.maplbl = QtWidgets.QGraphicsView(mapview)
         self.maplbl = MapLabel(parent=mapview)
         self.maplbl.RightClickSignal.connect(self.OnMapClick)
+        self.maplbl.setAlignment(QtCore.Qt.AlignTop)
         # self.maplbl = QtWidgets.QLabel(mapview)
         mapview.setWidget(self.maplbl)
         mapview.setAlignment(QtCore.Qt.AlignTop)
@@ -368,6 +371,8 @@ class MainGui(QtWidgets.QMainWindow):
             self.maplbl.setPixmap(MakePixmap(self.db.frontline.Territory))
         elif self.ag.checkedAction() is self.Cover:
             self.maplbl.setPixmap(MakePixmap(self.db.frontline.TerrainCover))
+        elif self.ag.checkedAction() is self.Roads:
+            self.maplbl.setPixmap(MakePixmap(self.db.frontline.Roads))
         elif self.ag.checkedAction() is self.BLUSupply:
             self.maplbl.setPixmap(MakePixmap(self.db.frontline.TrafficBLU))
         elif self.ag.checkedAction() is self.REDSupply:
@@ -415,8 +420,9 @@ def main():
 
     # app.setPalette(palette)
 
+    gameName = "demo"
     # gameName = "germany83"
-    gameName = "nirgendwola"
+    # gameName = "nirgendwola"
     path = "./data/"+gameName+"/"
     configName = gameName + ".yml"
     formationPath = path + "formations/"

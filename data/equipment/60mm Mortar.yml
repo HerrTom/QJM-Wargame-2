@@ -1,0 +1,25 @@
+name: 60mm Mortar
+nation: NA
+type: Artillery
+weapons:
+  60mm Mortar: '20'
+roadSpeed: null
+horsepower: null
+groundPress: null
+radiusOfAction: null
+weight: null
+length: null
+height: null
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 4
+ceiling: 0

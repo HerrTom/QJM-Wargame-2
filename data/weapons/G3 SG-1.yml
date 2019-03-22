@@ -1,0 +1,13 @@
+name: G3 SG-1
+type: Gun
+range: '1000'
+rateOfFire: '600'
+calibre: '7.62'
+muzzleVel: '800'
+accuracy: 0.95
+barrels: 1
+crew: false
+guidance: ''
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

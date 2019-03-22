@@ -1,0 +1,13 @@
+name: M72A2
+type: Gun
+range: '200'
+rateOfFire: ''
+calibre: '66'
+muzzleVel: '145'
+accuracy: 0.8
+barrels: 1
+crew: false
+guidance: MCLOS
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

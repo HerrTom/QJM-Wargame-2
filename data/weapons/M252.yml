@@ -1,0 +1,13 @@
+name: M252
+type: Gun
+range: '5935'
+rateOfFire: ''
+calibre: '81'
+muzzleVel: '225'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

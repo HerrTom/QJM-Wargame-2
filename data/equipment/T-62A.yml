@@ -1,0 +1,27 @@
+name: T-62A
+nation: USSR
+type: Tank
+weapons:
+  2A20: '40'
+  DShK: '500'
+  PKT: '3000'
+roadSpeed: '50'
+horsepower: '581'
+groundPress: '0.81'
+radiusOfAction: '650'
+weight: '37'
+length: '6.63'
+height: '2.4'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Active IR
+rangefinder: Coincident
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: true
+amphibious: false
+crew: 3
+ceiling: 0

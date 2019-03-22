@@ -11,8 +11,6 @@ import matplotlib.pyplot as plt
 from scipy import ndimage
 from tqdm import tqdm
 
-import graph_tool as gt
-
 roughDict = {(172,35,167): "urban", (254,230,154): "rolling",
             (186,134,43): "rugged", (255,255,255): "flat",}
 waterColour = (37,98,129)
@@ -34,7 +32,7 @@ def get_supply(source,sink,load,graph,size):
     tqdm.write("Sinks: " + str(sink))
     
     partial_supply = partial(parallel_supply, source=source, graph=graph)
-    with Pool() as P:
+    with Pool(min(len(sink),3)) as P:
         output = P.map(partial_supply,list(zip(sink,load)))
     
     output_unzipped = list(zip(*output))

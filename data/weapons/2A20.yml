@@ -1,0 +1,13 @@
+name: 2A20
+type: Gun
+range: '3000'
+rateOfFire: ''
+calibre: '115'
+muzzleVel: '1600'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: SACLOS wire day
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

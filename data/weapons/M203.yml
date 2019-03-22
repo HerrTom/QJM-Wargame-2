@@ -1,0 +1,13 @@
+name: M203
+type: Gun
+range: '350'
+rateOfFire: ''
+calibre: '40'
+muzzleVel: '250'
+accuracy: 0.7
+barrels: 1
+crew: false
+guidance: ''
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

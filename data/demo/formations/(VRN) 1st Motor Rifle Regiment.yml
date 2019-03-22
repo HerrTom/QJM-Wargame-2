@@ -1,0 +1,24 @@
+SIDC: SFGPUCIZ---G
+equipment:
+    AK-74: 441
+    PKM: 180
+    RPG-18: 180
+    9K115 Metis: 54
+    9K32 Strela-2: 27
+    AGS-17: 27
+    BMP-2: 117
+    BRDM-2 9P122: 36
+    T-64B: 40
+    2B11: 54
+    2S3 Akatsiya: 48
+    ZSU-23-4: 56
+hq: 1D
+location: [122, 40]
+name: (VRN) 1st Motor Rifle Regiment
+nation: VRN
+personnel: 2147
+proficiency: 1.4
+shortname: 1MRR
+stance: hasty
+type: mechanised
+waypoints: null

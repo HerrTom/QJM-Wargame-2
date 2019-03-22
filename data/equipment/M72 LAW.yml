@@ -1,0 +1,26 @@
+name: M72 LAW
+nation: USA
+type: Antitank
+weapons:
+  M16A2: '120'
+  M72A2: '1'
+roadSpeed: null
+horsepower: null
+groundPress: null
+radiusOfAction: null
+weight: null
+length: null
+height: null
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 1
+ceiling: 0

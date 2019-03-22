@@ -1,0 +1,25 @@
+name: BM-21
+nation: USSR
+type: SP Artillery
+weapons:
+  BM-21: '40'
+roadSpeed: '75'
+horsepower: '180'
+groundPress: '.9'
+radiusOfAction: '405'
+weight: '13.71'
+length: '7.35'
+height: '3.09'
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Passive IR
+rangefinder: Coincident
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 3
+ceiling: 0

@@ -1,0 +1,26 @@
+name: M47 Dragon
+nation: USA
+type: Antitank
+weapons:
+  M16A2: '240'
+  M47 Dragon: '3'
+roadSpeed: null
+horsepower: null
+groundPress: null
+radiusOfAction: null
+weight: null
+length: null
+height: null
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 2
+ceiling: 0

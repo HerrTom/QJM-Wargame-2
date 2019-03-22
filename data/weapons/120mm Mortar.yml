@@ -1,0 +1,13 @@
+name: 120mm Mortar
+type: Gun
+range: '7180'
+rateOfFire: ''
+calibre: '120'
+muzzleVel: '600'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

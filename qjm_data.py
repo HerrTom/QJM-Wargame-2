@@ -318,6 +318,9 @@ class equipment():
         ARMF = interps.ARMF(self.armour)
         if self.type in ["Aircraft", "Helicopter"]:
             PF = float(self.weight) / 8 * (2* float(self.weight))**0.5
+        elif self.type in ["APC"]:
+            # APCs get a bonus to their PF
+            PF = ARMF * float(self.weight) / 16 * (float(self.weight) * 2)**.5
         else:
             PF = 1.2 * ARMF * float(self.weight) / (2 * float(self.length) * float(self.height))
         
@@ -702,7 +705,7 @@ class formation():
             self.SIDC       = data["SIDC"]
             self.stance = data["stance"]
             
-            self.xy     = data["location"]
+            self.xy     = [int(data["location"][0]), int(data["location"][1])]
             self.x      = self.xy[0]
             self.y      = self.xy[1]
             
@@ -1431,6 +1434,11 @@ if __name__ == '__main__':
     db.loadFormations(dbforms)
     # for form in db.formations:
         # form.PrintStrength()
+        
+    # dump equipment data
+    with open("equipment_dump.txt","w+") as f:
+        for equip in db.equip:
+            f.write("{}\t{}\n".format(equip.name,equip.OLI))
     
     ans = input("Run simulation? (y/n) > ")
     if ans.lower == "y":

@@ -1,0 +1,25 @@
+name: M151 TOW
+nation: USA
+type: SP Antitank
+weapons:
+  TOW: '6'
+roadSpeed: '120'
+horsepower: '71'
+groundPress: '.6'
+radiusOfAction: '500'
+weight: '1.1'
+length: '3.3'
+height: '.7'
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 3
+ceiling: 0

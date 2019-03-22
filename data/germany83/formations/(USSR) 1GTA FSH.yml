@@ -1,0 +1,15 @@
+SIDC: SFGPUSS-----
+equipment:
+    Truck: 500
+hq: SACEUR
+location:
+- 972.0
+- 582.0
+name: (USSR) 1.GTA Front Supply Head
+nation: USSR
+personnel: 1084
+proficiency: 1.75
+shortname: 1.GTAFSH
+stance: hasty
+type: supply
+waypoints: null

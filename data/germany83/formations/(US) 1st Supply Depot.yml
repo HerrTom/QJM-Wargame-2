@@ -1,0 +1,15 @@
+SIDC: SFGPUSS-----
+equipment:
+    Truck: 500
+hq: SACEUR
+location:
+- 604.0
+- 479.0
+name: (USA) 1st Supply Depot
+nation: USA
+personnel: 1084
+proficiency: 1.75
+shortname: 1.SC
+stance: hasty
+type: supply
+waypoints: null

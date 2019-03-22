@@ -1,0 +1,26 @@
+name: FV432 L16A2
+nation: UK
+type: SP Artillery
+weapons:
+  FN MAG: '2000'
+  L16A2: '160'
+roadSpeed: '70'
+horsepower: '240'
+groundPress: '0.79'
+radiusOfAction: '580'
+weight: '15'
+length: '5.25'
+height: '2.28'
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 6
+ceiling: 0

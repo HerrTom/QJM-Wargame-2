@@ -1,0 +1,14 @@
+SIDC: SFGPUSS-----
+equipment:
+    VLRA TPK: 500
+hq: HdBRN
+location: [387, 238]
+name: (BRN) 3. Supply Corps
+nation: BRN
+personnel: 1084
+proficiency: 1.75
+shortname: 3.SC
+shortname: 3.SC
+stance: hasty
+type: supply
+waypoints: null

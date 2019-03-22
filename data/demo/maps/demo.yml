@@ -1,0 +1,13 @@
+mapName: Demo Scenario
+mapDesc: Testbed scenario
+mapPixelsPerKM: 1
+mapTerrainCover: demo_cover.bmp
+mapTerrainType: demo_terrain.bmp
+mapTerritory: demo_territory.bmp
+mapWater: demo_water.bmp
+mapRoads: demo_roads.bmp
+date: 1983-11-22
+season: fall, temperate
+weather: dry, overcast, temperate
+REDFOR: ["VRN"]
+BLUFOR: ["BRN"]

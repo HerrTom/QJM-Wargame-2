@@ -1,0 +1,25 @@
+name: 51mm Mortar
+nation: NA
+type: Artillery
+weapons:
+  51mm Mortar: '20'
+roadSpeed: null
+horsepower: null
+groundPress: null
+radiusOfAction: null
+weight: null
+length: null
+height: null
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 2
+ceiling: 0

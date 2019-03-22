@@ -1,0 +1,13 @@
+name: M47 Dragon
+type: ATGM
+range: '1000'
+rateOfFire: ''
+calibre: '127'
+muzzleVel: '200'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: SACLOS wire day/night
+atgmPenetration: '330'
+atgmMinRange: '65'
+atgmEnhancement: '1'

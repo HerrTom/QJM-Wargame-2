@@ -2,7 +2,7 @@ SIDC: SFGPUCIZ---G
 equipment:
   2B11: 24
   2S1 Gvozdika: 18
-  9K14P Malyutka: 12
+  9K14P Malyutka-M: 12
   9K31 Strela-1: 4
   9K32 Strela-2: 30
   AGS-17: 18
@@ -25,7 +25,7 @@ equipment:
   T-62A: 40
   TMM: 4
   UAZ-469: 22
-  Ural 375: 57
+  Ural-375: 57
   Ural-375 POL: 26
   ZIL-130: 14
   ZIL-131: 36

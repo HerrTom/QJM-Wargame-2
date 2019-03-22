@@ -1,0 +1,13 @@
+name: 60mm Mortar
+type: Gun
+range: '2500'
+rateOfFire: ''
+calibre: '60'
+muzzleVel: '250'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

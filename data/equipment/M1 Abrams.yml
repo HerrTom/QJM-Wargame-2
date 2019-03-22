@@ -1,0 +1,27 @@
+name: M1 Abrams
+nation: USA
+type: Tank
+weapons:
+  M2HB: '800'
+  M68: '63'
+  M73: '900'
+roadSpeed: '64'
+horsepower: '1500'
+groundPress: '0.81'
+radiusOfAction: '426'
+weight: '54'
+length: '7.93'
+height: '2.44'
+armour: Composite
+enclosed: true
+traverse: true
+lowLight: Thermal
+rangefinder: Laser
+fcCant: true
+fcAmmo: true
+fcWind: true
+fcBarrel: true
+stabilised: true
+amphibious: false
+crew: 4
+ceiling: 0

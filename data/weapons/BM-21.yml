@@ -1,0 +1,13 @@
+name: BM-21
+type: Gun
+range: '20000'
+rateOfFire: '120'
+calibre: '122'
+muzzleVel: '690'
+accuracy: 0.8
+barrels: 40
+crew: true
+guidance: ''
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

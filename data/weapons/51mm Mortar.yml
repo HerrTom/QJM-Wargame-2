@@ -1,0 +1,13 @@
+name: 51mm Mortar
+type: Gun
+range: '750'
+rateOfFire: ''
+calibre: '51'
+muzzleVel: '250'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: MCLOS
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''
