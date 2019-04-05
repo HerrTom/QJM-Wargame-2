@@ -390,7 +390,7 @@ class MainGui(QtWidgets.QMainWindow):
             # self.wpLabel.move(coords[0],coords[1])
         
 def main():
-    # import qdarkstyle
+    import qdarkstyle
     app = QtWidgets.QApplication(sys.argv)
     
     # file = QtCore.QFile(":/dark.qss")
@@ -418,7 +418,7 @@ def main():
     palette.setColor(QtGui.QPalette.Disabled, QtGui.QPalette.Text, QtCore.Qt.darkGray)
     palette.setColor(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, QtCore.Qt.darkGray)
 
-    # app.setPalette(palette)
+    app.setPalette(palette)
 
     gameName = "demo"
     # gameName = "germany83"

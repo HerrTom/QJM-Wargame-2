@@ -39,6 +39,8 @@ global BLUFOR
 REDFOR = []
 BLUFOR = []
 
+global FLAG_RUN_SUPPLY
+FLAG_RUN_SUPPLY = False
 
 RED = (255,0,0)
 BLU = (6,0,255)
@@ -772,6 +774,7 @@ class formation():
         # deal with multiple combat points
         rate_pers = 1-(1-rate_pers)**(1/self.NumPoints)
         rate_arm = 1-(1-rate_arm)**(1/self.NumPoints)
+        tqdm.write("Armour rate: {}".format(rate_arm))
         
         # deal with simulation time
         rate_pers = 1-(1 - rate_pers)**simTime
@@ -933,40 +936,42 @@ class Frontline():
                 colour = newcolour
     
     def GetSupplySources(self):
-        self.SupplySources = []
-        for form in self.parent.formations:
-            if form.type == "supply":
-                self.SupplySources.append((form.x,form.y)) # supply can't cross ownership so we can do all of them
-        tqdm.write("Creating BLU supply network")
-        self.SupplyGraphBLUFOR = supply_network.generate_weighted_graph(self.Roads,self.TerrainWater,self.TerrainType,self.Territory,BLU)
-        tqdm.write("Creating RED supply network")
-        self.SupplyGraphREDFOR = supply_network.generate_weighted_graph(self.Roads,self.TerrainWater,self.TerrainType,self.Territory,RED)
+        if FLAG_RUN_SUPPLY:
+            self.SupplySources = []
+            for form in self.parent.formations:
+                if form.type == "supply":
+                    self.SupplySources.append((form.x,form.y)) # supply can't cross ownership so we can do all of them
+            tqdm.write("Creating BLU supply network")
+            self.SupplyGraphBLUFOR = supply_network.generate_weighted_graph(self.Roads,self.TerrainWater,self.TerrainType,self.Territory,BLU)
+            tqdm.write("Creating RED supply network")
+            self.SupplyGraphREDFOR = supply_network.generate_weighted_graph(self.Roads,self.TerrainWater,self.TerrainType,self.Territory,RED)
         
         
     def GetSupplyStatus(self):
-        size = self.Territory.size
-        
-        REDFOR_pos = []
-        BLUFOR_pos = []
-        
-        REDFOR_load = []
-        BLUFOR_load = []
-        
-        for form in self.parent.formations:
-            if form.nation in BLUFOR:
-                BLUFOR_pos.append((form.x,form.y))
-                BLUFOR_load.append(form.personnel / 10)
-            else:
-                REDFOR_pos.append((form.x,form.y))
-                REDFOR_load.append(form.personnel / 10)
-        tqdm.write("Running BLU supply")
-        SupplyBLU, TrafficBLU = supply_network.get_supply(self.SupplySources,BLUFOR_pos,BLUFOR_load,self.SupplyGraphBLUFOR,size)
-        tqdm.write("Running RED supply")
-        SupplyRED, TrafficRED = supply_network.get_supply(self.SupplySources,REDFOR_pos,REDFOR_load,self.SupplyGraphREDFOR,size)
-        
-        # convert the traffic maps to images
-        self.TrafficBLU = Image.fromarray(255-(normalize_matrix(TrafficBLU)).astype('uint8')).rotate(-90).transpose(Image.FLIP_LEFT_RIGHT)
-        self.TrafficRED = Image.fromarray(255-(normalize_matrix(TrafficRED)).astype('uint8')).rotate(-90).transpose(Image.FLIP_LEFT_RIGHT)
+        if FLAG_RUN_SUPPLY:
+            size = self.Territory.size
+            
+            REDFOR_pos = []
+            BLUFOR_pos = []
+            
+            REDFOR_load = []
+            BLUFOR_load = []
+            
+            for form in self.parent.formations:
+                if form.nation in BLUFOR:
+                    BLUFOR_pos.append((form.x,form.y))
+                    BLUFOR_load.append(form.personnel / 10)
+                else:
+                    REDFOR_pos.append((form.x,form.y))
+                    REDFOR_load.append(form.personnel / 10)
+            tqdm.write("Running BLU supply")
+            SupplyBLU, TrafficBLU = supply_network.get_supply(self.SupplySources,BLUFOR_pos,BLUFOR_load,self.SupplyGraphBLUFOR,size)
+            tqdm.write("Running RED supply")
+            SupplyRED, TrafficRED = supply_network.get_supply(self.SupplySources,REDFOR_pos,REDFOR_load,self.SupplyGraphREDFOR,size)
+            
+            # convert the traffic maps to images
+            self.TrafficBLU = Image.fromarray(255-(normalize_matrix(TrafficBLU)).astype('uint8')).rotate(-90).transpose(Image.FLIP_LEFT_RIGHT)
+            self.TrafficRED = Image.fromarray(255-(normalize_matrix(TrafficRED)).astype('uint8')).rotate(-90).transpose(Image.FLIP_LEFT_RIGHT)
         
         
     def InFrontlineList(self,x,y):
@@ -1390,7 +1395,7 @@ class FrontlinePoint():
                 
                 # tanks
                 factor_tank_size = interps.tank_size_factor(J_attacker)
-                casualty_tank = casualty_rate * 6 * factor_tank_size
+                casualty_tank = casualty_rate * 3 * factor_tank_size
                 
                 # inflict casualties
                 unit.Casualties(casualty_rate,casualty_tank)
