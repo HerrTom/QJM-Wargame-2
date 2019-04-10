@@ -42,6 +42,9 @@ BLUFOR = []
 global FLAG_RUN_SUPPLY
 FLAG_RUN_SUPPLY = False
 
+global SUPPLY_RATE
+SUPPLY_RATE = 1 / 5 # default is 5 days of supply per unit
+
 RED = (255,0,0)
 BLU = (6,0,255)
 
@@ -662,7 +665,7 @@ class database():
                 if unit.nation in factions:
                     casualties += unit.casualties
                     losses += unit.losses
-            lossStr += "## Total losses for {} ##\n".format(factions)
+            lossStr += "\n## Total losses for {} ##\n".format(factions)
             lossStr += "Casualties: {:5,.0f} KIA, {:5,.0f} WIA\n".format(casualties["Killed"],casualties["Wounded"])
             
             lossStr += print_losses(losses,quiet=True)
@@ -867,6 +870,9 @@ class formation():
         states = {"Intact": eqIntact, "Damaged": eqDamaged, "Destroyed": eqDestroyed}
         return data, states
         
+    def UseSupply(self,amount):
+        if FLAG_RUN_SUPPLY:
+            self.supply = self.supply - amount / self.NumPoints * simTime
         
 class Frontline():
     
@@ -1399,6 +1405,7 @@ class FrontlinePoint():
                 
                 # inflict casualties
                 unit.Casualties(casualty_rate,casualty_tank)
+                unit.UseSupply(SUPPLY_RATE)
                 
                 
             for unit in self.defenders:
@@ -1412,7 +1419,8 @@ class FrontlinePoint():
                 casualty_tank = casualty_rate * 3 * factor_tank_size
                 
                 unit.Casualties(casualty_rate,casualty_tank)
-                
+                unit.UseSupply(SUPPLY_RATE)
+
         else:
             # if there are no defenders, we have maximum advance rate
             for unit in self.attackers:

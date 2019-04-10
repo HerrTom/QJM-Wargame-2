@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4ac9c722-a3c9-4985-89b5-d927ac9ecc90}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>oob_browser.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>Global|PythonCore|3.6</InterpreterId>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="convert\convert_from_old_web.py" />
+    <Compile Include="convert\yaml_to_geojson.py" />
+    <Compile Include="interps.py" />
+    <Compile Include="oob_browser.py" />
+    <Compile Include="qjm_data.py" />
+    <Compile Include="qt5_qjm_editor.py" />
+    <Compile Include="qt5_qjm_equips.py" />
+    <Compile Include="qt5_qjm_weaps.py" />
+    <Compile Include="scratch.py" />
+    <Compile Include="supply_network.py" />
+    <Compile Include="ui\breeze_resources.py" />
+    <Compile Include="ui\dark.py" />
+    <Compile Include="ui\light.py" />
+    <Compile Include="ui\native.py" />
+    <Compile Include="ui\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="convert\json_out\situation.js" />
+    <Content Include="convert\leaflet.html" />
+    <Content Include="convert\oob.html" />
+    <Content Include="convert\oob_list.html" />
+    <Content Include="data\germany83\maps\germany1983_cover.bmp" />
+    <Content Include="data\germany83\maps\germany1983_roads.bmp" />
+    <Content Include="data\germany83\maps\germany1983_terrain.bmp" />
+    <Content Include="data\germany83\maps\germany1983_territory.bmp" />
+    <Content Include="data\germany83\maps\germany1983_water.bmp" />
+    <Content Include="data\nirgendwola\formations\BRN units.txt" />
+    <Content Include="data\nirgendwola\formations\VRN units.txt" />
+    <Content Include="data\nirgendwola\maps\nirgendwola_cover.bmp" />
+    <Content Include="data\nirgendwola\maps\nirgendwola_roads.bmp" />
+    <Content Include="data\nirgendwola\maps\nirgendwola_terrain.bmp" />
+    <Content Include="data\nirgendwola\maps\nirgendwola_territory.bmp" />
+    <Content Include="data\nirgendwola\maps\nirgendwola_water.bmp" />
+    <Content Include="data\_sidc\SFGPU-------.png" />
+    <Content Include="data\_sidc\SFGPUCA----G.png" />
+    <Content Include="data\_sidc\SFGPUCA----H.png" />
+    <Content Include="data\_sidc\SFGPUCA----I.png" />
+    <Content Include="data\_sidc\SFGPUCA----J.png" />
+    <Content Include="data\_sidc\SFGPUCFHE--G.png" />
+    <Content Include="data\_sidc\SFGPUCI----G.png" />
+    <Content Include="data\_sidc\SFGPUCI----H.png" />
+    <Content Include="data\_sidc\SFGPUCI----I.png" />
+    <Content Include="data\_sidc\SFGPUCIA---H.png" />
+    <Content Include="data\_sidc\SFGPUCIM---G.png" />
+    <Content Include="data\_sidc\SFGPUCIM---H.png" />
+    <Content Include="data\_sidc\SFGPUCIO---G.png" />
+    <Content Include="data\_sidc\SFGPUCIO---H.png" />
+    <Content Include="data\_sidc\SFGPUCIO---I.png" />
+    <Content Include="data\_sidc\SFGPUCIS---G.png" />
+    <Content Include="data\_sidc\SFGPUCIS---H.png" />
+    <Content Include="data\_sidc\SFGPUCIS---I.png" />
+    <Content Include="data\_sidc\SFGPUCIZ---G.png" />
+    <Content Include="data\_sidc\SFGPUCIZ---H.png" />
+    <Content Include="data\_sidc\SFGPUCIZ---I.png" />
+    <Content Include="data\_sidc\SFGPUCIZ---J.png" />
+    <Content Include="data\_sidc\SFGPUCIZ---K.png" />
+    <Content Include="data\_sidc\SFGPUCRVA--F.png" />
+    <Content Include="data\_sidc\SFGPUCRVA--G.png" />
+    <Content Include="data\_sidc\SFGPUSS-----.png" />
+    <Content Include="data\_sidc\SFGPUSS----K.png" />
+    <Content Include="ui\assets\Breeze.gif" />
+    <Content Include="ui\dark\branch_closed-on.svg" />
+    <Content Include="ui\dark\branch_closed.svg" />
+    <Content Include="ui\dark\branch_open-on.svg" />
+    <Content Include="ui\dark\branch_open.svg" />
+    <Content Include="ui\dark\checkbox_checked.svg" />
+    <Content Include="ui\dark\checkbox_checked_disabled.svg" />
+    <Content Include="ui\dark\checkbox_indeterminate.svg" />
+    <Content Include="ui\dark\checkbox_indeterminate_disabled.svg" />
+    <Content Include="ui\dark\checkbox_unchecked.svg" />
+    <Content Include="ui\dark\checkbox_unchecked_disabled.svg" />
+    <Content Include="ui\dark\close-hover.svg" />
+    <Content Include="ui\dark\close-pressed.svg" />
+    <Content Include="ui\dark\close.svg" />
+    <Content Include="ui\dark\down_arrow-hover.svg" />
+    <Content Include="ui\dark\down_arrow.svg" />
+    <Content Include="ui\dark\down_arrow_disabled.svg" />
+    <Content Include="ui\dark\hmovetoolbar.svg" />
+    <Content Include="ui\dark\hsepartoolbar.svg" />
+    <Content Include="ui\dark\left_arrow.svg" />
+    <Content Include="ui\dark\left_arrow_disabled.svg" />
+    <Content Include="ui\dark\radio_checked.svg" />
+    <Content Include="ui\dark\radio_checked_disabled.svg" />
+    <Content Include="ui\dark\radio_unchecked.svg" />
+    <Content Include="ui\dark\radio_unchecked_disabled.svg" />
+    <Content Include="ui\dark\right_arrow.svg" />
+    <Content Include="ui\dark\right_arrow_disabled.svg" />
+    <Content Include="ui\dark\sizegrip.svg" />
+    <Content Include="ui\dark\spinup_disabled.svg" />
+    <Content Include="ui\dark\stylesheet-branch-end.svg" />
+    <Content Include="ui\dark\stylesheet-branch-more.svg" />
+    <Content Include="ui\dark\stylesheet-vline.svg" />
+    <Content Include="ui\dark\transparent.svg" />
+    <Content Include="ui\dark\undock-hover.svg" />
+    <Content Include="ui\dark\undock.svg" />
+    <Content Include="ui\dark\up_arrow-hover.svg" />
+    <Content Include="ui\dark\up_arrow.svg" />
+    <Content Include="ui\dark\up_arrow_disabled.svg" />
+    <Content Include="ui\dark\vmovetoolbar.svg" />
+    <Content Include="ui\dark\vsepartoolbars.svg" />
+    <Content Include="ui\light\branch_closed-on.svg" />
+    <Content Include="ui\light\branch_closed.svg" />
+    <Content Include="ui\light\branch_open-on.svg" />
+    <Content Include="ui\light\branch_open.svg" />
+    <Content Include="ui\light\checkbox_checked-hover.svg" />
+    <Content Include="ui\light\checkbox_checked.svg" />
+    <Content Include="ui\light\checkbox_checked_disabled.svg" />
+    <Content Include="ui\light\checkbox_indeterminate-hover.svg" />
+    <Content Include="ui\light\checkbox_indeterminate.svg" />
+    <Content Include="ui\light\checkbox_indeterminate_disabled.svg" />
+    <Content Include="ui\light\checkbox_unchecked-hover.svg" />
+    <Content Include="ui\light\checkbox_unchecked_disabled.svg" />
+    <Content Include="ui\light\close-hover.svg" />
+    <Content Include="ui\light\close-pressed.svg" />
+    <Content Include="ui\light\close.svg" />
+    <Content Include="ui\light\down_arrow-hover.svg" />
+    <Content Include="ui\light\down_arrow.svg" />
+    <Content Include="ui\light\down_arrow_disabled.svg" />
+    <Content Include="ui\light\hmovetoolbar.svg" />
+    <Content Include="ui\light\hsepartoolbar.svg" />
+    <Content Include="ui\light\left_arrow.svg" />
+    <Content Include="ui\light\left_arrow_disabled.svg" />
+    <Content Include="ui\light\radio_checked-hover.svg" />
+    <Content Include="ui\light\radio_checked.svg" />
+    <Content Include="ui\light\radio_checked_disabled.svg" />
+    <Content Include="ui\light\radio_unchecked-hover.svg" />
+    <Content Include="ui\light\radio_unchecked_disabled.svg" />
+    <Content Include="ui\light\right_arrow.svg" />
+    <Content Include="ui\light\right_arrow_disabled.svg" />
+    <Content Include="ui\light\sizegrip.svg" />
+    <Content Include="ui\light\spinup_disabled.svg" />
+    <Content Include="ui\light\stylesheet-branch-end.svg" />
+    <Content Include="ui\light\stylesheet-branch-more.svg" />
+    <Content Include="ui\light\stylesheet-vline.svg" />
+    <Content Include="ui\light\transparent.svg" />
+    <Content Include="ui\light\undock-hover.svg" />
+    <Content Include="ui\light\undock.svg" />
+    <Content Include="ui\light\up_arrow-hover.svg" />
+    <Content Include="ui\light\up_arrow.svg" />
+    <Content Include="ui\light\up_arrow_disabled.svg" />
+    <Content Include="ui\light\vmovetoolbar.svg" />
+    <Content Include="ui\light\vsepartoolbars.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="convert" />
+    <Folder Include="convert\json_out" />
+    <Folder Include="data\" />
+    <Folder Include="data\germany83\" />
+    <Folder Include="data\germany83\maps" />
+    <Folder Include="data\nirgendwola\" />
+    <Folder Include="data\nirgendwola\formations" />
+    <Folder Include="data\nirgendwola\maps" />
+    <Folder Include="data\_sidc" />
+    <Folder Include="ui" />
+    <Folder Include="ui\assets" />
+    <Folder Include="ui\dark" />
+    <Folder Include="ui\light" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.6" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>

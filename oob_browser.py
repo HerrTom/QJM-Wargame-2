@@ -61,16 +61,48 @@ def MakePixmap(image):
 
 class MapLabel(QtWidgets.QLabel):
     RightClickSignal = QtCore.pyqtSignal([list])
-    def __init__(self,*args,**kwargs):
-        QtWidgets.QLabel.__init__(self,*args,**kwargs)
-    
+    def __init__(self,parent=None,*args,**kwargs):
+        QtWidgets.QLabel.__init__(self,parent=parent,*args,**kwargs)
+        self.parent = parent
+
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.RightButton:
-            
             x = self.mapFromGlobal(QtGui.QCursor.pos()).x()
             y = self.mapFromGlobal(QtGui.QCursor.pos()).y()
+            print(x,y)
             self.RightClickSignal.emit([x,y])
 
+
+class ZoomGraphicsView(QtWidgets.QGraphicsView):
+    def __init__ (self, parent=None):
+        super().__init__ (parent)
+        self.setDragMode(QtWidgets.QGraphicsView.ScrollHandDrag)
+
+    def wheelEvent(self, event):
+        # Zoom Factor
+        zoomInFactor = 1.1
+        zoomOutFactor = 1 / zoomInFactor
+
+        # Set Anchors
+        self.setTransformationAnchor(QtWidgets.QGraphicsView.NoAnchor)
+        self.setResizeAnchor(QtWidgets.QGraphicsView.NoAnchor)
+
+        # Save the scene pos
+        oldPos = self.mapToScene(event.pos())
+
+        # Zoom
+        if event.angleDelta().y() > 0:
+            zoomFactor = zoomInFactor
+        else:
+            zoomFactor = zoomOutFactor
+        self.scale(zoomFactor, zoomFactor)
+
+        # Get the new position
+        newPos = self.mapToScene(event.pos())
+
+        # Move scene to old position
+        delta = newPos - oldPos
+        self.translate(delta.x(), delta.y())
             
 class UnitIcon(QtWidgets.QLabel):
     LeftClickSignal = QtCore.pyqtSignal(str)
@@ -163,18 +195,22 @@ class MainGui(QtWidgets.QMainWindow):
         # self.map = QtGui.QPixmap("./data/nirgendwola/maps/nirgendwola_water.bmp")
         
         # scroll area
-        mapview = QtWidgets.QScrollArea(self)
-        mapview.setWidgetResizable(True)
+        # mapview = QtWidgets.QScrollArea(self)
+        mapview = ZoomGraphicsView(self)
+        #mapview.setWidgetResizable(True)
         mapview.setMinimumHeight(600)
-        QtWidgets.QScroller.grabGesture(mapview.viewport(),QtWidgets.QScroller.LeftMouseButtonGesture)
-        
+        #QtWidgets.QScroller.grabGesture(mapview.viewport(),QtWidgets.QScroller.LeftMouseButtonGesture)
+        self._scene = QtWidgets.QGraphicsScene(mapview)
+        mapview.setScene(self._scene)
+
         layout.addWidget(mapview,0,0,2,2)
         # self.maplbl = QtWidgets.QGraphicsView(mapview)
-        self.maplbl = MapLabel(parent=mapview)
+        self.maplbl = MapLabel()
         self.maplbl.RightClickSignal.connect(self.OnMapClick)
         self.maplbl.setAlignment(QtCore.Qt.AlignTop)
         # self.maplbl = QtWidgets.QLabel(mapview)
-        mapview.setWidget(self.maplbl)
+        self._scene.addWidget(self.maplbl)
+        #mapview.setWidget(self.maplbl)
         mapview.setAlignment(QtCore.Qt.AlignTop)
         # mapviewLayout = QtWidgets.QHBoxLayout(mapview)
         # mapviewLayout.setAlignment(QtCore.Qt.AlignTop)
@@ -208,7 +244,7 @@ class MainGui(QtWidgets.QMainWindow):
         self.OOBTree.setUniformRowHeights(True)
         layout.addWidget(self.OOBTree,2,0,2,1)
         
-        self.OOBTree.clicked.connect(self.GetFormationData)
+        self.OOBTree.selectionModel().selectionChanged.connect(self.GetFormationData)
         
         
         OOB = gen_OOB_dict(self.db)
@@ -264,6 +300,8 @@ class MainGui(QtWidgets.QMainWindow):
             
             
             if form.waypoint is not None:
+                # get location of parent
+
                 self.wpLabel.move(form.waypoint[0],form.waypoint[1])
             else:
                 self.wpLabel.move(-100,-100)
