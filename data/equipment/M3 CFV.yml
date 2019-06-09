@@ -1,0 +1,26 @@
+name: M3 CFV
+nation: USA
+type: IFV
+weapons:
+  M242: '1500'
+  TOW: '12'
+roadSpeed: '56'
+horsepower: '500'
+groundPress: '0.54'
+radiusOfAction: '480'
+weight: '25.1'
+length: '6.55'
+height: '3.02'
+armour: Aluminum
+enclosed: true
+traverse: true
+lowLight: Thermal
+rangefinder: Laser
+fcCant: false
+fcAmmo: true
+fcWind: false
+fcBarrel: false
+stabilised: true
+amphibious: false
+crew: 3
+ceiling: 0

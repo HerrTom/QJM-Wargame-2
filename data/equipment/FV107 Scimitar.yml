@@ -1,0 +1,26 @@
+name: FV107 Scimitar
+nation: UK
+type: Tank
+weapons:
+  FN MAG: '2000'
+  L21A1 RARDEN: '165'
+roadSpeed: '65'
+horsepower: '190'
+groundPress: '0.36'
+radiusOfAction: '450'
+weight: '7.8'
+length: '4.9'
+height: '2.1'
+armour: Aluminum
+enclosed: true
+traverse: true
+lowLight: Passive IR
+rangefinder: Coincident
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 3
+ceiling: 0

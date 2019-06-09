@@ -11,6 +11,7 @@ import qjm_data
 # nation colours
 
 nationColour = {"DDR": (145,80,71), "USSR": (219,26,0), "UK": (255,218,218), "BRD": (177,177,177),
+                "NL": (255,120,30), "BEL": (255,238,0),
                 "VRN": (255,218,218), "BRN": (255,255,218), "NK": (224,255,218), "NDR": (244,218,255),
                 }
 
@@ -67,10 +68,13 @@ class MapLabel(QtWidgets.QLabel):
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.RightButton:
-            x = self.mapFromGlobal(QtGui.QCursor.pos()).x()
-            y = self.mapFromGlobal(QtGui.QCursor.pos()).y()
+            #x = self.mapFromGlobal(QtGui.QCursor.pos()).x()
+            #y = self.mapFromGlobal(QtGui.QCursor.pos()).y()
+            x = event.x()
+            y = event.y()
             print(x,y)
             self.RightClickSignal.emit([x,y])
+        super().mousePressEvent(event)
 
 
 class ZoomGraphicsView(QtWidgets.QGraphicsView):
@@ -105,17 +109,40 @@ class ZoomGraphicsView(QtWidgets.QGraphicsView):
         self.translate(delta.x(), delta.y())
             
 class UnitIcon(QtWidgets.QLabel):
-    LeftClickSignal = QtCore.pyqtSignal(str)
-    RightClickSignal = QtCore.pyqtSignal(str)
+    LeftClickSignal = QtCore.pyqtSignal(list)
+    RightClickSignal = QtCore.pyqtSignal(list)
     def __init__(self, *args, **kwargs):
         QtWidgets.QLabel.__init__(self, *args, **kwargs)
         self.QJMName = None
+        self.SIDC = None
+        self.BaseColour = None
+        self.Icon = None
+        self.formation = qjm_data.formation()
     
+    def ResetIcon(self,brighten=None):
+        colour = self.BaseColour
+        if brighten is not None:
+            colour = [min(x+brighten,255) for x in colour]
+        try:
+            self.setPixmap(ColourIcon(QtGui.QPixmap(self.Icon),colour))
+        except:
+            pass
+
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
-            self.LeftClickSignal.emit(self.QJMName)
+            self.LeftClickSignal.emit([self, self.QJMName])
         elif event.button() == QtCore.Qt.RightButton:
-            self.RightClickSignal.emit(self.QJMName)
+            self.RightClickSignal.emit([self, self.QJMName])
+            # create context menu:
+            self.cMenu = QtWidgets.QMenu(self)
+            stance = QtWidgets.QActionGroup(self)
+            stanceDefending = QtWidgets.QAction("Defending",checkable=True)
+            stanceDefending.setChecked(2)
+            stanceAttacking = QtWidgets.QAction("Attacking",checkable=True)
+            stance.addAction(stanceDefending)
+            self.cMenu.addAction(stanceDefending)
+            self.cMenu.addAction(stanceAttacking)
+            self.cMenu.exec_(self.mapToGlobal(event.pos()))
         
 class StretchedLabel(QtWidgets.QLabel):
     def __init__(self, *args, **kwargs):
@@ -138,7 +165,7 @@ class MainGui(QtWidgets.QMainWindow):
         
         # menu items
         file = QtWidgets.QMenu("File",self)
-        self.load = QtWidgets.QAction("Load Definition",self)
+        self.load = QtWidgets.QAction("Load Definition",self,triggered=self.LoadDefinition)
         file.addAction(self.load)
         self.save = QtWidgets.QAction("Save Definition",self)
         file.addAction(self.save)
@@ -171,6 +198,11 @@ class MainGui(QtWidgets.QMainWindow):
         info = QtWidgets.QMenu("Info",self)
         self.infoLoss = QtWidgets.QAction("Losses",self)
         info.addAction(self.infoLoss)
+
+        debugMenu = QtWidgets.QMenu("Debug",self)
+        self.debugDoSupply = QtWidgets.QAction("Run Supply",self,checkable=True)
+        self.debugDoSupply.setChecked(True)
+        debugMenu.addAction(self.debugDoSupply)
         
         # connect actions
         self.simulate.triggered.connect(self.OnSimulate)
@@ -185,6 +217,7 @@ class MainGui(QtWidgets.QMainWindow):
         menubar.addMenu(file)
         menubar.addMenu(view)
         menubar.addMenu(info)
+        menubar.addMenu(debugMenu)
         
         
         layout = QtWidgets.QGridLayout()
@@ -226,15 +259,9 @@ class MainGui(QtWidgets.QMainWindow):
         # unit name label
         self.unitLabel = QtWidgets.QLabel(" "*18,parent=self.maplbl)
         self.unitLabel.setAlignment(QtCore.Qt.AlignBottom)
+        self.unitLabel.setStyleSheet("QLabel {color: black;}")
+        self.unitLabel.show()
         
-        # SIDC label
-        self.SIDCLabel = StretchedLabel("     ",parent=self.maplbl)
-        self.SIDCLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.SIDCLabel.setScaledContents(True)
-        
-        # waypoint label
-        self.wpLabel = StretchedLabel("X",parent=self.maplbl)
-        self.wpLabel.setAlignment(QtCore.Qt.AlignRight)
         
         # OOB tree
         self.OOBTree = QtWidgets.QTreeView(self)
@@ -267,13 +294,33 @@ class MainGui(QtWidgets.QMainWindow):
         # self.eqTable.verticalHeader().hide()
         
         # list for all units labels
+        self.units = []
         self.GenUnitIcons()
         self.ShowAllUnits(None)
+
+        # SIDC label
+        #self.SIDCLabel = UnitIcon("     ",parent=self.maplbl)
+        #self.SIDCLabel.setAlignment(QtCore.Qt.AlignCenter)
+        #self.SIDCLabel.setScaledContents(True)
+        #self.SIDCLabel.show()
         
-        
+        # waypoint label
+        self.otherIcons = get_icons("./data/_icons/*.png")
+        self.wpLabel = UnitIcon(" X ",parent=self.maplbl)
+        self.wpLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.wpLabel.setPixmap(QtGui.QPixmap(self.otherIcons["waypoint"]))
+        self.wpLabel.show()
+        self.MoveWaypoint(-100,-100)
+
         self.show()
         
-    def GetFormationData(self):
+    def MoveWaypoint(self,x,y):
+        self.wpLabel.setScaledContents(True)
+        self.wpLabel.setGeometry(QtCore.QRect(x-4,y-4, 8, 8))
+        
+
+
+    def GetFormationData(self,event=None):
         # find the formation
         name = self.OOBTree.currentIndex().data()
         form = self.db.getFormationByName(name)
@@ -302,9 +349,11 @@ class MainGui(QtWidgets.QMainWindow):
             if form.waypoint is not None:
                 # get location of parent
 
-                self.wpLabel.move(form.waypoint[0],form.waypoint[1])
+                #self.wpLabel.move(form.waypoint[0],form.waypoint[1])
+                self.MoveWaypoint(form.waypoint[0],form.waypoint[1])
             else:
-                self.wpLabel.move(-100,-100)
+                #self.wpLabel.move(-100,-100)
+                self.MoveWaypoint(-500,-500)
             
             
     def PopulateEqTable(self,states):
@@ -339,8 +388,15 @@ class MainGui(QtWidgets.QMainWindow):
             parent.appendRow(child_item)
             self.PopulateOOBTree(children[child], child_item)
     
-    def GenUnitIcons(self):
+    def ClearUnitIcons(self):
+        for unit in self.units:
+            unit.deleteLater()
+            unit = None
         self.units = []
+
+
+    def GenUnitIcons(self):
+        self.ClearUnitIcons()
         for form in self.db.formations:
             if form is not None:
                 try:
@@ -352,20 +408,25 @@ class MainGui(QtWidgets.QMainWindow):
                 # formLabel = QtWidgets.QLabel("     ",parent=self.maplbl)
                 self.units.append(formLabel)
                 formLabel.QJMName = form.name
+                formLabel.BaseColour = colour
+                formLabel.SIDC = SIDC
                 
                 formLabel.LeftClickSignal.connect(self.OnUnitLeftClick)
                 
                 try:
                     formLabel.setPixmap(ColourIcon(QtGui.QPixmap(self.icons[SIDC]),colour))
+                    formLabel.Icon = self.icons[SIDC]
                 except:
                     print("SIDC {} not available".format(SIDC))
                     formLabel.setPixmap(QtGui.QPixmap(self.icons["SFGPU-------"]))
+                    formLabel.icon = self.icons["SFGPU-------"]
                 formLabel.setAlignment(QtCore.Qt.AlignCenter)
                 formLabel.setScaledContents(True)
                 formLabel.setGeometry(QtCore.QRect(form.x, form.y, 20, 20))
+        self.ShowAllUnits()
     
-    def ShowAllUnits(self,event):
-        # delete and recreate self.units
+    def ShowAllUnits(self,event=None):
+        # hide everything
         for x in self.units:
             x.hide()
             
@@ -381,26 +442,35 @@ class MainGui(QtWidgets.QMainWindow):
     def OnUnitLeftClick(self,event):
         # event contains the name of the unit clicked
         model = self.OOBTree.model()
-        idx = model.match(model.index(0,0), 0, event,flags=QtCore.Qt.MatchExactly|QtCore.Qt.MatchRecursive)[0] # [0] makes sure we only select the first item
+        idx = model.match(model.index(0,0), 0, event[1],flags=QtCore.Qt.MatchExactly|QtCore.Qt.MatchRecursive)[0] # [0] makes sure we only select the first item
         self.OOBTree.setCurrentIndex(idx)
-        
+
+        # reset the colours of all units
+        for icon in self.units:
+            icon.ResetIcon()
+        # set the selected unit's color brighter
+        event[0].ResetIcon(brighten=20)
+
+
         # trigger formation data collection
         self.GetFormationData()
     
     def OnSimulate(self,event):
+        # get the state of the supply debug flag
+        self.db.setDebugSupplyFlag(self.debugDoSupply.isChecked())
         self.db.Simulate()
         # update the view
         self.ShowAllUnits(None)
         self.OnView(None)
-        
-    def OnOOBClick(self,event):
-        self.GetFormationData(self)
         
     def OnInfoLoss(self,event):
         print(self.db.LossesBySide())
         
     def OnExportData(self,event):
         self.db.dumpFormations()
+        import yaml_to_geojson as conv
+        conv.convert('./convert/yaml_in/*.yml')
+
         
     def OnView(self,event):
         if self.ag.checkedAction() is self.Water:
@@ -424,8 +494,26 @@ class MainGui(QtWidgets.QMainWindow):
         if form is not None:
             form.waypoint = coords
             print(form.shortname,coords)
-            self.wpLabel.setGeometry(coords[0]-5,coords[1]-5,10,10)
+            self.MoveWaypoint(coords[0], coords[1])
+            #self.wpLabel.setGeometry(coords[0]-5,coords[1]-5,10,10)
             # self.wpLabel.move(coords[0],coords[1])
+
+    def LoadDefinition(self,event):
+        configpath = QtWidgets.QFileDialog.getOpenFileName(self,"Config File","./data/",filter="Config Files (*.yml)")
+        configpath = configpath[0]
+        if configpath != "":
+            formationpath =  os.path.dirname(os.path.dirname(configpath)) + "/formations/"
+            print(formationpath)
+            db = qjm_data.database()
+            db.loadFormations(formationpath)
+            db.loadFrontline(configpath)
+            self.db = db
+            self.OOBModel.clear()
+            self.PopulateOOBTree(gen_OOB_dict(self.db),self.OOBModel.invisibleRootItem())
+            self.OnView(None)
+            self.GenUnitIcons()
+            self.maplbl.repaint()
+            self.update()
         
 def main():
     import qdarkstyle
@@ -458,9 +546,9 @@ def main():
 
     app.setPalette(palette)
 
-    gameName = "demo"
-    # gameName = "germany83"
-    # gameName = "nirgendwola"
+    # gameName = "demo"
+    gameName = "germany83"
+    #gameName = "nirgendwola"
     path = "./data/"+gameName+"/"
     configName = gameName + ".yml"
     formationPath = path + "formations/"

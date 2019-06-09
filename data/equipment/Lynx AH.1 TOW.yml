@@ -1,0 +1,25 @@
+name: Lynx AH.1 TOW
+nation: UK
+type: Helicopter
+weapons:
+  TOW (8x): '8'
+roadSpeed: '324'
+horsepower: '1800'
+groundPress: '0'
+radiusOfAction: '320'
+weight: '3.6'
+length: '15.16'
+height: '3.66'
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Passive IR
+rangefinder: Coincident
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: true
+amphibious: false
+crew: 2
+ceiling: 0

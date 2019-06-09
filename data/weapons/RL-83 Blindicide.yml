@@ -1,0 +1,13 @@
+name: RL-83 Blindicide
+type: Gun
+range: '400'
+rateOfFire: ''
+calibre: '83'
+muzzleVel: '100'
+accuracy: 0.5
+barrels: 1
+crew: false
+guidance: MCLOS
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

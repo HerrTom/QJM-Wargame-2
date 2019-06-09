@@ -1,0 +1,13 @@
+name: M30
+type: Gun
+range: '6840'
+rateOfFire: ''
+calibre: '106.7'
+muzzleVel: '600'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

@@ -1,0 +1,13 @@
+name: Oerlikon KBA
+type: Gun
+range: '3020'
+rateOfFire: '600'
+calibre: '25'
+muzzleVel: '1335'
+accuracy: 0.7
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: None
+atgmMinRange: None
+atgmEnhancement: None

@@ -1,0 +1,25 @@
+name: FV103 Spartan
+nation: UK
+type: APC
+weapons:
+  FN MAG: '2000'
+roadSpeed: '96'
+horsepower: '190'
+groundPress: '0.55'
+radiusOfAction: '510'
+weight: '10.6'
+length: '5.16'
+height: '2.63'
+armour: Aluminum
+enclosed: true
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: true
+crew: 3
+ceiling: 0

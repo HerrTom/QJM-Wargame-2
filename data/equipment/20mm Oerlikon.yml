@@ -1,0 +1,25 @@
+name: 20mm Oerlikon
+nation: BRD
+type: Air Defence
+weapons:
+  20mm Oerlikon L85: '500'
+roadSpeed: null
+horsepower: null
+groundPress: null
+radiusOfAction: null
+weight: null
+length: null
+height: null
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 4
+ceiling: 0

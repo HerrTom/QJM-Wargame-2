@@ -1,0 +1,13 @@
+name: L21A1 RARDEN
+type: Gun
+range: '2000'
+rateOfFire: '60'
+calibre: '30'
+muzzleVel: '1175'
+accuracy: 0.9
+barrels: 1
+crew: true
+guidance: ''
+atgmPenetration: None
+atgmMinRange: None
+atgmEnhancement: None

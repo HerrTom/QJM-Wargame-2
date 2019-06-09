@@ -1,0 +1,15 @@
+SIDC: SFGPUSS-----
+equipment:
+  Truck: 500
+hq: LaSK
+location:
+- 154
+- 40
+name: (VRN) 1. Front Supply Head
+nation: VRN
+personnel: 1084
+proficiency: 1.75
+shortname: 1.FSH
+stance: hasty
+type: supply
+waypoints: null

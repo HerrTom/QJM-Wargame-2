@@ -1,0 +1,25 @@
+name: YP-408 PWAT
+nation: NLD
+type: SP Antitank
+weapons:
+  TOW: '18'
+roadSpeed: '82'
+horsepower: '165'
+groundPress: '0.9'
+radiusOfAction: '300'
+weight: '9.9'
+length: '6.23'
+height: '2.4'
+armour: Steel
+enclosed: true
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 4
+ceiling: 0

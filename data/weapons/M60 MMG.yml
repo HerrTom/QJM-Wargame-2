@@ -1,0 +1,13 @@
+name: M60 MMG
+type: Gun
+range: '900'
+rateOfFire: '600'
+calibre: '7.62'
+muzzleVel: '825'
+accuracy: 0.8
+barrels: 1
+crew: true
+guidance: SACLOS wire day
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''

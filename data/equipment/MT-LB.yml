@@ -1,0 +1,25 @@
+name: MT-LB
+nation: USSR
+type: APC
+weapons:
+  PKT: '2000'
+roadSpeed: '62'
+horsepower: '240'
+groundPress: '0.28'
+radiusOfAction: '500'
+weight: '13.1'
+length: '6.45'
+height: '1.87'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: true
+crew: 2
+ceiling: 0

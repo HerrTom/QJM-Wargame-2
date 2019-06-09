@@ -1,0 +1,26 @@
+name: YPR-765 TOW
+nation: NLD
+type: SP Antitank
+weapons:
+  M73: '1840'
+  TOW: '12'
+roadSpeed: '61'
+horsepower: '267'
+groundPress: '0.55'
+radiusOfAction: '483'
+weight: '13.6'
+length: '4.86'
+height: '2.5'
+armour: Aluminum
+enclosed: true
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: true
+crew: 3
+ceiling: 0

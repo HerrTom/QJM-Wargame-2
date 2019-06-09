@@ -1,0 +1,26 @@
+name: Kanonenjagdpanzer
+nation: BRD
+type: Tank
+weapons:
+  BK 90/L40: '51'
+  MG 3: '5000'
+roadSpeed: '70'
+horsepower: '500'
+groundPress: '0.86'
+radiusOfAction: '385'
+weight: '25.7'
+length: '6.24'
+height: '2.9'
+armour: Steel
+enclosed: true
+traverse: false
+lowLight: Minimum
+rangefinder: Coincident
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 4
+ceiling: 0

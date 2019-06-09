@@ -422,9 +422,12 @@ class database():
     def __init__(self):
         self.loadWeaps()
         self.loadEquip()
-        
+    
+    def setDebugSupplyFlag(self,state):
+        global FLAG_RUN_SUPPLY
+        FLAG_RUN_SUPPLY = state
+
     def Simulate(self):
-        
         # dev stuff to visiualize front
         # im = copy(db.frontline.TerrainWater)
         # db.frontline.DrawFrontline(im,(100,100,100))
@@ -629,6 +632,7 @@ class database():
             # check if units are on unfriendly territory and correct
             maxRad = form.personnel / 200
             form.NumPoints = 1 # for this purpose, casualties need to occur at once
+            dist = 0
             if form.nation in REDFOR:
                 if curr == "BLU":
                     xy, dist = self.frontline.NearestFriendly(form.x,form.y,RED,maxRad)
@@ -647,6 +651,8 @@ class database():
                     form.xy = xy
                     # inflict casualties at rate given by distance
                     form.Casualties(dist,dist)
+            if dist >= 1:
+                form.SetEliminated(True)
         
                 
     def TotalCasualties(self):
@@ -697,6 +703,8 @@ class formation():
         self.NumPoints = 0 # this factor determines how many battles this unit is involved in
         
         self.advance = []
+
+        self.Eliminated = False
         
         if data is not None:
             self.name   = data["name"]
@@ -717,6 +725,9 @@ class formation():
             
     def __repr__(self):
         return "formation({})".format(self.name)
+
+    def SetEliminated(self,state):
+        self.Eliminated = state
     
     def WriteYaml(self,file):
         self.data["location"] = self.xy
@@ -767,6 +778,8 @@ class formation():
                         self.Strength["Aircraft"] += eq.OLI * self.proficiency
     
     def Casualties(self,rate_pers,rate_arm):
+        if self.Eliminated: # do not run casualties for dead units
+            return
         # casualty rate should be applied on a per-unit basis instead of a per-frontline point basis?
         # casualty categories
         casualty_arm = ["Tank","IFV","APC"]
@@ -777,7 +790,7 @@ class formation():
         # deal with multiple combat points
         rate_pers = 1-(1-rate_pers)**(1/self.NumPoints)
         rate_arm = 1-(1-rate_arm)**(1/self.NumPoints)
-        tqdm.write("Armour rate: {}".format(rate_arm))
+        #tqdm.write("Armour rate: {}".format(rate_arm))
         
         # deal with simulation time
         rate_pers = 1-(1 - rate_pers)**simTime
@@ -872,7 +885,12 @@ class formation():
         
     def UseSupply(self,amount):
         if FLAG_RUN_SUPPLY:
-            self.supply = self.supply - amount / self.NumPoints * simTime
+            if self.NumPoints >= 1: # do supply if more than one point
+                self.supply = self.supply - amount / self.NumPoints * simTime
+            if self.supply > 1:
+                self.supply = 1
+            elif self.supply < 0:
+                self.supply = 0
         
 class Frontline():
     
@@ -962,12 +980,17 @@ class Frontline():
             
             REDFOR_load = []
             BLUFOR_load = []
+
+            REDFOR_form = []
+            BLUFOR_form = []
             
             for form in self.parent.formations:
                 if form.nation in BLUFOR:
+                    BLUFOR_form.append(form)
                     BLUFOR_pos.append((form.x,form.y))
                     BLUFOR_load.append(form.personnel / 10)
                 else:
+                    REDFOR_form.append(form)
                     REDFOR_pos.append((form.x,form.y))
                     REDFOR_load.append(form.personnel / 10)
             tqdm.write("Running BLU supply")
@@ -978,7 +1001,15 @@ class Frontline():
             # convert the traffic maps to images
             self.TrafficBLU = Image.fromarray(255-(normalize_matrix(TrafficBLU)).astype('uint8')).rotate(-90).transpose(Image.FLIP_LEFT_RIGHT)
             self.TrafficRED = Image.fromarray(255-(normalize_matrix(TrafficRED)).astype('uint8')).rotate(-90).transpose(Image.FLIP_LEFT_RIGHT)
-        
+            
+            for i, form in enumerate(BLUFOR_form):
+                if SupplyBLU[i] is not None:
+                    # unit is in-supply
+                    # TODO - More nuanced based on supply line length
+                    form.UseSupply(-SUPPLY_RATE)
+            for i, form in enumerate(REDFOR_form):
+                if SupplyRED[i] is not None:
+                    form.UseSupply(-SUPPLY_RATE)
         
     def InFrontlineList(self,x,y):
         if self.FrontlineCoords == []:
@@ -1425,7 +1456,282 @@ class FrontlinePoint():
             # if there are no defenders, we have maximum advance rate
             for unit in self.attackers:
                 self.advance.append(60)
+
+    def CombatAlternate(self):
+		# need to determine the attacker and defender.
+		#	if both are attacking - side with fewer personnel is defending
+        self.attackers = []
+        self.defenders = []
+        attackersRED = 0
+        attackersBLU = 0
+        for unit in self.units:
+            if unit.stance == "attacking":
+                self.attackers.append(unit)
+                if unit.nation in REDFOR:
+                    # print(unit.name, unit.stance)
+                    attackersRED += unit.personnel
+                else:
+                    attackersBLU += unit.personnel
+            else:
+                self.defenders.append(unit)
+        # determine which side is attacking
+        # quit here if there are no self.attackers
+        # print(self.attackers)
+        if self.attackers == []:
+            return
+        
+        self.attackers = []
+        self.defenders = []
+        # combat strengths are a Counter dict, so we can just update them with the units
+        attackerStr = Counter({"Infantry": 0, "AFV": 0, "Antitank": 0, "Artillery": 0,
+                                "Air Defence": 0, "Aircraft": 0})
+        defenderStr = Counter({"Infantry": 0, "AFV": 0, "Antitank": 0, "Artillery": 0,
+                                "Air Defence": 0, "Aircraft": 0})
+        
+        if attackersRED > attackersBLU:
+            # redo the attacker list without BLUFOR
+            for unit in self.units:
+                if unit.stance == "attacking" and unit.nation in REDFOR:
+                    self.attackers.append(unit)
+                    # print(attackerStr)
+                elif unit.nation in BLUFOR:
+                    self.defenders.append(unit)
+        else:
+            # redo the attacker list without REDFOR
+            for unit in self.units:
+                if unit.stance == "attacking" and unit.nation in BLUFOR:
+                    self.attackers.append(unit)
+                elif unit.nation in REDFOR:
+                    self.defenders.append(unit)
+        # splitting out the strength calculation so we only have to code it once (I know it's inefficient -Tom)
+        for unit in self.attackers:
+            attackerStr += unit.Strength
+        # stance precendence means all units will use the first in the list
+        stancePrecedence = ["fortified","prepared","delay","hasty","attacking"]
+        defenderStance = stancePrecedence[-1]
+        for unit in self.defenders:
+            defenderStr += unit.Strength
+            if stancePrecedence.index(unit.stance) < stancePrecedence.index(defenderStance):
+                defenderStance = unit.stance
+       
+        
+        if self.defenders != []:
+            # This finds the advance rate and sets the casualty rates
             
+            
+            # N is the number of personnel, J is the number of vehicles
+            #       involved in this combat
+            N_attacker = sum([j.personnel for j in self.attackers])
+            J_attacker = sum([j.GetVehicles() for j in self.attackers])
+            N_defender = sum([j.personnel for j in self.defenders])
+            J_defender = sum([j.GetVehicles() for j in self.defenders])
+            
+            # HANDLE TERRAIN ###############################
+            # types of terrain are:
+            # ["rugged, heavily wooded","rugged, mixed","rugged, bare",
+            # "rolling, heavily wooded","rolling, mixed","rolling, bare",
+            # "flat, heavily wooded","flat, mixed","flat, bare, hard",
+            # "flat, desert","desert, sandy dunes","swamp, jungled",
+            # "swamp, mixed or open", "urban"]
+
+            
+            if roughDict[self.terrainType] == "urban":
+                terrain = "urban"
+            else:
+                terrain = roughDict[self.terrainType] + ", " + coverDict[self.terrainCover]
+            
+            water = waterDict[self.terrainWater]
+            
+            weather = self.parent.weather
+            season  = self.parent.season
+            
+            # attacker weapon strengths
+            Wain = 0
+            Waat = 0
+            Watn = 0
+            Waar = 0
+            Waad = 0
+            Waai = 0
+            
+            # defender weapon strengths
+            Wdin = 0
+            Wdat = 0
+            Wdtn = 0
+            Wdar = 0
+            Wdad = 0
+            Wdai = 0
+            
+            # get weapon strengths, divide by NumPoints so that concentration is applied
+            for unit in self.attackers:
+                Wain += unit.Strength["Infantry"] / unit.NumPoints 
+                Waat += unit.Strength["Antitank"] / unit.NumPoints 
+                Watn += unit.Strength["AFV"] / unit.NumPoints 
+                Waar += unit.Strength["Artillery"] / unit.NumPoints 
+                Waad += unit.Strength["Air Defence"] / unit.NumPoints 
+                Waai += unit.Strength["Aircraft"] / unit.NumPoints 
+                
+            for unit in self.defenders:
+                Wdin += unit.Strength["Infantry"] / unit.NumPoints 
+                Wdat += unit.Strength["Antitank"] / unit.NumPoints 
+                Wdtn += unit.Strength["AFV"] / unit.NumPoints 
+                Wdar += unit.Strength["Artillery"] / unit.NumPoints 
+                Wdad += unit.Strength["Air Defence"] / unit.NumPoints 
+                Wdai += unit.Strength["Aircraft"] / unit.NumPoints 
+            
+            # deal with the overmatches in AT and AD combat power
+            Waat = overmatch(Waat,Wdtn)
+            Wdat = overmatch(Wdat,Watn)
+            Waad = overmatch(Waad,Wdai,cap=3)
+            Wdad = overmatch(Wdad,Waai,cap=3)
+            
+            # constants
+            # terrain effectiveness (r) and weather effectiveness (h)
+            #       and season effectiveness (z)
+            rn      = interps.terrain(terrain,'inf')
+            # artillery & air defence
+            rwg     = interps.terrain(terrain,'arty')
+            hwg     = interps.weather(weather,'arty')
+            zwg     = interps.season(season,'arty')
+            # tanks
+            rwi     = interps.terrain(terrain,'tank')
+            hwi     = interps.weather(weather,'tank')
+            # aircraft
+            rwy     = interps.terrain(terrain,'air')
+            hwy     = interps.weather(weather,'air')
+            zwy     = interps.season(season,'air')
+            
+            # air superiority (constant for now)
+            wyg = 1
+            wyy = 1
+            
+            # other factors
+            Faj = 1 # judgement degrading factor for attacker
+            Fdj = 1 # judgement degrading factor for defender
+            uas = interps.stren_posture_factor('attacking') # posture for attacker
+            uds = interps.stren_posture_factor(defenderStance) # posture for defender
+            rau = 1 # terrain for attacker - attacker is always 1
+            rdu = interps.terrain(terrain,'defpos') # terrain for defender - uses terrain defpos
+            hau = interps.weather(weather,'attack') # weather for attacker
+            hdu = 1 # weather for defender - defender is always 1
+            zau = interps.season(season,'attack') # season for attacker
+            zdu = 1 # season for defender - defender is always 1
+            
+            # get the side strengths
+            S_attacker = (Wain + Waat)*rn + (Waar+Waad*wyg)*rwg*hwg*zwg + \
+                            Watn*rwi*hwi + Waai*rwy*hwy*zwy*wyy
+            S_defender = (Wdin + Wdat)*rn + (Wdar+Wdad*wyg)*rwg*hwg*zwg + \
+                            Wdtn*rwi*hwi + Wdai*rwy*hwy*zwy*wyy
+            
+            # mobility factors
+            road_quality = 1 # TODO - use new map to calculate this
+            road_density = 1 # TODO - use new map to calculate this
+            rma = interps.terrain(terrain,'mobility')
+            hma = interps.weather(weather,'mobility')
+            mya = 1 # don't know what this factor is
+            myd = 1 # don't know what this factor is either
+            # mobility calculation
+            MFactor = 12 # 20 for WWII
+            M_attacker = (((N_attacker + MFactor * J_attacker + Waar) * mya / N_attacker) /
+                            ((N_defender + MFactor*J_defender + Wdar) * myd / N_defender))**0.5
+            M_defender = 1 # always 1
+            
+            ma_operational = M_attacker - (1-rma*hma)*(M_attacker-1)
+            md_operational = M_defender
+
+            # vulnerability factors
+            uav = interps.vuln_posture_factor('attacking')
+            udv = interps.vuln_posture_factor(defenderStance)
+            vay = 1 # air superiority vulnerability
+            vdy = 1 # air superiority vulnerability
+            var = 1 # shoreline vulnerability
+            vdr = 1 # shoreline vulnerability
+            
+            # vulnerability
+            Vuln_attacker = N_attacker * uav / rau * (S_defender/S_attacker)**0.5 * vay * var
+            Vuln_defender = N_defender * udv / rdu * (S_attacker/S_defender)**0.5 * vdy * vdr
+            va_operational = (1-Vuln_attacker/S_attacker)
+            vd_operational = (1-Vuln_defender/S_defender)
+            
+            if va_operational > 0.8:
+                va_operational = 0.8
+            elif va_operational > 0.3:
+                va_operational = 0.3 + 0.1 * (va_operational-0.3)
+            else:
+                va_operational = 0.3
+            if vd_operational > 0.8:
+                vd_operational = 0.8
+            elif vd_operational > 0.3:
+                vd_operational = 0.3 + 0.1 * (vd_operational-0.3)
+            else:
+                vd_operational = 0.3
+            
+            # note that the CEV is already contained in the OLI output
+            Op_attacker = Faj * uas*rau*hau*zau
+            Op_defender = Fdj * uds*rdu*hdu*zdu
+            
+            P_attacker = S_attacker * ma_operational * Op_attacker * va_operational
+            P_defender = S_defender * md_operational * Op_defender * vd_operational
+            P_ratio = P_attacker / P_defender
+            
+            # if self.defenders != []:
+                # print("Combat at {}".format(P_ratio))
+            
+            # determine the advance rate for each attacker
+            attackerNames = [x.name for x in self.attackers]
+            for unit in self.attackers:
+                adv_base = interps.advance_rate_base(P_ratio,unit.type,defenderStance)
+                # adv_roads = interps.advance_rate_road(road_quality,road_density)
+                adv_roads = 1
+                if unit.type == "armoured":
+                    advType = "advanceArm"
+                else:
+                    advType = "advance"
+                adv_terr = interps.terrain(terrain,advType)
+                if self.terrainWater == riverColour:
+                    adv_river = 0.5
+                else:
+                    adv_river = 1
+                adv_rate = adv_base * adv_roads * adv_terr * adv_river
+                
+                # add the advance rate for this unit
+                idx = attackerNames.index(unit.name)
+                self.advance.append(adv_rate * self.unitinfl[idx])
+
+                # duration is 
+                
+                # calculate loss rate
+                casualty_base_attack = .028
+                factor_size = interps.strength_size_factor(N_attacker)
+                factor_opposition = interps.opposition_factor(P_ratio)
+                casualty_rate = casualty_base_attack * factor_size * factor_opposition
+                
+                
+                # tanks
+                factor_tank_size = interps.tank_size_factor(J_attacker)
+                casualty_tank = casualty_rate * 3 * factor_tank_size
+                
+                # inflict casualties
+                unit.Casualties(casualty_rate,casualty_tank)
+                unit.UseSupply(SUPPLY_RATE)
+                
+                
+            for unit in self.defenders:
+                # calculate defender loss rate
+                casualty_base_defend = .015
+                factor_size = interps.strength_size_factor(N_defender)
+                factor_opposition = interps.opposition_factor(1/P_ratio)
+                casualty_rate = casualty_base_defend * factor_size * factor_opposition
+                # tanks
+                factor_tank_size = interps.tank_size_factor(J_defender)
+                casualty_tank = casualty_rate * 3 * factor_tank_size
+                
+                unit.Casualties(casualty_rate,casualty_tank)
+                unit.UseSupply(SUPPLY_RATE)
+
+        else:
+            # if there are no defenders, we have maximum advance rate
+            for unit in self.attackers:
+                self.advance.append(60) # 60 km per day           
         
         
 

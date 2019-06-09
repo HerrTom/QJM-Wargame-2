@@ -28,18 +28,18 @@ def get_supply(source,sink,load,graph,size):
     t = time.time()
         
     traffic = np.zeros(size)
-    tqdm.write("Sources: " + str(source))
-    tqdm.write("Sinks: " + str(sink))
+    #tqdm.write("Sources: " + str(source))
+    #tqdm.write("Sinks: " + str(sink))
     
     partial_supply = partial(parallel_supply, source=source, graph=graph)
-    with Pool(min(len(sink),3)) as P:
+    with Pool(2) as P:
         output = P.map(partial_supply,list(zip(sink,load)))
     
     output_unzipped = list(zip(*output))
     supply = output_unzipped[0]
     paths = output_unzipped[1]
     
-    tqdm.write("Supply: " + str(supply))
+    #tqdm.write("Supply: " + str(supply))
     
     for idx,path in enumerate(paths):
         for coord in path:

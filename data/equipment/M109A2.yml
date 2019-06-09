@@ -1,0 +1,25 @@
+name: M109A2
+nation: USA
+type: SP Artillery
+weapons:
+  M109: '40'
+roadSpeed: '56'
+horsepower: '405'
+groundPress: '0.89'
+radiusOfAction: '350'
+weight: '27.5'
+length: '9.12'
+height: '3.28'
+armour: Steel
+enclosed: true
+traverse: true
+lowLight: Minimum
+rangefinder: Coincident
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 6
+ceiling: 0

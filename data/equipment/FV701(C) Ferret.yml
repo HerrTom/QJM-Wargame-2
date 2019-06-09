@@ -1,0 +1,25 @@
+name: FV701(C) Ferret
+nation: UK
+type: APC
+weapons:
+  FN MAG: '2000'
+roadSpeed: '93'
+horsepower: '130'
+groundPress: '0.79'
+radiusOfAction: '310'
+weight: '3.7'
+length: '3.7'
+height: '1.8'
+armour: Steel
+enclosed: false
+traverse: false
+lowLight: Minimum
+rangefinder: Stadiametric
+fcCant: false
+fcAmmo: false
+fcWind: false
+fcBarrel: false
+stabilised: false
+amphibious: false
+crew: 3
+ceiling: 0

@@ -1,39 +1,21 @@
 SIDC: SFGPUCA----G
 equipment:
+  2B11: 18
   2S3 Akatsiya: 48
-  9K115 Metis: 54
-  AGS-17: 25
-  AK-74: 428
-  BMP-2: 107
-  BRDM-2 9P122: 36
-  PKM: 173
-  T-64B: 35
+  9K115 Metis: 18
+  AGS-17: 9
+  AK-74: 147
+  BMP-2: 39
+  BRDM-2 9P122: 12
+  PKM: 60
+  T-64B: 120
 hq: 1D
 location:
-- !!python/object/apply:numpy.core.multiarray.scalar
-  - &id001 !!python/object/apply:numpy.dtype
-    args:
-    - f8
-    - 0
-    - 1
-    state: !!python/tuple
-    - 3
-    - <
-    - null
-    - null
-    - null
-    - -1
-    - -1
-    - 0
-  - !!binary |
-    AAAAAABogUA=
-- !!python/object/apply:numpy.core.multiarray.scalar
-  - *id001
-  - !!binary |
-    AAAAAACgakA=
+- 121
+- 114
 name: (VRN) 4th Tank Regiment
 nation: VRN
-personnel: 2147
+personnel: 1377
 proficiency: 1.4
 shortname: 4TR
 stance: hasty

@@ -1,8 +1,9 @@
-name: 51mm Mortar
-nation: NA
-type: Artillery
+name: 51mm mortar
+nation: UK
+type: Infantry
 weapons:
-  51mm Mortar: '20'
+  L1A1: '80'
+  L9A1 51mm mortar: '30'
 roadSpeed: null
 horsepower: null
 groundPress: null

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ProfilingTarget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectTarget>
+    <TargetProject>4ac9c722-a3c9-4985-89b5-d927ac9ecc90</TargetProject>
+    <FriendlyName>QJM-Wargame-2</FriendlyName>
+  </ProjectTarget>
+  <Reports>
+    <Report>
+      <Filename>C:\Users\Tom\AppData\Local\Temp\QJM-Wargame-2_20190411.vsp</Filename>
+    </Report>
+  </Reports>
+</ProfilingTarget>

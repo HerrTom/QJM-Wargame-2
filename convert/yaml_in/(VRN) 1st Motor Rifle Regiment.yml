@@ -1,36 +1,18 @@
 SIDC: SFGPUCIZ---G
 equipment:
-  2S3 Akatsiya: 47
+  2B11: 54
+  2S3 Akatsiya: 48
   9K115 Metis: 54
   AGS-17: 27
-  AK-74: 423
-  BMP-2: 106
-  BRDM-2 9P122: 34
-  PKM: 172
-  T-64B: 28
+  AK-74: 441
+  BMP-2: 117
+  BRDM-2 9P122: 36
+  PKM: 180
+  T-64B: 40
 hq: 1D
 location:
-- !!python/object/apply:numpy.core.multiarray.scalar
-  - &id001 !!python/object/apply:numpy.dtype
-    args:
-    - f8
-    - 0
-    - 1
-    state: !!python/tuple
-    - 3
-    - <
-    - null
-    - null
-    - null
-    - -1
-    - -1
-    - 0
-  - !!binary |
-    AAAAAACQgEA=
-- !!python/object/apply:numpy.core.multiarray.scalar
-  - *id001
-  - !!binary |
-    AAAAAAAgYkA=
+- 122
+- 40
 name: (VRN) 1st Motor Rifle Regiment
 nation: VRN
 personnel: 2147

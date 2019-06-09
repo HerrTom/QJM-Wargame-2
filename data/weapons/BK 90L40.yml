@@ -1,0 +1,13 @@
+name: BK 90/L40
+type: Gun
+range: '3200'
+rateOfFire: ''
+calibre: '90'
+muzzleVel: '1200'
+accuracy: 0.85
+barrels: 1
+crew: true
+guidance: SACLOS wire day
+atgmPenetration: ''
+atgmMinRange: ''
+atgmEnhancement: ''
